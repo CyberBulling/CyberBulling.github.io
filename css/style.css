@@ -1,0 +1,84 @@
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-y: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: var(--padding);
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--margin);
+  width: 100%;
+  height: calc(100vh / 3);
+}
+
+.col {
+  width: calc(25% - var(--margin));
+  margin: var(--margin);
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 1%;
+}
+
+.image-block {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.block, .hover, .visited {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.5s;
+}
+
+.block {
+  opacity: 1;
+}
+
+.hover, .visited {
+  opacity: 0;
+}
+
+.image-block:hover .block {
+  opacity: 0;
+}
+
+.image-block:hover .hover {
+  opacity: 1;
+}
+
+.visited {
+  opacity: 0;
+}
+
+.image-block a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: var(--text-color);
+}

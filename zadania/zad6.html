@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <header>
+      <a href="/main.html" class="back-button">Назад на главную</a>
+    </header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/zad6.css" />
+    <title>Задача 6</title>
+  </head>
+  <body>
+    <h1>Игра: ДНФ</h1>
+    <form id="form">
+      <button id="generate-vector" type="button">Сгенерировать вектор</button>
+      <div id="output-container">
+        <p id="output1"></p>
+      </div>
+      <div id="variable-container"></div>
+      <div id="dnf-container">
+        <label for="dnf">Введите ДНФ:</label>
+        <input type="text" id="dnf" name="dnf" required />
+      </div>
+      <button type="button" id="check-dnf">Проверить</button>
+      <div id="result-container">
+        <p id="result"></p>
+      </div>
+      <button id="correct-answer" type="button">Правильный ответ</button>
+      <div id="correct-answer-container"></div>
+    </form>
+    <script src="/js/zad6.js"></script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+@import url("main.css");
+
+h1 {
+  text-align: center;
+  margin-top: 80px;
+  font-size: var(--table-font);
+  font-weight: bold;
+}
+
+form {
+  width: 50%;
+  margin: 40px auto;
+  padding: 20px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--form-color);
+}
+
+#output-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#output1 {
+  font-size: var(--table-font);
+  font-weight: bold;
+  margin: 0;
+  height: 27px;
+  width: max-content;
+}
+
+#generate-vector {
+  width: calc(100% - 40px);
+  height: 40px;
+  margin: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+#generate-vector:hover {
+  background-color: var(--secondary-color);
+}
+
+#variable-container {
+  margin: 10px;
+  justify-content: center;
+}
+
+#dnf {
+  width: calc(100% - 40px);
+  height: 40px;
+  margin: 20px;
+  padding: 10px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+}
+
+#check-dnf {
+  width: calc(100% - 40px);
+  height: 40px;
+  margin: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+#check-dnf:hover {
+  background-color: var(--secondary-color);
+}
+
+#result-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#result {
+  font-size: var(--table-font);
+  font-weight: bold;
+  margin: 0;
+  height: 27px;
+  width: max-content;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: var(--secondary-color);
+}
+
+#correct-answer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#correct-answer:hover {
+  background-color: var(--secondary-color);
+}
+
+#correct-answer-container {
+  margin-top: 20px;
+  font-size: var(--table-font);
+  font-weight: bold;
+}
