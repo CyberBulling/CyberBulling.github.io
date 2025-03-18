@@ -1,90 +1,94 @@
 :root {
-    /* Основные цвета */
-    --primary-color: #4CAF50;
-    --secondary-color: #3e8e41;
-    --background-color: #f0f0f0;
-    --text-color: #333;
-    --border: 1px solid #ccc;
-    --form-color: #4dff000f;
-   
-    /* Основные размеры */
-    --font-size: 16px;
-    --table-font: 24px;
-    --line-height: 1.5;
-    --padding: 20px;
-    --margin: 10px;
-    --border-radius: 5px;
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
-    /* Основные шрифты */
-    --font-family: Arial, sans-serif;
-  }
-  
-  body {
-    font-family: var(--font-family);
-    font-size: var(--font-size);
-    line-height: var(--line-height);
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    padding: var(--padding);
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: var(--margin);
-    width: 100%;
-  }
-  
-  .col-md-3 {
-    width: calc(25% - var(--margin));
-    margin: var(--margin);
-  }
-  
-  .image-block {
-    position: relative;
-    width: 350px;
-    height: 250px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-  }
-  
-  .block, .hover, .visited {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: opacity 0.5s;
-  }
-  
-  .block {
-    opacity: 1;
-  }
-  
-  .hover, .visited {
-    opacity: 0;
-  }
-  
-  .image-block:hover .block {
-    opacity: 0;
-  }
-  
-  .image-block:hover .hover {
-    opacity: 1;
-  }
-  
-  .visited {
-    opacity: 0;
-  }
+  /* Основные цвета */
+  --primary-color: #4caf50;
+  --secondary-color: #3e8e41;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --border: 1px solid #ccc;
+  --form-color: #4dff000f;
+
+  /* Основные размеры */
+  --font-size: 16px;
+  --table-font: 24px;
+  --line-height: 1.5;
+  --padding: 20px;
+  --margin: 10px;
+  --border-radius: 5px;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* Основные шрифты */
+  --font-family: Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-y: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: var(--padding);
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: var(--margin);
+  width: 100%;
+}
+
+.col-md-3 {
+  width: calc(25% - var(--margin));
+  margin: var(--margin);
+}
+
+.image-block {
+  position: relative;
+  width: 350px;
+  height: 250px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.block,
+.hover,
+.visited {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.5s;
+}
+
+.block {
+  opacity: 1;
+}
+
+.hover,
+.visited {
+  opacity: 0;
+}
+
+.image-block:hover .block {
+  opacity: 0;
+}
+
+.image-block:hover .hover {
+  opacity: 1;
+}
+
+.visited {
+  opacity: 0;
+}

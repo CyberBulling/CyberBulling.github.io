@@ -10,7 +10,7 @@ document.getElementById('n').addEventListener('input', () => {
 }) //Проверка на количество переменных
 
 function outputText () {
-  //Все переменные
+  // Все переменные
   const n = Math.pow(2, parseInt(document.getElementById('n').value))
   const table = document.createElement('table')
   const thead = document.createElement('thead')
@@ -22,14 +22,16 @@ function outputText () {
   const th2 = document.createElement('th')
   const tbody = document.createElement('tbody')
   const outputContainer = document.getElementById('output-container')
+  const outputContainer2 = document.getElementById('output-container2')
   //------------------------------------------------------------------
 
-  if (n === 16) {
+  if (n >= 16) {
     table.style.fontSize = 'calc(var(--table-font)/2)'
     table.style.fontWeight = '1'
     outputContainer.style.justifyContent = 'left'
-    const tmp = document.querySelector('output-container:nth-child(2)')
-    tmp.style.justifyContent = 'left'
+    if (outputContainer2) {
+      outputContainer2.style.justifyContent = 'left'
+    }
   }
   table.border = 1
   tr.appendChild(th)

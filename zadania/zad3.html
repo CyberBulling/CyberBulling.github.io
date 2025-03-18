@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <header><a href="../../Пантелеев/main.html" class="back-button">Назад на главную</a></header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/zad3.css">
+  <head>
+    <header>
+      <a href="/index.html" class="back-button">Назад на главную</a>
+    </header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/zad3.css" />
     <title>Задача 3</title>
-</head>
-<body>
-    <h1>На вход — два вектора (это нулевая и единичная остаточные функции по некоторому аргументу), номер аргумента, на выход — вектор функции.</h1>
+  </head>
+  <body>
+    <h1>
+      На вход — два вектора (это нулевая и единичная остаточные функции по
+      некоторому аргументу), номер аргумента, на выход — вектор функции.
+    </h1>
     <form id="form">
-        <label for="vector">Введите нулевую остаточную</label>
-        <input type="text" id="nullvector" name="nullvector" required>
-        <label for="vector">Введите единичную остаточную</label>
-        <input type="text" id="edvector" name="edvector" required>
-        <br>
-        <label>
-            <p>Введите номер аргумента</p>
-            <input type="text" id="argument" name="argument" min="1" max="6">
-        </label>
-        <button type="button" onclick="outputText()">Отправить</button>
+      <label for="vector">Введите нулевую остаточную</label>
+      <input type="text" id="nullvector" name="nullvector" required />
+      <label for="vector">Введите единичную остаточную</label>
+      <input type="text" id="edvector" name="edvector" required />
+      <label>
+        <p>Введите номер аргумента</p>
+        <input type="text" id="argument" name="argument" min="1" max="6" />
+      </label>
+      <button type="button" onclick="outputText()">Отправить</button>
     </form>
-    <div id="output-container">
-
-    </div>
+    <div id="output-container"></div>
     <script src="../js/zad3.js"></script>
-</body>
+  </body>
 </html>
