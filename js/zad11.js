@@ -11,14 +11,14 @@ function generateVector (length) {
 }
 
 generateVectorButton.addEventListener('click', () => {
-  const vectorCount = 1 //Math.floor(Math.random() * 4) + 1
+  const vectorCount = Math.floor(Math.random() * 4) + 1
   const vectors = []
 
   for (let i = 0; i < vectorCount; i++) {
     const power = Math.floor(Math.random() * 2) + 2
     const vectorLength = Math.pow(2, power)
     const vector = generateVector(vectorLength)
-    //console.log(vector)
+
     isComplete(vector)
     vectors.push(vector.join(''))
   }
