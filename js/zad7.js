@@ -25,7 +25,7 @@ const symbolMap = {
   отрицание: '¬',
   not: '¬',
   не: '¬',
-  '!':'¬'
+  '!': '¬'
 }
 
 function replaceSymbols (knf) {

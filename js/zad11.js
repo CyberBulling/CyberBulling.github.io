@@ -7,20 +7,20 @@ function generateVector (length) {
   for (let i = 0; i < length; i++) {
     vector.push(Math.random() < 0.5 ? 0 : 1)
   }
-  return vector.join('')
+  return vector
 }
 
 generateVectorButton.addEventListener('click', () => {
-  const vectorCount = Math.floor(Math.random() * 4) + 1
+  const vectorCount = 1 //Math.floor(Math.random() * 4) + 1
   const vectors = []
 
   for (let i = 0; i < vectorCount; i++) {
     const power = Math.floor(Math.random() * 2) + 2
     const vectorLength = Math.pow(2, power)
     const vector = generateVector(vectorLength)
-    console.log(vector)
+    //console.log(vector)
     isComplete(vector)
-    vectors.push(vector)
+    vectors.push(vector.join(''))
   }
 
   outputContainer.innerText = `Набор векторов\n{${vectors.join(', ')}}`
@@ -32,9 +32,9 @@ function isComplete (vector) {
   let S = true
   let M = isMonotone(vector)
   let L = false
-  
+
   console.log(M)
-  
+
   if (vector[0] == '0') {
     T0 = true
   }
@@ -49,6 +49,27 @@ function isComplete (vector) {
   }
 }
 
-function isMonotone(vectorStr){
-  console.log(vectorStr.lastIndexOf('0')<vectorStr.indexOf('1'))
+function isMonotone(vector) {
+  const binaryVector = {};
+  for (let i = 0; i < vector.length; i++) {
+    const binaryRepresentation = i
+      .toString(2)
+      .padStart(Math.log2(vector.length), '0');
+    binaryVector[i] = binaryRepresentation;
+  }
+
+  for (let i = 0; i < vector.length; i++) {
+    for (let j = i + 1; j < vector.length; j++) {
+      const binaryRepresentationI = binaryVector[i];
+      const binaryRepresentationJ = binaryVector[j];
+      const countOnesI = binaryRepresentationI.split('1').length - 1;
+      const countOnesJ = binaryRepresentationJ.split('1').length - 1;
+
+      if (countOnesI < countOnesJ && vector[i] === 0 && vector[j] === 1) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
