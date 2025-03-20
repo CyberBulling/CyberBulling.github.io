@@ -11,84 +11,7 @@ const correctAnswerContainer = document.getElementById(
   'correct-answer-container'
 )
 
-let vector = []
-let correctdNF = ''
-let numVariables = 0
-
-const symbolMap = {
-  коньюнкция: '∧',
-  '&': '∧',
-  '*': '∧',
-  and: '∧',
-  дизъюнкция: '∨',
-  or: '∨',
-  отрицание: '¬',
-  not: '¬',
-  не: '¬',
-  '!': '¬'
-}
-
-function replaceSymbols (dnf) {
-  if (dnf === '-') {
-    return ''
-  }
-  Object.keys(symbolMap).forEach(key => {
-    if (key === '*') {
-      dnf = dnf.replace(/\*/g, symbolMap[key])
-    } else {
-      dnf = dnf.replace(new RegExp(key, 'g'), symbolMap[key])
-    }
-  })
-  dnf = dnf.replace(/\s*\(/g, '(')
-  dnf = dnf.replace(/\)\s*/g, ')')
-  dnf = dnf.replace(/\s+/g, '')
-  return dnf
-}
-
-function compareDNF (dnf1, dnf2) {
-  const clauses1 = dnf1.replace(' ', '').split('∨')
-  const clauses2 = dnf2.replace(' ', '').split('∨')
-
-  if (clauses1.length !== clauses2.length) {
-    return false
-  }
-
-  for (let i = 0; i < clauses1.length; i++) {
-    const clause1 = clauses1[i].replace('(', '').replace(')', '').split('∧')
-    const clause2 = clauses2[i].replace('(', '').replace(')', '').split('∧')
-
-    if (clause1.length !== clause2.length) {
-      return false
-    }
-
-    const literals1 = clause1.map(literal =>
-      literal.replace('x', '').replace('¬', '')
-    )
-    const literals2 = clause2.map(literal =>
-      literal.replace('x', '').replace('¬', '')
-    )
-
-    if (!arraysEqual(literals1, literals2)) {
-      return false
-    }
-  }
-
-  return true
-}
-
-function arraysEqual (arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false
-  }
-
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      return false
-    }
-  }
-
-  return true
-}
+let vector
 
 generateVectorButton.addEventListener('click', () => {
   const power = Math.floor(Math.random() * 2) + 2
@@ -105,13 +28,21 @@ generateVectorButton.addEventListener('click', () => {
 })
 
 checkdnfButton.addEventListener('click', () => {
-  const dnf = dnfInput.value.trim()
-  const replaceddnf = replaceSymbols(dnf)
-
-  if (compareDNF(replaceddnf, correctdNF)) {
-    resultText.textContent = 'ДНФ правильная!'
+  const dnf = dnfInput.value
+  const rightDnf = getDNF(vector)
+  if (rightDnf === '1' && dnf === '1') {
+    resultText.innerHTML = 'ДНФ верна'
+  } else if (rightDnf === '1' && dnf != '1') {
+    resultText.innerHTML = 'ДНФ неверна'
   } else {
-    resultText.textContent = 'ДНФ неправильная!'
+    const vectorDnf = dnf.replace(/\s/g, '').split('+')
+    const rightVectorDnf = rightDnf.replace(/\s/g, '').split('+')
+    if (vectorDnf.join('') === rightVectorDnf.join('')) {
+      resultText.innerHTML = 'ДНФ верна'
+    } else {
+      console.log(vectorDnf,rightVectorDnf)
+      resultText.innerHTML = 'ДНФ неверна'
+    }
   }
 })
 
@@ -124,25 +55,23 @@ function generateVector (length) {
 }
 
 function getDNF (vector) {
-  const numVariables = Math.log2(vector.length)
-  const dnf = []
-
+  let dnf = ''
   for (let i = 0; i < vector.length; i++) {
-    if (vector[i] === 1) {
-      const clause = []
-      const binaryRepresentation = i.toString(2).padStart(numVariables, '0')
-
-      for (let j = 0; j < numVariables; j++) {
-        if (binaryRepresentation[j] === '1') {
-          clause.push(`x${j + 1}`)
-        } else {
-          clause.push(`¬x${j + 1}`)
+    if (vector[i] == 1) {
+      const pos = i.toString(2).padStart(Math.log2(vector.length), '0')
+      if (pos.indexOf('1') === -1) {
+        dnf += '1 '
+      }
+      let line = ''
+      for (let j = 0; j < pos.length; j++) {
+        if (pos[j] == '1') {
+          line += `x${j + 1}*`
         }
       }
-      dnf.push(`(${clause.join('∧')})`)
+      dnf += line.substring(0, line.length - 1) + ' + '
     }
   }
-  return dnf.length > 0 ? dnf.join('∨') : ''
+  return dnf.substring(0, dnf.length - 3)
 }
 
 correctAnswerButton.addEventListener('click', () => {

@@ -117,25 +117,23 @@ function generateVector (length) {
 }
 
 function getKNF (vector) {
-  const numVariables = Math.log2(vector.length)
-  const knf = []
-
+  let knf = ''
   for (let i = 0; i < vector.length; i++) {
-    if (vector[i] === 0) {
-      const clause = []
-      const binaryRepresentation = i.toString(2).padStart(numVariables, '0')
-
-      for (let j = 0; j < numVariables; j++) {
-        if (binaryRepresentation[j] === '0') {
-          clause.push(`x${j + 1}`)
-        } else {
-          clause.push(`¬x${j + 1}`)
+    if (vector[i] == 1) {
+      const pos = i.toString(2).padStart(Math.log2(vector.length), '0')
+      if (pos.indexOf('0') === -1) {
+        knf += '1 '
+      }
+      let line = ''
+      for (let j = 0; j < pos.length; j++) {
+        if (pos[j] == '0') {
+          line += `x${j + 1}*`
         }
       }
-      knf.push(`(${clause.join('∨')})`)
+      knf += line.substring(0, line.length - 1) + ' + '
     }
   }
-  return knf.length > 0 ? knf.join('∧') : ''
+  return knf.substring(0, knf.length - 3)
 }
 
 correctAnswerButton.addEventListener('click', () => {
