@@ -1,33 +1,7 @@
 @import url('main.css');
 
-body {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  line-height: var(--line-height);
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-h1 {
-  text-align: center;
-  margin-top: 80px;
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--text-color);
-}
-
 #pmka{
    font-size: var(--table-font);
-}
-
-#output-container {
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
 }
 
 .output0 {
@@ -36,90 +10,4 @@ h1 {
   margin: 0;
   height: 27px;
   width: max-content;
-}
-
-form {
-  text-align: center;
-  width: 50%;
-  margin: 40px auto;
-  padding: 20px;
-  border: var(--border);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--form-color);
-}
-
-input[type="text"] {
-  text-align: center;
-  width: calc(100% - 40px);
-  height: 40px;
-  margin: 20px;
-  padding: 10px;
-  border: var(--border);
-  border-radius: var(--border-radius);
-}
-
-#output-container {
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
-
-table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: 0 auto;
-}
-
-th,
-td {
-  border: var(--border);
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background-color: var(--form-color);
-}
-
-td {
-  background-color: white;
-}
-
-button[type="button"] {
-  width: calc(100% - 40px);
-  height: 40px;
-  margin: 20px;
-  padding: 10px;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-}
-
-button[type="button"]:hover {
-  background-color: var(--secondary-color);
-}
-
-.back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  padding: 10px 20px;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.back-button:hover {
-  background-color: var(--secondary-color);
 }

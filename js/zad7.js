@@ -12,6 +12,7 @@ const correctAnswerContainer = document.getElementById(
 )
 
 let vector
+let correctknf
 
 generateVectorButton.addEventListener('click', () => {
   const power = Math.floor(Math.random() * 2) + 2
