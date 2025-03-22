@@ -1,21 +1,4 @@
-@import url(main.css);
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding: var(--padding);
-  overflow-y: auto;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--margin);
-  width: 100%;
-  height: calc(100vh / 3);
-}
+@import url("main.css");
 
 .col {
   width: calc(25% - var(--margin));
@@ -33,36 +16,13 @@
   box-shadow: var(--box-shadow);
 }
 
-.block, .hover, .visited {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size:contain;
+.block,
+.hover,
+.visited {
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  transition: opacity 0.5s;
-}
-
-.block {
-  opacity: 1;
-}
-
-.hover, .visited {
-  opacity: 0;
-}
-
-.image-block:hover .block {
-  opacity: 0;
-}
-
-.image-block:hover .hover {
-  opacity: 1;
-}
-
-.visited {
-  opacity: 0;
+  transition: opacity 0.6s;
 }
 
 .image-block a {
@@ -73,4 +33,32 @@
   height: 100%;
   text-decoration: none;
   color: var(--text-color);
+}
+
+.image-block {
+  position: relative;
+  cursor: pointer;
+}
+
+.image-block::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  opacity: 0;
+  transition: var(--transit);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.image-block:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
 }

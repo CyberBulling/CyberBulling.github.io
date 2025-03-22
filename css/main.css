@@ -82,7 +82,7 @@ h1 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: opacity 0.5s;
+  transition: opacity var(--transit);
 }
 
 .block {
@@ -127,6 +127,7 @@ button[type="button"] {
   cursor: pointer;
   background-color: var(--primary-color);
   color: var(--text-color);
+  transition: background-color var(--transit);
 }
 
 button[type="button"]:hover {
@@ -144,6 +145,7 @@ button[type="button"]:hover {
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
+  transition: background-color var(--transit);
 }
 
 .back-button:hover {
@@ -171,6 +173,11 @@ input[type="text"] {
   padding: 10px;
   border: var(--border);
   border-radius: var(--border-radius);
+  transition: border -color var(--transit);
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary-color);
 }
 
 #output-container {
@@ -179,6 +186,20 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+input[type="submit"] {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color var(--transit);
+}
+
+input[type="submit"]:hover {
+  background-color: var(--secondary-color);
 }
 
 #generate-vector {

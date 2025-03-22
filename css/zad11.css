@@ -82,13 +82,13 @@
 
 .right {
   background-color: var(--secondary-color);
-  box-shadow: 3px 4px 2px 0px rgba(62, 142, 65, 0.687);
+  box-shadow: inset 3px 4px 2px 0px rgba(19, 86, 21, 0.616);
   transform: translateY(3px);
 }
 
 .wrong {
   background-color: rgb(192 15 15);
-  box-shadow: 0 0 8px 3px var(--red);
+  box-shadow: inset 0 0 8px 3px var(--red);
   transform: translateY(3px);
 }
 
