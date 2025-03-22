@@ -1,11 +1,12 @@
 :root {
   /* Основные цвета */
   --primary-color: #4caf50;
-  --secondary-color: #3e8e41;
+  --secondary-color: rgb(62, 142, 65);
   --background-color: #f0f0f0;
   --text-color: #333;
   --border: 1px solid #ccc;
   --form-color: #4dff000f;
+  --red: rgba(192, 15, 15, 0.587);
 
   /* Основные размеры */
   --font-size: 16px;
@@ -18,6 +19,8 @@
 
   /* Основные шрифты */
   --font-family: Arial, sans-serif;
+  /**/
+  --transit: all 0.2s cubic-bezier(0.4, 0.3, 0.6, 1);
 }
 
 body {
@@ -44,6 +47,7 @@ body {
   justify-content: space-around;
   margin-bottom: var(--margin);
   width: 100%;
+  height: calc(100vh / 3);
 }
 
 .col-md-3 {
@@ -53,8 +57,8 @@ body {
 
 .image-block {
   position: relative;
-  width: 350px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
@@ -69,6 +73,7 @@ body {
   height: 100%;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   transition: opacity 0.5s;
 }
 
@@ -91,4 +96,14 @@ body {
 
 .visited {
   opacity: 0;
+}
+
+.image-block a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: var(--text-color);
 }

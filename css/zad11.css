@@ -1,4 +1,4 @@
-/*  @import url("main.css");
+@import url("main.css");
 
 h1 {
   text-align: center;
@@ -118,4 +118,56 @@ form {
 
 .back-button:hover {
   background-color: var(--secondary-color);
+}
+  
+.class-button {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  color: var(--font-color);
+  text-align: center;
+  align-content: center;
+  font-size: var(--table-font);
+  margin: 10px 4px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transition: var(--transit);
+}
+
+.selected {
+  background-color: #cececece;
+  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transform: translateY(3px);
+}
+
+.right {
+  background-color: var(--secondary-color);
+  box-shadow: 3px 4px 2px 0px rgba(62, 142, 65, 0.687);
+  transform: translateY(3px);
+}
+
+.wrong {
+  background-color: rgb(192 15 15);
+  box-shadow: 0 0 8px 3px var(--red);
+  transform: translateY(3px);
+}
+
+.not-selected {
+  background-color: rgb(192 15 15);
+  box-shadow: 0 0 8px 3px var(--primary-color)
+}
+
+.not-selected-wrong {
+  background-color: var(--primary-color);
+  box-shadow: 0 0 8px 3px var(--red)
+}
+
+.class-container {
+  width: 100%;
+  margin-top: 2px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

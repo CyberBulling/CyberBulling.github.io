@@ -1,6 +1,7 @@
 const generateVectorButton = document.getElementById('generate-vector')
 const outputContainer = document.getElementById('output1')
 const checkResultButton = document.getElementById('check-result')
+const classButtons = document.querySelectorAll('.class-button')
 
 class Vector {
   constructor (vectorLength) {
@@ -15,31 +16,16 @@ class Vector {
     if (this.vector[this.vector.length - 1] == '1') {
       this.T1 = true
     }
-    this.S = false
+    this.S = true
     for (let i = 0; i < this.vector.length / 2; i++) {
-      if (this.vector[i] != this.vector[this.vector.length - 1 - i]) {
-        this.S = true
+      if (this.vector[i] == this.vector[this.vector.length - 1 - i]) {
+        this.S = false
         break
       }
     }
   }
   getVector () {
     return this.vector
-  }
-  getM () {
-    return this.M
-  }
-  getL () {
-    return this.L
-  }
-  getT0 () {
-    return this.T0
-  }
-  getT1 () {
-    return this.T1
-  }
-  getS () {
-    return this.S
   }
   toString () {
     return this.vector.join('')
@@ -51,25 +37,30 @@ class Vector {
     if (!this.T0) notCanceled.push('T0')
     if (!this.T1) notCanceled.push('T1')
     if (!this.S) notCanceled.push('S')
-
-    if (notCanceled.length === 0) {
-      return 'вектор полон'
-    }
-
     return notCanceled
   }
 }
 
-function generateVector (length) {
-  const vector = []
-  for (let i = 0; i < length; i++) {
-    vector.push(Math.random() < 0.5 ? 0 : 1)
-  }
-  return vector
-}
-
+let selectedClasses = []
 let vectors = []
+let zhegalkinLength //для рекурсии
+let classes
+
+classButtons.forEach(button => {
+  //проверка выбран ли класс
+  button.addEventListener('click', () => {
+    if (button.classList.contains('selected')) {
+      button.classList.remove('selected')
+      selectedClasses = selectedClasses.filter(cls => cls !== button.id)
+    } else {
+      button.classList.add('selected')
+      selectedClasses.push(button.id)
+    }
+  })
+})
+
 generateVectorButton.addEventListener('click', () => {
+  //кнопка для создания множества векторов
   vectors = []
   const vectorCount = Math.floor(Math.random() * 4) + 1
 
@@ -81,7 +72,70 @@ generateVectorButton.addEventListener('click', () => {
   }
 
   outputContainer.innerText = `Набор векторов: {${vectors.join(', ')}}`
+
+  // Очистить все дополнительные классы и выделения
+  classButtons.forEach(button => {
+    button.classList.remove(
+      'selected',
+      'right',
+      'wrong',
+      'not-selected',
+      'not-selected-wrong'
+    )
+  })
+  selectedClasses = []
 })
+
+checkResultButton.addEventListener('click', () => {
+  classes = [] //классы в которых не содержится набор
+  const allClasses = ['M', 'L', 'T0', 'T1', 'S']
+
+  vectors.forEach(vector => {
+    const canceled = vector.isCanceled() //классы которым не принадлежит вектор
+    allClasses.forEach(cls => {
+      if (canceled.includes(cls) && !classes.includes(cls)) {
+        classes.push(cls)
+      }
+    })
+    console.log(canceled)
+  })
+
+  selectedClasses.forEach(clas => {
+    if (classes.includes(clas)) {
+      document
+        .querySelector(`div #${clas}`)
+        .classList.remove('selected', 'right')
+      document.querySelector(`div #${clas}`).classList.add('wrong')
+    } else {
+      document
+        .querySelector(`div #${clas}`)
+        .classList.remove('selected', 'wrong')
+      document.querySelector(`div #${clas}`).classList.add('right')
+    }
+  })
+  classButtons.forEach(button => {
+    if (!selectedClasses.includes(button.id) && classes.includes(button.id)) {
+      button.classList.remove('wrong', 'right', 'selected')
+      button.classList.add('not-selected-wrong')
+    } else if (
+      !selectedClasses.includes(button.id) &&
+      !classes.includes(button.id)
+    ) {
+      button.classList.remove('wrong', 'right', 'selected')
+      button.classList.add('not-selected')
+    }
+  })
+
+  console.log(classes, selectedClasses)
+})
+
+function generateVector (length) {
+  const vector = []
+  for (let i = 0; i < length; i++) {
+    vector.push(Math.random() < 0.5 ? 0 : 1)
+  }
+  return vector
+}
 
 function getBinaryRepresentation (vector) {
   const binaryVector = []
@@ -113,8 +167,6 @@ function isMonotone (vector) {
   return true
 }
 
-let zhegalkinLength //для рекурсии
-
 function isLinear (vector) {
   let linear = true
   zhegalkinLength = vector.length
@@ -143,17 +195,3 @@ function createZhegalkin (vector, polynom) {
   }
   return polynom
 }
-
-checkResultButton.addEventListener('click', () => {
-  const classes = new Set()
-  const allClasses = ['M', 'L', 'T0', 'T1', 'S']
-  vectors.forEach(vector => {
-    const canceled = vector.isCanceled()
-    allClasses.forEach(cls => {
-      if (!canceled.includes(cls)) {
-        classes.add(cls)
-      }
-    })
-  })
-  console.log(classes)
-})

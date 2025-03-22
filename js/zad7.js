@@ -11,45 +11,13 @@ const correctAnswerContainer = document.getElementById(
   'correct-answer-container'
 )
 
-let vector = []
-let correctKNF = ''
-let numVariables = 0
-
-const symbolMap = {
-  коньюнкция: '∧',
-  '&': '∧',
-  '*': '∧',
-  and: '∧',
-  дизъюнкция: '∨',
-  or: '∨',
-  отрицание: '¬',
-  not: '¬',
-  не: '¬',
-  '!': '¬'
-}
-
-function replaceSymbols (knf) {
-  if (knf === '-') {
-    return ''
-  }
-  Object.keys(symbolMap).forEach(key => {
-    if (key === '*') {
-      knf = knf.replace(/\*/g, symbolMap[key])
-    } else {
-      knf = knf.replace(new RegExp(key, 'g'), symbolMap[key])
-    }
-  })
-  knf = knf.replace(/\s*\(/g, '(')
-  knf = knf.replace(/\)\s*/g, ')')
-  knf = knf.replace(/\s+/g, '')
-  return knf
-}
+let vector
 
 generateVectorButton.addEventListener('click', () => {
   const power = Math.floor(Math.random() * 2) + 2
   const vectorLength = Math.pow(2, power)
   vector = generateVector(vectorLength)
-  correctKNF = getKNF(vector)
+  correctknf = getKNF(vector)
   const outputText = `Вектор функции: ${vector.join('')}`
   outputContainer.innerHTML = ''
   resultText.innerHTML = ''
@@ -60,51 +28,21 @@ generateVectorButton.addEventListener('click', () => {
 })
 
 checkknfButton.addEventListener('click', () => {
-  const knf = knfInput.value.trim()
-  const replacedKnf = replaceSymbols(knf)
-  const correctKNFArray = correctKNF.replace(' ', '').split('∧')
-  const userKNFArray = replacedKnf.split('∧')
-  let isCorrect = true
-
-  if (replacedKnf === correctKNF) {
-    if (knf === '') {
-      correctKNF = '∅'
-    }
-    isCorrect = true
-  } else if (correctKNFArray.length !== userKNFArray.length) {
-    isCorrect = false
+  const knf = knfInput.value
+  const rightKnf = getKNF(vector)
+  if (rightKnf === '1' && knf === '1') {
+    resultText.innerHTML = 'КНФ верна'
+  } else if (rightKnf === '1' && knf != '1') {
+    resultText.innerHTML = 'КНФ неверна'
   } else {
-    for (let i = 0; i < correctKNFArray.length; i++) {
-      const correctClause = correctKNFArray[i]
-        .replace('(', '')
-        .replace(')', '')
-        .split('∨')
-      const userClause = userKNFArray[i]
-        .replace('(', '')
-        .replace(')', '')
-        .split('∨')
-      if (correctClause.length !== userClause.length) {
-        isCorrect = false
-        break
-      } else {
-        for (let j = 0; j < correctClause.length; j++) {
-          const correctLiteral = correctClause[j]
-            .replace('x', '')
-            .replace('¬', '')
-          const userLiteral = userClause[j].replace('x', '').replace('¬', '')
-          if (correctLiteral !== userLiteral) {
-            isCorrect = false
-            break
-          }
-        }
-      }
+    const vectorKnf = knf.replace(/\s/g, '').split('+')
+    const rightVectorKnf = rightKnf.replace(/\s/g, '').split('+')
+    if (vectorKnf.join('') === rightVectorKnf.join('')) {
+      resultText.innerHTML = 'КНФ верна'
+    } else {
+      console.log(vectorKnf,rightVectorKnf)
+      resultText.innerHTML = 'КНФ неверна'
     }
-  }
-
-  if (isCorrect) {
-    resultText.textContent = 'КНФ правильная!'
-  } else {
-    resultText.textContent = `КНФ неправильная!`
   }
 })
 
@@ -119,7 +57,7 @@ function generateVector (length) {
 function getKNF (vector) {
   let knf = ''
   for (let i = 0; i < vector.length; i++) {
-    if (vector[i] == 1) {
+    if (vector[i] == 0) {
       const pos = i.toString(2).padStart(Math.log2(vector.length), '0')
       if (pos.indexOf('0') === -1) {
         knf += '1 '
@@ -140,7 +78,7 @@ correctAnswerButton.addEventListener('click', () => {
   if (correctAnswerContainer.textContent !== '') {
     correctAnswerContainer.innerHTML = ''
   } else {
-    const correctAnswer = correctKNF
+    const correctAnswer = correctknf
     correctAnswerContainer.innerHTML = `Правильный ответ: ${correctAnswer}`
   }
 })
