@@ -48,4 +48,5 @@ function buildSDNF () {
     }
   }
   outputElement.innerHTML = `СДНФ: ${terms.join(' ∨ ') || '0'}`
+  // package;
 }
