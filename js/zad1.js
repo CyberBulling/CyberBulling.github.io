@@ -1,7 +1,7 @@
 document.getElementById('n').addEventListener('input', () => {
   const n = parseInt(document.getElementById('n').value)
   const button = document.querySelector('button[type="button"]')
-  if (n < 1 || n > 4) {
+  if (n < 1 || n > 8) {
     alert('Введено недопустимое количество переменных')
     button.disabled = true
   } else {
@@ -9,80 +9,71 @@ document.getElementById('n').addEventListener('input', () => {
   }
 }) //Проверка на количество переменных
 
-function outputText () {
-  // Все переменные
-  const n = Math.pow(2, parseInt(document.getElementById('n').value))
-  const table = document.createElement('table')
-  const thead = document.createElement('thead')
-  const tr = document.createElement('tr')
-  const th = document.createElement('th')
-  const grayCode = getGrayCode(n)
-  const half = Math.floor(n / 2)
-  const tr2 = document.createElement('tr')
-  const th2 = document.createElement('th')
-  const tbody = document.createElement('tbody')
-  const outputContainer = document.getElementById('output-container')
-  const outputContainer2 = document.getElementById('output-container2')
-  //------------------------------------------------------------------
+function outputText() {
+  const n = parseInt(document.getElementById('n').value);
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tr = document.createElement('tr');
+  const th = document.createElement('th');
+  const half = Math.floor(n / 2);
+  const tr2 = document.createElement('tr');
+  const th2 = document.createElement('th');
+  const tbody = document.createElement('tbody');
+  const outputContainer = document.getElementById('output-container');
 
-  if (n >= 16) {
-    table.style.fontSize = 'calc(var(--table-font)/2)'
-    table.style.fontWeight = '1'
-    outputContainer.style.justifyContent = 'left'
-    if (outputContainer2) {
-      outputContainer2.style.justifyContent = 'left'
-    }
-  }
-  table.border = 1
-  tr.appendChild(th)
-  tr2.appendChild(th2)
+  table.border = 1;
+  tr2.appendChild(th2.cloneNode());
+
+  // Заголовки столбцов (большая половина)
   for (let i = 0; i < Math.pow(2, n - half); i++) {
-    const th2 = document.createElement('th')
-    th2.textContent = i.toString(2).padStart(n - half, '0') //padStart расширяет строку до заданной длины незначащими 0
-    tr2.appendChild(th2)
+    const colHeader = document.createElement('th');
+    colHeader.textContent = i.toString(2).padStart(n - half, '0');
+    tr2.appendChild(colHeader);
   }
-  thead.appendChild(tr2)
-  table.appendChild(thead)
-  //Заголовок таблицы
+  thead.appendChild(tr2);
+  table.appendChild(thead);
 
+  // Тело таблицы
   for (let i = 0; i < Math.pow(2, half); i++) {
-    const tr = document.createElement('tr')
-    const th = document.createElement('th')
-    th.textContent = i.toString(2).padStart(half, '0')
-    tr.appendChild(th)
+    const row = document.createElement('tr');
+    const rowHeader = document.createElement('th');
+    
+    // Заголовок строки (меньшая половина)
+    rowHeader.textContent = i.toString(2).padStart(half, '0');
+    row.appendChild(rowHeader);
+
+    // Ячейки таблицы
     for (let j = 0; j < Math.pow(2, n - half); j++) {
-      const td = document.createElement('td')
-      td.textContent = Math.random() < 0.5 ? 0 : 1
-      tr.appendChild(td)
+      const cell = document.createElement('td');
+      cell.textContent = Math.random() < 0.5 ? 0 : 1;
+      row.appendChild(cell);
     }
-    tbody.appendChild(tr)
+    tbody.appendChild(row);
   }
-  table.appendChild(tbody)
-  //Тело таблицы
+  table.appendChild(tbody);
 
-  document.getElementById('output1').innerHTML = ''
-  document.getElementById('output1').appendChild(table)
-  outputContainer.scrollIntoView({ behavior: 'smooth' })
-  outputContainer.style.overflowY = 'hidden'
+  // Очистка и вывод
+  document.getElementById('output1').innerHTML = '';
+  document.getElementById('output1').appendChild(table);
+  outputContainer.scrollIntoView({ behavior: 'smooth' });
 
+  // Остальная часть кода без изменений
   table.addEventListener('mouseover', event => {
     if (event.target.tagName === 'TD') {
-      const colIndex = event.target.cellIndex
-      const rowIndex = event.target.parentNode.rowIndex
-      document.getElementById('output0').textContent =
+      const colIndex = event.target.cellIndex;
+      const rowIndex = event.target.parentNode.rowIndex;
+      document.getElementById('output0').textContent = 
         (rowIndex - 1).toString(2).padStart(half, '0') +
-        (colIndex - 1).toString(2).padStart(n - half, '0') +
-        ' - ' +
-        event.target.textContent
+        (colIndex - 1).toString(2).padStart(n - half, '0') + 
+        ' - ' + event.target.textContent;
     }
-  })
+  });
 
   table.addEventListener('mouseout', event => {
     if (event.target.tagName === 'TD') {
-      document.getElementById('output0').textContent = ''
+      document.getElementById('output0').textContent = '';
     }
-  })
-  //События на наведение на ячейку
+  });
 }
 
 function getGrayCode (n) {
