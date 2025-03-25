@@ -135,7 +135,7 @@ function buildDNF() {
             if (val === 0) return `<span style="text-decoration: overline">${variable}</span>`;
             if (val === 1) return variable;
             return null;
-        }).filter(v => v !== null).join(' ∧ ');
+        }).filter(v => v !== null).join(' * ');
 
         return vars ? `(${vars})` : '⊤';
     }).join(' ∨ ') || '<span style="color:red">⊥</span>';
