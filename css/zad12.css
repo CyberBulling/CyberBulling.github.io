@@ -1,0 +1,27 @@
+@import url('main.css');
+
+.result {
+    font-size: var(--table-font);
+    font-weight: bold;
+    margin: 0;
+    height: 27px;
+    width: max-content;
+}
+
+.zad {
+    font-weight: bold;
+    font-size: 23px;
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+button:hover {
+    transition: background-color 0.5s ease-in-out;
+    background-color: #2ecc71;
+    color: #000000;
+}
