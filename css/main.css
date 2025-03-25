@@ -132,8 +132,8 @@ button[type="button"] {
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  background: var(--primary-color);
-  color: var(--background) !important;
+  background-color: var(--primary-color);
+  color: var(--form-color) !important;
   transition: background-color var(--transit);
 }
 
@@ -147,7 +147,7 @@ button[type="button"]:hover {
   top: 20px;
   left: 20px;
   background: var(--primary-color);
-  color: var(--background);
+  color: var(--form-color);
   padding: 10px 20px;
   border: none;
   border-radius: var(--border-radius);

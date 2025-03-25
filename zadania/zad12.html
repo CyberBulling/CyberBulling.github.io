@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <header>
+        <a href="../index.html" class="back-button">Назад на главную</a>
+    </header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/zad12.css" />
+    <title>Задача 12</title>
+</head>
+
+<body>
+    <h1>
+        Реализация одного из алгоритмов построения ДНФ.
+    </h1>
+    <form id="form">
+        <label for="vector" class="zad">Введите вектор функции</label>
+        <input type="text" id="vectorInput" name="vectorInput" required placeholder="Например: 10100011">  
+        <button type="button" onclick="buildDNF() " class="button">Построить ДНФ</button>
+    </form>
+    <div id="result"></div>
+    <script src="../js/zad12.js"></script>
+</body>
+
+</html>
