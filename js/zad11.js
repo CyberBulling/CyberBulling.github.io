@@ -8,14 +8,8 @@ class Vector {
     this.vector = generateVector(vectorLength)
     this.M = isMonotone(this.vector)
     this.L = isLinear(this.vector)
-    this.T0 = false
-    if (this.vector.toString()[0] == '0') {
-      this.T0 = true
-    }
-    this.T1 = false
-    if (this.vector[this.vector.length - 1] == '1') {
-      this.T1 = true
-    }
+    this.T0 = this.vector.toString()[0] == '0' ? true : false
+    this.T1 = this.vector.toString()[this.vector.length-1] == '1' ? true : false
     this.S = true
     for (let i = 0; i < this.vector.length / 2; i++) {
       if (this.vector[i] == this.vector[this.vector.length - 1 - i]) {

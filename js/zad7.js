@@ -60,16 +60,16 @@ function getKNF (vector) {
   for (let i = 0; i < vector.length; i++) {
     if (vector[i] == 0) {
       const pos = i.toString(2).padStart(Math.log2(vector.length), '0')
-      if (pos.indexOf('0') === -1) {
-        knf += '1 '
-      }
-      let line = ''
+      let line = '('
       for (let j = 0; j < pos.length; j++) {
         if (pos[j] == '0') {
-          line += `x${j + 1}*`
+          line += `x${j + 1}∨`
+        }
+        else{
+          line += `!x${j + 1}∨`
         }
       }
-      knf += line.substring(0, line.length - 1) + ' + '
+      knf += line.substring(0, line.length) + ')∧'
     }
   }
   return knf.substring(0, knf.length - 3)
