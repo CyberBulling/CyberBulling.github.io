@@ -17,6 +17,7 @@ let correctDnf
 let power
 
 generateVectorButton.addEventListener('click', () => {
+  dnfInput.value=''
   power = Math.floor(Math.random() * 2) + 2
   term = generateTerm()
   correctDnf = term

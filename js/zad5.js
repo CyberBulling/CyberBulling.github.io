@@ -8,6 +8,14 @@ let essentialss
 generateVectorButton.addEventListener('click', generateVectorUntilEssentials)
 
 function generateVectorUntilEssentials () {
+  if (!document.querySelector('#button')) {
+    const button = document.createElement('button')
+    button.id = 'button'
+    button.textContent = 'Проверить'
+    button.addEventListener('click', outputText)
+    button.type = 'button'
+    document.querySelector('#form').appendChild(button)
+  }
   const power = Math.floor(Math.random() * 2) + 2
   const vectorLength = Math.pow(2, power)
   const vector = generateVector(vectorLength)
@@ -49,13 +57,23 @@ function outputText () {
     const isSelected = varButton.classList.contains('selected')
     const isEssential = essentialss.includes(varIndex)
 
-    if (isSelected && isEssential) {
-      varButton.classList.add('right')
-    } else if ((isSelected && !isEssential) || (!isSelected && isEssential)) {
-      varButton.classList.add('wrong')
-      allCorrect = false
+    if(isSelected){
+      if(isEssential){
+        varButton.classList.add('right')
+      }else{
+        varButton.classList.add('wrong')
+      }
+    }else{
+      if(isEssential){
+        varButton.classList.add('wrong-unselected')
+        allCorrect = false
+      }
     }
   }
+
+  document
+    .querySelectorAll('.class-button')
+    .forEach(btn => (btn.style.pointerEvents = 'none'))
 
   allCorrect ? alert('All correct!') : alert('Some errors detected')
 }
