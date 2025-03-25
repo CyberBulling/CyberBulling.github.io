@@ -126,7 +126,6 @@ button[type="button"] {
   border-radius: var(--border-radius);
   cursor: pointer;
   background-color: var(--primary-color);
-  color: var(--background-color) !important;
   transition: background-color var(--transit);
 }
 

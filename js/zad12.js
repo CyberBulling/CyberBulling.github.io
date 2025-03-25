@@ -25,11 +25,6 @@ function buildDNF() {
         if (vector[i] === '1') ones.push(i);
     }
 
-    if (ones.length === 0) {
-        document.getElementById('result').textContent = '⊥ (Функция тождественно ложна)';
-        return;
-    }
-
     // Преобразование в бинарные термы
     const terms = ones.map(idx => {
         const bin = idx.toString(2).padStart(numVars, '0').split('').map(Number);
@@ -136,13 +131,24 @@ function buildDNF() {
     // Форматирование результата
     const dnf = minimalImplicants.map(imp => {
         const vars = imp.map((val, idx) => {
-            if (val === 0) return `¬x${idx + 1}`;
-            if (val === 1) return `x${idx + 1}`;
+            const variable = `x${idx + 1}`;
+            if (val === 0) return `<span style="text-decoration: overline">${variable}</span>`;
+            if (val === 1) return variable;
             return null;
-        }).filter(v => v !== null).join(' * ');
-        
+        }).filter(v => v !== null).join(' ∧ ');
+
         return vars ? `(${vars})` : '⊤';
-    }).join(' ∨ ') || '⊥';
-    
-    document.getElementById('result').textContent = `Минимальная ДНФ: ${dnf}`;
+    }).join(' ∨ ') || '<span style="color:red">⊥</span>';
+
+    // Обработка тривиальных случаев
+    let finalDnf = dnf;
+    if (vector === '1'.repeat(n)) finalDnf = '1';
+    if (vector === '0'.repeat(n)) finalDnf = '0';
+
+    // Вывод
+    document.getElementById('result').innerHTML = `
+        <div style="font-size: 18px; margin-top: 10px;">
+            Минимальная ДНФ: ${finalDnf}
+        </div>
+    `;
 }
