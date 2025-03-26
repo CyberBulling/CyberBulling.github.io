@@ -2,6 +2,7 @@ const generateVectorButton = document.getElementById('generate-vector')
 const outputContainer = document.getElementById('output1')
 const checkResultButton = document.getElementById('check-result')
 const classButtons = document.querySelectorAll('.class-button')
+const full = document.getElementById('full')
 
 class Vector {
   constructor (vectorLength) {
@@ -38,7 +39,9 @@ class Vector {
 let selectedClasses = []
 let vectors = []
 let zhegalkinLength //для рекурсии
-let classes
+let classes = []
+let mistakes = false
+let isFull = 0
 
 classButtons.forEach(button => {
   //проверка выбран ли класс
@@ -53,78 +56,155 @@ classButtons.forEach(button => {
   })
 })
 
+//---------------------------------------------------------------------------------------------------------------------------------
+
 generateVectorButton.addEventListener('click', () => {
+  document.querySelectorAll('.class-button').forEach(button => {
+    button.style.display = 'block'
+  })
+  isFull = 0
   document
     .querySelectorAll('.class-button')
     .forEach(btn => (btn.style.pointerEvents = 'all'))
-  checkResultButton.disabled=false
+  checkResultButton.disabled = false
   vectors = []
+  classes = []
   const vectorCount = Math.floor(Math.random() * 4) + 1
 
   for (let i = 0; i < vectorCount; i++) {
     const power = Math.floor(Math.random() * 2) + 2
     const vectorLength = Math.pow(2, power)
     const vector = new Vector(vectorLength)
-    vectors.push(vector)
+    if (vectors.indexOf(vector) === -1) {
+      vectors.push(vector)
+    } else {
+      i--
+    }
   }
 
   outputContainer.innerText = `Набор векторов: {${vectors.join(', ')}}`
 
   // Очистить все дополнительные классы и выделения
   classButtons.forEach(button => {
-    button.classList.remove('selected', 'right', 'wrong', 'wrong-unselected','right-unselected')
+    button.classList.remove(
+      'selected',
+      'right',
+      'wrong',
+      'wrong-unselected',
+      'right-unselected'
+    )
   })
   selectedClasses = []
 })
 
-checkResultButton.addEventListener('click', () => {
-  checkResultButton.disabled=true
-  classes = [] //классы в которых не содержится набор
-  const allClasses = ['M', 'L', 'T0', 'T1', 'S']
+//---------------------------------------------------------------------------------------------------------------------------------
 
-  vectors.forEach(vector => {
-    const canceled = vector.isCanceled() //классы которым не принадлежит вектор
-    allClasses.forEach(cls => {
-      if (canceled.includes(cls) && !classes.includes(cls)) {
-        classes.push(cls)
+full.addEventListener('click', () => {
+  if (!full.classList.contains('selected')) {
+    full.classList.remove('selected')
+    document.querySelectorAll('.class-button').forEach(button => {
+      if (button.id !== 'full') {
+        button.style.display = 'block'
+        button.classList.remove('selected')
       }
     })
-  })
+  } else {
+    full.classList.add('selected')
+    document.querySelectorAll('.class-button').forEach(button => {
+      if (button.id !== 'full') {
+        button.style.display = 'none'
+      }
+    })
+    const classes = []
+    const allClasses = ['M', 'L', 'T0', 'T1', 'S']
+    vectors.forEach(vector => {
+      const canceled = vector.isCanceled() //классы которым не принадлежит вектор
+      allClasses.forEach(cls => {
+        if (canceled.includes(cls) && !classes.includes(cls)) {
+          classes.push(cls)
+        }
+      })
+    })
+    classes.length === 5 ? (isFull = 1) : (isFull = -1)
+    console.log(isFull, classes)
+  }
+})
 
-  let flag = false
-  selectedClasses.forEach(clas => {
-    if (classes.includes(clas)) {
-      flag = true
-      document
-        .querySelector(`div #${clas}`)
-        .classList.remove('selected', 'right')
-      document.querySelector(`div #${clas}`).classList.add('wrong')
+//---------------------------------------------------------------------------------------------------------------------------------
+
+checkResultButton.addEventListener('click', () => {
+  checkResultButton.disabled = true //классы в которых не содержится набор
+  if (isFull === 1) {
+    full.classList.add('right')
+    alert('all right')
+    full.style.pointerEvents = 'none'
+  } else if (isFull === 0) {
+    //---------------------------------------------------------------------------------------------------------------------------------
+    const allClasses = ['M', 'L', 'T0', 'T1', 'S']
+    mistakes = false
+    console.log(vectors)
+    vectors.forEach(vector => {
+      const canceled = vector.isCanceled() //классы которым не принадлежит вектор
+      allClasses.forEach(cls => {
+        if (canceled.includes(cls) && !classes.includes(cls)) {
+          classes.push(cls)
+        }
+      })
+    })
+
+    if (classes.length === 5) {
+      mistakes = true
+      full.classList.add('wrong')
+      selectedClasses.forEach(clas => {
+        document.querySelector(`div #${clas}`).classList.add('wrong')
+      })
     } else {
-      document
-        .querySelector(`div #${clas}`)
-        .classList.remove('selected', 'wrong')
-      document.querySelector(`div #${clas}`).classList.add('right')
+      selectedClasses.forEach(clas => {
+        if (classes.includes(clas)) {
+          mistakes = true
+          document
+            .querySelector(`div #${clas}`)
+            .classList.remove('selected', 'right')
+          document.querySelector(`div #${clas}`).classList.add('wrong')
+        } else {
+          document
+            .querySelector(`div #${clas}`)
+            .classList.remove('selected', 'wrong')
+          document.querySelector(`div #${clas}`).classList.add('right')
+        }
+      })
+
+      classButtons.forEach(button => {
+        if (
+          selectedClasses.includes(button.id) &&
+          classes.includes(button.id)
+        ) {
+          mistakes = true
+          button.classList.remove('wrong', 'right', 'selected')
+          button.classList.add('wrong-unselected')
+        } else if (
+          !selectedClasses.includes(button.id) &&
+          classes.includes(button.id)
+        ) {
+          button.classList.remove('wrong', 'right', 'selected')
+          button.classList.add('right-unselected')
+        }
+      })
     }
-  })
-  
-  classButtons.forEach(button => {
-    if (selectedClasses.includes(button.id) && classes.includes(button.id)) {
-      flag = true
-      button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('wrong-unselected')
-    }else if(!selectedClasses.includes(button.id) && classes.includes(button.id)){
-      button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('right-unselected')
-    }
-  })
 
-  flag ? alert('some mistakes here') : alert('all right')
+    mistakes ? alert('some mistakes here') : alert('all right')
 
-  document
-    .querySelectorAll('.class-button')
-    .forEach(btn => (btn.style.pointerEvents = 'none'))
+    document
+      .querySelectorAll('.class-button')
+      .forEach(btn => (btn.style.pointerEvents = 'none'))
 
-  console.log(classes, selectedClasses)
+    console.log(classes, selectedClasses)
+    //---------------------------------------------------------------------------------------------------------------------------------
+  } else {
+    full.classList.add('wrong')
+    alert('some mistakes here')
+    full.style.pointerEvents = 'none'
+  }
 })
 
 function generateVector (length) {
@@ -156,7 +236,7 @@ function isMonotone (vector) {
       const countOnesI = binaryRepresentationI.split('1').length - 1
       const countOnesJ = binaryRepresentationJ.split('1').length - 1
 
-      if (countOnesI < countOnesJ && vector[i] === 0 && vector[j] === 1) {
+      if (countOnesI < countOnesJ && vector[j] === 0 && vector[i] === 1) {
         return false
       }
     }

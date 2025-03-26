@@ -67,3 +67,11 @@
   flex-direction: row;
   justify-content: center;
 }
+
+p{
+  font-size: var(--font-size);
+}
+
+#full{
+  width: auto;
+}
