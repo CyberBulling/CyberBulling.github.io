@@ -5,7 +5,7 @@ const classButtons = document.querySelectorAll('.class-button')
 const full = document.getElementById('full')
 
 class Vector {
-  constructor(vectorLength) {
+  constructor (vectorLength) {
     this.vector = generateVector(vectorLength)
     this.M = isMonotone(this.vector)
     this.L = isLinear(this.vector)
@@ -19,13 +19,13 @@ class Vector {
       }
     }
   }
-  getVector() {
+  getVector () {
     return this.vector
   }
-  toString() {
+  toString () {
     return this.vector.join('')
   }
-  isCanceled() {
+  isCanceled () {
     const notCanceled = []
     if (!this.M) notCanceled.push('M')
     if (!this.L) notCanceled.push('L')
@@ -191,21 +191,6 @@ checkResultButton.addEventListener('click', () => {
         }
       })
     }
-<<<<<<< HEAD
-=======
-  })
-
-  classButtons.forEach(button => {
-    if (selectedClasses.includes(button.id) && classes.includes(button.id)) {
-      flag = true
-      button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('wrong-unselected')
-    } else if (!selectedClasses.includes(button.id) && classes.includes(button.id)) {
-      button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('right-unselected')
-    }
-  })
->>>>>>> dba710c25dd4d68a29b9e5dbb7e3c6920c0dafb7
 
     mistakes ? alert('some mistakes here') : alert('all right')
 
@@ -222,7 +207,7 @@ checkResultButton.addEventListener('click', () => {
   }
 })
 
-function generateVector(length) {
+function generateVector (length) {
   const vector = []
   for (let i = 0; i < length; i++) {
     vector.push(Math.random() < 0.5 ? 0 : 1)
@@ -230,7 +215,7 @@ function generateVector(length) {
   return vector
 }
 
-function getBinaryRepresentation(vector) {
+function getBinaryRepresentation (vector) {
   const binaryVector = []
   for (let i = 0; i < vector.length; i++) {
     const binaryRepresentation = i
@@ -241,7 +226,7 @@ function getBinaryRepresentation(vector) {
   return binaryVector
 }
 
-function isMonotone(vector) {
+function isMonotone (vector) {
   const binaryVector = getBinaryRepresentation(vector)
 
   for (let i = 0; i < vector.length; i++) {
@@ -260,7 +245,7 @@ function isMonotone(vector) {
   return true
 }
 
-function isLinear(vector) {
+function isLinear (vector) {
   let linear = true
   zhegalkinLength = vector.length
   const zhegalkinPolynom = createZhegalkin(vector, [], vector)
@@ -274,7 +259,7 @@ function isLinear(vector) {
   return linear
 }
 
-function createZhegalkin(vector, polynom) {
+function createZhegalkin (vector, polynom) {
   if (polynom.length < zhegalkinLength - 1) {
     let polynomialRepresentation = []
     for (let i = 1; i < vector.length; i++) {
