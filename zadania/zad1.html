@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <header><a href="/index.html" class="back-button">Назад на главную</a></header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/zad1.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/zad1.css" />
     <title>Задача 1</title>
-</head>
-<body>
+  </head>
+  <body>
+    <header>
+      <a href="/index.html" class="back-button">Назад на главную</a>
+    </header>
     <h1>На вход — число n, на выход — булева функция от n аргументов.</h1>
     <form id="form">
-        <label for="n">Введите вектор функции</label>
-        <input type="text"  id="n" name="n" min="1" max="4" required>
-        <div id="args-container"></div>
-        <button type="button" onclick="outputText() ">Отправить</button>
+      <label for="n">Введите вектор функции</label>
+      <input type="text" id="n" name="n" min="1" max="4" required />
+      <div id="args-container"></div>
+      <button type="button" onclick="outputText() ">Отправить</button>
     </form>
     <div id="output-container">
-        <p class="output3"></p>
+      <p class="output3"></p>
     </div>
     <div id="output-container2">
-        <p id="output1"></p>
+      <p id="output1"></p>
     </div>
 
     <script src="/js/zad1.js"></script>
-</body>
+  </body>
 </html>
