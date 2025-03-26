@@ -16,6 +16,7 @@ function generateVectorUntilEssentials () {
     button.type = 'button'
     document.querySelector('#form').appendChild(button)
   }
+  document.getElementById('button').disabled=false
   const power = Math.floor(Math.random() * 2) + 2
   const vectorLength = Math.pow(2, power)
   const vector = generateVector(vectorLength)
@@ -74,6 +75,8 @@ function outputText () {
   document
     .querySelectorAll('.class-button')
     .forEach(btn => (btn.style.pointerEvents = 'none'))
+  
+  document.getElementById('button').disabled=true
 
   allCorrect ? alert('All correct!') : alert('Some errors detected')
 }

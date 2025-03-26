@@ -17,7 +17,7 @@ let correctKnf
 let power
 
 generateVectorButton.addEventListener('click', () => {
-  knfInput.value=''
+  knfInput.value = ''
   power = Math.floor(Math.random() * 2) + 2
   term = generateTerm()
   correctKnf = term
@@ -72,7 +72,7 @@ function generateTerm () {
     usedConjunctions.add(conjunctionKey)
     knf.push(
       `(${conjunction
-        .map(v => `${v.negated ? '!' : ''}x${v.name}`)
+        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
         .join(' ∨ ')})`
     )
   }
@@ -85,7 +85,15 @@ function generateVector (term) {
   const totalCombinations = Math.pow(2, power)
 
   // Преобразование логических операторов в JS-синтаксис
-  const jsTerm = term.replace(/∧/g, '&&').replace(/∨/g, '||').replace(/¬/g, '!')
+  const jsTerm = term
+    .replace(/∧/g, '&&')
+    .replace(/∨/g, '||')
+    .replace(/¬/g, '!')
+    .replace(/-/g, '!')
+    .replace(/\*/g, '&&')
+    .replace(/or/g, '||')
+    .replace(/and/g, '&&')
+    .replace(/not/g, '!')
 
   // Генерация всех возможных наборов переменных
   for (let i = 0; i < totalCombinations; i++) {

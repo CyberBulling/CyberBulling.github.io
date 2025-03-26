@@ -13,13 +13,6 @@
     font-size: 23px;
 }
 
-#result {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 23px;
-    font-weight: bold;
-}
-
 .button {
     background-color: var(--secondary-color);
     color: black;
