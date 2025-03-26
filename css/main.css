@@ -20,7 +20,8 @@
   /* Основные шрифты */
   --font-family: "Samsung Myanmar Regular";
   /**/
-  --transit: all 0.2s cubic-bezier(0.4, 0.3, 0.6, 1);
+  --transit: background-color 0.2s ease-in-out;
+  /* transition: background-color; */
 }
 
 @font-face {
@@ -43,10 +44,11 @@ body {
 }
 
 h1 {
-  height: 30px;
-  width: max-content;
+  text-align: center;
+  height: auto;
+  width: 30%;
   padding: 10px;
-  margin: 80px auto;
+  margin: 50px auto;
   font-size: var(--table-font);
   font-weight: bold;
   color: var(--text-color);
@@ -73,12 +75,12 @@ button[type="button"] {
   cursor: pointer;
   background-color: var(--primary-color);
   color: var(--form-color) !important;
-  transition: background-color var(--transit);
 }
 
 button[type="button"]:hover {
   background: var(--secondary-color);
   border: 2px solid var(--text-color) !important;
+  transition: var(--transit);
 }
 
 .back-button {
@@ -92,7 +94,7 @@ button[type="button"]:hover {
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
-  transition: background-color var(--transit);
+  transition: var(--transit);
 }
 
 .back-button:hover {
@@ -173,7 +175,7 @@ input[type="submit"] {
   border-radius: var(--border-radius);
   padding: 10px 20px;
   cursor: pointer;
-  transition: background-color var(--transit);
+  transition: var(--transit);
 }
 
 input[type="submit"]:hover {
@@ -237,6 +239,6 @@ input[type="submit"]:hover {
 }
 
 .right-unselected{
-  background: var(--secondary-color);
+  background: #acacac;
   box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
 }

@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
-    <header><a href="/index.html" class="back-button">Назад на главную</a></header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/zad4.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/zad4.css" />
     <title>Задача 4</title>
-</head>
+  </head>
 
-<body>
-    <h1>Игра. Узнать имя функции от 2-х аргументов. Система предлагает вектор функции, пользователь выбирает «имя» (одно
-        из 16).</h1>
+  <body>
+    <header>
+      <a href="../index.html" class="back-button">Назад на главную</a>
+    </header>
+    <h1>
+      Игра. Узнать имя функции от 2-х аргументов. Система предлагает вектор
+      функции, пользователь выбирает «имя» (одно из 16).
+    </h1>
     <form id="form">
-        <div id="output-container">
-        </div>
-        <label for="function-name" id="pmka">Название функции</label>
-        <select name="name" id="function-name" class="select" required>
-            <option value="">-- Выберите имя функции --</option>
-            <option value="0001">Конъюнкция</option>
-            <option value="0111">Дизъюнкция</option>
-            <option value="0110">Сложение</option>
-            <option value="1110">Штрих Шеффера</option>
-            <option value="1000">Стрелка Пирса</option>
-            <option value="1101">Импликация</option>
-            <option value="1001">Эквивалентность</option>
-            <option value="0010">Коимпликация</option>
-            <option value="1011">Обратная Импликация</option>
-            <option value="0100">Обратная Коимпликация</option>
-            <option value="0000">Нулевая функция</option>
-            <option value="0101">Функция переменной y</option>
-            <option value="0011">Функция переменной x</option>
-            <option value="1010">Функция Отрицания y</option>
-            <option value="1100">Функция Отрицания x</option>
-            <option value="1111">Единичная функция</option>
-        </select>
-        <button type="button" id="button" onclick="outputText()">Отправить</button>
+      <div id="output-container"></div>
+      <label for="function-name" id="pmka">Название функции</label>
+      <select name="name" id="function-name" class="select" required>
+        <option value="">-- Выберите имя функции --</option>
+        <option value="0001">Конъюнкция</option>
+        <option value="0111">Дизъюнкция</option>
+        <option value="0110">Сложение</option>
+        <option value="1110">Штрих Шеффера</option>
+        <option value="1000">Стрелка Пирса</option>
+        <option value="1101">Импликация</option>
+        <option value="1001">Эквивалентность</option>
+        <option value="0010">Коимпликация</option>
+        <option value="1011">Обратная Импликация</option>
+        <option value="0100">Обратная Коимпликация</option>
+        <option value="0000">Нулевая функция</option>
+        <option value="0101">Функция переменной y</option>
+        <option value="0011">Функция переменной x</option>
+        <option value="1010">Функция Отрицания y</option>
+        <option value="1100">Функция Отрицания x</option>
+        <option value="1111">Единичная функция</option>
+      </select>
+      <button type="button" id="button" onclick="outputText()">
+        Отправить
+      </button>
     </form>
     <div id="result"></div>
     <script src="../js/zad4.js"></script>
-</body>
-
+  </body>
 </html>

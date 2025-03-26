@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <header><a href="/index.html" class="back-button">Назад на главную</a></header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/zad8.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/zad8.css" />
     <title>Задача 8</title>
-</head>
-<body>
+  </head>
+  <body>
+    <header>
+      <a href="../index.html" class="back-button">Назад на главную</a>
+    </header>
     <h1>Пользователь вводит вектор функции. Система строит СДНФ.</h1>
     <form id="form">
-        <label for="vector">Введите вектор функции</label>
-        <input type="text" id="vector" name="vector" required>  
-        <button type="button" onclick="buildSDNF() ">Отправить</button>
+      <label for="vector">Введите вектор функции</label>
+      <input type="text" id="vector" name="vector" required />
+      <button type="button" onclick="buildSDNF() ">Отправить</button>
     </form>
     <div id="output-container">
-        <p class="output3"></p>
+      <p class="output3"></p>
     </div>
 
     <script src="../js/zad8.js"></script>
-</body>
+  </body>
 </html>
