@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <header>
+        <a href="../index.html" class="back-button">Назад на главную</a>
+    </header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/zad10.css" />
+    <title>Задача 10</title>
+
+</head>
+
+<body>
+    <h1>
+        Игра. Предполные классы б.ф. Система предлагает вектор функции. Пользователь должен
+        выбрать предполные классы, которым эта функция принадлежит. Система определяет правильно
+        выбраны классы или нет.
+    </h1>
+    <button onclick="newVector()">Новый вектор</button>
+    <div id="vector"></div>
+
+    <div class="checkbox-group">
+        <label><input type="checkbox" class="cls" value="T0"> T0 (Сохраняет 0)</label><br>
+        <label><input type="checkbox" class="cls" value="T1"> T1 (Сохраняет 1)</label><br>
+        <label><input type="checkbox" class="cls" value="S"> S (Самодвойственная)</label><br>
+        <label><input type="checkbox" class="cls" value="M"> M (Монотонная)</label><br>
+        <label><input type="checkbox" class="cls" value="L"> L (Линейная)</label><br>
+    </div>
+
+    <button onclick="checkAnswer()" class="chek">Проверить</button>
+    <div id="output-container"></div>
+    <script src="../js/zad10.js"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <header>
+    <a href="/index.html" class="back-button">Назад на главную</a>
+  </header>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/zad11.css"/>
+  <title>Задача 11</title>
+</head>
+<body>
+  <h1>Игра: Полные системы б.ф.</h1>
+  <form id="form">
+    <button id="generate-vector" type="button">Сгенерировать набор векторов функций</button>
+    <div id="output-container">
+      <p id="output1"></p>
+    </div>
+    <p>Укажите замкнутый класс, которому набор функций принадлежит???</p>
+    <div class="class-container">
+      <div id="M" class="class-button">M</div>
+      <div id="L" class="class-button">L</div>
+      <div id="T0" class="class-button">T0</div>
+      <div id="T1" class="class-button">T1</div>
+      <div id="S" class="class-button">S</div>
+    </div>
+    <button id="check-result" type="button">Проверить</button>
+    </form>
+  <script src="/js/zad10.js"></script>
+</body>
+</html>
