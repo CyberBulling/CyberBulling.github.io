@@ -2,11 +2,11 @@
   /* Основные цвета */
   --primary-color: #4caf50;
   --secondary-color: rgb(62, 142, 65);
-  --background-color: #f0f0f0;
+  --background: url(/images/background.svg);
   --text-color: #333;
   --border: 1px solid #ccc;
-  --form-color: #4dff000f;
-  --red: rgba(192, 15, 15, 0.587);
+  --form-color: #f5fff0;
+  --red: rgb(192 15 15);
 
   /* Основные размеры */
   --font-size: 16px;
@@ -18,28 +18,41 @@
   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   /* Основные шрифты */
-  --font-family: Arial, sans-serif;
+  --font-family: "Samsung Myanmar Regular";
   /**/
   --transit: all 0.2s cubic-bezier(0.4, 0.3, 0.6, 1);
 }
 
-body {
+@font-face {
+  font-family: "Samsung Myanmar Regular";
+  src: url(/fonts/Samsung\ Myanmar\ Regular.ttf);
+}
+
+* {
   font-family: var(--font-family);
   font-size: var(--font-size);
+}
+
+body {
   line-height: var(--line-height);
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background: var(--background);
   color: var(--text-color);
   overflow-y: hidden;
 }
 
 h1 {
-  text-align: center;
-  margin-top: 80px;
+  height: 30px;
+  width: max-content;
+  padding: 10px;
+  margin: 80px auto;
   font-size: var(--table-font);
   font-weight: bold;
   color: var(--text-color);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background-color: #fff;
 }
 
 .container {
@@ -50,74 +63,7 @@ h1 {
   padding: var(--padding);
 }
 
-.row {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: var(--margin);
-  width: 100%;
-  height: calc(100vh / 3);
-}
-
-.col-md-3 {
-  width: calc(25% - var(--margin));
-  margin: var(--margin);
-}
-
-.image-block {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-}
-
-.block,
-.hover,
-.visited {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: opacity var(--transit);
-}
-
-.block {
-  opacity: 1;
-}
-
-.hover,
-.visited {
-  opacity: 0;
-}
-
-.image-block:hover .block {
-  opacity: 0;
-}
-
-.image-block:hover .hover {
-  opacity: 1;
-}
-
-.visited {
-  opacity: 0;
-}
-
-.image-block a {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: var(--text-color);
-}
-
 button[type="button"] {
-  font-size: var(--font-size);
   width: calc(100% - 40px);
   height: 40px;
   margin: 20px;
@@ -126,19 +72,21 @@ button[type="button"] {
   border-radius: var(--border-radius);
   cursor: pointer;
   background-color: var(--primary-color);
+  color: var(--form-color) !important;
   transition: background-color var(--transit);
 }
 
 button[type="button"]:hover {
-  background-color: var(--secondary-color);
+  background: var(--secondary-color);
+  border: 2px solid var(--text-color) !important;
 }
 
 .back-button {
   position: absolute;
   top: 20px;
   left: 20px;
-  background-color: var(--primary-color);
-  color: var(--background-color);
+  background: var(--primary-color);
+  color: var(--form-color);
   padding: 10px 20px;
   border: none;
   border-radius: var(--border-radius);
@@ -148,7 +96,8 @@ button[type="button"]:hover {
 }
 
 .back-button:hover {
-  background-color: var(--secondary-color);
+  background: var(--secondary-color);
+  border: 2px solid var(--text-color);
 }
 
 form {
@@ -162,7 +111,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--form-color);
+  background: var(--form-color);
 }
 
 input[type="text"] {
@@ -179,16 +128,46 @@ input[type="text"]:focus {
   border-color: var(--primary-color);
 }
 
-#output-container {
+#output-container{
   width: 100%;
   text-align: center;
-  margin-top: 10px;
   display: flex;
   justify-content: center;
+  height: 50px;
+}
+
+#output-container2{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: auto;
+}
+
+#output0 {
+  font-size: var(--table-font);
+  font-weight: bold;
+  margin: 0;
+  height: 30px;
+  width: max-content;
+  padding: 10px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background-color: #fff;
+}
+
+.output3 {
+  border: none !important;
+  background-color: #ffffff00;
+  font-size: var(--table-font);
+  font-weight: bold;
+  margin: 0;
+  height: 25px;
+  width: max-content;
 }
 
 input[type="submit"] {
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   color: var(--text-color);
   border: none;
   border-radius: var(--border-radius);
@@ -198,7 +177,8 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: var(--secondary-color);
+  background: var(--secondary-color);
+  border: 2px solid var(--text-color);
 }
 
 #generate-vector {
@@ -209,10 +189,54 @@ input[type="submit"]:hover {
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   color: var(--text-color);
 }
 
 #generate-vector:hover {
-  background-color: var(--secondary-color);
+  background: var(--secondary-color);
+  border: 2px solid var(--text-color);
+}
+
+.class-button {
+  width: 70px;
+  height: 70px;
+  background: white;
+  color: var(--font-color);
+  text-align: center;
+  align-content: center;
+  font-size: var(--table-font);
+  margin: 10px 4px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transition: var(--transit);
+}
+
+.selected {
+  background: #cececece;
+  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transform: translateY(3px);
+}
+
+.right {
+  background: var(--secondary-color);
+  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transform: translateY(3px);
+}
+
+.wrong {
+  background: var(--red);
+  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  transform: translateY(3px);
+}
+
+.wrong-unselected{
+  background: var(--red);
+  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
+}
+
+.right-unselected{
+  background: var(--secondary-color);
+  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
 }

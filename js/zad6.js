@@ -17,6 +17,7 @@ let correctDnf
 let power
 
 generateVectorButton.addEventListener('click', () => {
+  dnfInput.value = ''
   power = Math.floor(Math.random() * 2) + 2
   term = generateTerm()
   correctDnf = term
@@ -71,7 +72,7 @@ function generateTerm () {
     usedConjunctions.add(conjunctionKey)
     dnf.push(
       `(${conjunction
-        .map(v => `${v.negated ? '!' : ''}x${v.name}`)
+        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
         .join(' ∧ ')})`
     )
   }
@@ -84,7 +85,15 @@ function generateVector (term) {
   const totalCombinations = Math.pow(2, power)
 
   // Преобразование логических операторов в JS-синтаксис
-  const jsTerm = term.replace(/∧/g, '&&').replace(/∨/g, '||').replace(/¬/g, '!')
+  const jsTerm = term
+    .replace(/∧/g, '&&')
+    .replace(/∨/g, '||')
+    .replace(/¬/g, '!')
+    .replace(/-/g, '!')
+    .replace(/\*/g, '&&')
+    .replace(/or/g, '||')
+    .replace(/and/g, '&&')
+    .replace(/not/g, '!')
 
   // Генерация всех возможных наборов переменных
   for (let i = 0; i < totalCombinations; i++) {
@@ -99,6 +108,7 @@ function generateVector (term) {
       /x(\d+)/g,
       (_, num) => variables[`x${num}`]
     )
+    console.log(substitutedTerm)
     vector.push(eval(substitutedTerm) ? 1 : 0)
   }
 
@@ -116,6 +126,8 @@ correctAnswerButton.addEventListener('click', () => {
 
 checkDnfButton.addEventListener('click', () => {
   const userVector = generateVector(dnfInput.value, power)
-  userVector.join('') === vector.join('') ? alert('Правильно!') : alert('Неправильно!')
+  userVector.join('') === vector.join('')
+    ? alert('Правильно!')
+    : alert('Неправильно!')
   console.log(userVector)
 })

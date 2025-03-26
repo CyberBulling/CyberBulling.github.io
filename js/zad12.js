@@ -146,8 +146,8 @@ function buildDNF() {
     if (vector === '0'.repeat(n)) finalDnf = '0';
 
     // Вывод
-    document.getElementById('result').innerHTML = `
-        <div style="font-size: 18px; margin-top: 10px;">
+    document.getElementById('output-container').innerHTML = `
+        <div id=output0>
             Минимальная ДНФ: ${finalDnf}
         </div>
     `;

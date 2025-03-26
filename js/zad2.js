@@ -7,7 +7,7 @@ function outputText () {
     value = document.querySelector('input[name="value"]:checked').value
   } catch (e) {
     error = e
-    alert('Ветор не можнт быть пустым')
+    alert('Ветор не может быть пустым')
   }
   if (!error) {
     if (Math.log2(vector.length) % 1 != 0) {
@@ -33,6 +33,8 @@ function outputText () {
         }
       }
     }
+    document.querySelector('.output3').id='output0'
+    document.getElementById('output0').classList.remove('output3')
     const output = getResidual(vector, value, argument - 1)
     document.getElementById('output0').textContent = `${
       value == 0 ? 'Нулевая' : 'Еденичная'

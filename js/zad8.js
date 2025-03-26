@@ -1,5 +1,9 @@
 function buildSDNF () {
   const vectorInput = document.getElementById('vector').value.trim()
+  if(document.querySelector('.output3')!=undefined){
+    document.querySelector('.output3').id ='output0'
+    document.getElementById('output0').classList.remove('output3') 
+  }
   const outputElement = document.getElementById('output0')
 
   const length = vectorInput.length
@@ -47,5 +51,5 @@ function buildSDNF () {
       terms.push(`(${conjunctionParts.join(' ∧ ')})`)
     }
   }
-  outputElement.innerHTML = `СДНФ: ${terms.join(' ∨ ') || '0'}`
+  outputElement.innerHTML = `${terms.join(' ∨ ') || '0'}`
 }

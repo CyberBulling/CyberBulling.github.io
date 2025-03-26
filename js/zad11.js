@@ -8,8 +8,8 @@ class Vector {
     this.vector = generateVector(vectorLength)
     this.M = isMonotone(this.vector)
     this.L = isLinear(this.vector)
-    this.T0 = this.vector.toString()[0] == '0' ? true : false
-    this.T1 = this.vector.toString()[this.vector.length-1] == '1' ? true : false
+    this.T0 = this.vector.join('')[0] == '0' ? true : false
+    this.T1 = this.vector.join('')[this.vector.length - 1] == '1' ? true : false
     this.S = true
     for (let i = 0; i < this.vector.length / 2; i++) {
       if (this.vector[i] == this.vector[this.vector.length - 1 - i]) {
@@ -54,7 +54,10 @@ classButtons.forEach(button => {
 })
 
 generateVectorButton.addEventListener('click', () => {
-  //кнопка для создания множества векторов
+  document
+    .querySelectorAll('.class-button')
+    .forEach(btn => (btn.style.pointerEvents = 'all'))
+  checkResultButton.disabled=false
   vectors = []
   const vectorCount = Math.floor(Math.random() * 4) + 1
 
@@ -69,18 +72,13 @@ generateVectorButton.addEventListener('click', () => {
 
   // Очистить все дополнительные классы и выделения
   classButtons.forEach(button => {
-    button.classList.remove(
-      'selected',
-      'right',
-      'wrong',
-      'not-selected',
-      'not-selected-wrong'
-    )
+    button.classList.remove('selected', 'right', 'wrong', 'wrong-unselected','right-unselected')
   })
   selectedClasses = []
 })
 
 checkResultButton.addEventListener('click', () => {
+  checkResultButton.disabled=true
   classes = [] //классы в которых не содержится набор
   const allClasses = ['M', 'L', 'T0', 'T1', 'S']
 
@@ -91,11 +89,12 @@ checkResultButton.addEventListener('click', () => {
         classes.push(cls)
       }
     })
-    console.log(canceled)
   })
 
+  let flag = false
   selectedClasses.forEach(clas => {
     if (classes.includes(clas)) {
+      flag = true
       document
         .querySelector(`div #${clas}`)
         .classList.remove('selected', 'right')
@@ -107,18 +106,23 @@ checkResultButton.addEventListener('click', () => {
       document.querySelector(`div #${clas}`).classList.add('right')
     }
   })
+  
   classButtons.forEach(button => {
-    if (!selectedClasses.includes(button.id) && classes.includes(button.id)) {
+    if (selectedClasses.includes(button.id) && classes.includes(button.id)) {
+      flag = true
       button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('not-selected-wrong')
-    } else if (
-      !selectedClasses.includes(button.id) &&
-      !classes.includes(button.id)
-    ) {
+      button.classList.add('wrong-unselected')
+    }else if(!selectedClasses.includes(button.id) && classes.includes(button.id)){
       button.classList.remove('wrong', 'right', 'selected')
-      button.classList.add('not-selected')
+      button.classList.add('right-unselected')
     }
   })
+
+  flag ? alert('some mistakes here') : alert('all right')
+
+  document
+    .querySelectorAll('.class-button')
+    .forEach(btn => (btn.style.pointerEvents = 'none'))
 
   console.log(classes, selectedClasses)
 })

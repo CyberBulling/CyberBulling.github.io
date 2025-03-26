@@ -15,36 +15,3 @@
   display: flex;
   justify-content: center;
 }
-
-.class-button {
-  width: 70px;
-  height: 70px;
-  background-color: white;
-  color: var(--font-color);
-  text-align: center;
-  align-content: center;
-  font-size: var(--table-font);
-  margin: 10px 4px;
-  cursor: pointer;
-  border-radius: var(--border-radius);
-  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
-  transition: var(--transit);
-}
-
-.selected {
-  background-color: #cececece;
-  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
-  transform: translateY(3px);
-}
-
-.right {
-  background-color: var(--secondary-color);
-  box-shadow: inset 3px 4px 2px 0px rgba(19, 86, 21, 0.616);
-  transform: translateY(3px);
-}
-
-.wrong {
-  background-color: rgb(192 15 15);
-  box-shadow: inset 0 0 8px 3px var(--red);
-  transform: translateY(3px);
-}

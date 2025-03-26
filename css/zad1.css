@@ -4,14 +4,6 @@ body{
   overflow-y: auto;
 }
 
-#output-container, #output-container2{
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
-
 #output1 {
   font-size: var(--table-font);
   font-weight: bold;

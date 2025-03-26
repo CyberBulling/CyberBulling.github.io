@@ -3,7 +3,7 @@ const vectorContainer = document.getElementById('output-container')
 const outputContainer = document.getElementById('output1')
 const form = document.querySelector('form')
 const knfInput = document.getElementById('knf')
-const checkknfButton = document.getElementById('check-knf')
+const checkKnfButton = document.getElementById('check-knf')
 const resultContainer = document.getElementById('result-container')
 const resultText = document.getElementById('result')
 const correctAnswerButton = document.getElementById('correct-answer')
@@ -11,14 +11,17 @@ const correctAnswerContainer = document.getElementById(
   'correct-answer-container'
 )
 
+let term
 let vector
-let correctknf
+let correctKnf
+let power
 
 generateVectorButton.addEventListener('click', () => {
-  const power = Math.floor(Math.random() * 2) + 2
-  const vectorLength = Math.pow(2, power)
-  vector = generateVector(vectorLength)
-  correctknf = getKNF(vector)
+  knfInput.value = ''
+  power = Math.floor(Math.random() * 2) + 2
+  term = generateTerm()
+  correctKnf = term
+  vector = generateVector(term)
   const outputText = `Вектор функции: ${vector.join('')}`
   outputContainer.innerHTML = ''
   resultText.innerHTML = ''
@@ -28,58 +31,102 @@ generateVectorButton.addEventListener('click', () => {
   }
 })
 
-checkknfButton.addEventListener('click', () => {
-  const knf = knfInput.value
-  const rightKnf = getKNF(vector)
-  if (rightKnf === '1' && knf === '1') {
-    resultText.innerHTML = 'КНФ верна'
-  } else if (rightKnf === '1' && knf != '1') {
-    resultText.innerHTML = 'КНФ неверна'
-  } else {
-    const vectorKnf = knf.replace(/\s/g, '').split('+')
-    const rightVectorKnf = rightKnf.replace(/\s/g, '').split('+')
-    if (vectorKnf.join('') === rightVectorKnf.join('')) {
-      resultText.innerHTML = 'КНФ верна'
-    } else {
-      console.log(vectorKnf,rightVectorKnf)
-      resultText.innerHTML = 'КНФ неверна'
-    }
-  }
-})
+function generateTerm () {
+  const maxConjunctions = Math.min(4, 2 ** power - 1) // Ограничение макс. конъюнкций
+  const numConjunctions = Math.floor(Math.random() * (maxConjunctions - 1)) + 2
 
-function generateVector (length) {
-  const vector = []
-  for (let i = 0; i < length; i++) {
-    vector.push(Math.random() < 0.5 ? 0 : 1)
+  const usedConjunctions = new Set()
+  let knf = []
+
+  for (let i = 0; i < numConjunctions; i++) {
+    let conjunctionKey
+    let conjunction
+    let attempts = 0
+
+    do {
+      // Генерация конъюнкции
+      const varsInConjunction = Math.floor(Math.random() * power) + 1
+      const availableVars = Array.from({ length: power }, (_, idx) => idx + 1)
+      conjunction = []
+
+      for (let j = 0; j < varsInConjunction; j++) {
+        const randomIndex = Math.floor(Math.random() * availableVars.length)
+        const varNum = availableVars.splice(randomIndex, 1)[0]
+        const isNegated = Math.random() < 0.5
+        conjunction.push({
+          name: varNum,
+          negated: isNegated
+        })
+      }
+
+      conjunction.sort((a, b) => a.name - b.name)
+      conjunctionKey = conjunction
+        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
+        .join(',')
+
+      attempts++
+      if (attempts > 20) break // Защита от бесконечного цикла
+    } while (usedConjunctions.has(conjunctionKey))
+
+    if (attempts > 20) break
+    usedConjunctions.add(conjunctionKey)
+    knf.push(
+      `(${conjunction
+        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
+        .join(' ∨ ')})`
+    )
   }
-  return vector
+
+  return knf.join(' ∧ ')
 }
 
-function getKNF (vector) {
-  let knf = ''
-  for (let i = 0; i < vector.length; i++) {
-    if (vector[i] == 0) {
-      const pos = i.toString(2).padStart(Math.log2(vector.length), '0')
-      let line = '('
-      for (let j = 0; j < pos.length; j++) {
-        if (pos[j] == '0') {
-          line += `x${j + 1}∨`
-        }
-        else{
-          line += `!x${j + 1}∨`
-        }
-      }
-      knf += line.substring(0, line.length) + ')∧'
+function generateVector (term) {
+  const vector = []
+  const totalCombinations = Math.pow(2, power)
+
+  // Преобразование логических операторов в JS-синтаксис
+  const jsTerm = term
+    .replace(/∧/g, '&&')
+    .replace(/∨/g, '||')
+    .replace(/¬/g, '!')
+    .replace(/-/g, '!')
+    .replace(/\*/g, '&&')
+    .replace(/or/g, '||')
+    .replace(/and/g, '&&')
+    .replace(/not/g, '!')
+
+  // Генерация всех возможных наборов переменных
+  for (let i = 0; i < totalCombinations; i++) {
+    const binary = i.toString(2).padStart(power, '0')
+    const variables = {}
+
+    for (let j = 0; j < power; j++) {
+      variables[`x${j + 1}`] = parseInt(binary[j])
     }
+
+    const substitutedTerm = jsTerm.replace(
+      /x(\d+)/g,
+      (_, num) => variables[`x${num}`]
+    )
+    vector.push(eval(substitutedTerm) ? 1 : 0)
   }
-  return knf.substring(0, knf.length - 3)
+
+  return vector
 }
 
 correctAnswerButton.addEventListener('click', () => {
   if (correctAnswerContainer.textContent !== '') {
     correctAnswerContainer.innerHTML = ''
   } else {
-    const correctAnswer = correctknf
+    const correctAnswer = correctKnf
     correctAnswerContainer.innerHTML = `Правильный ответ: ${correctAnswer}`
   }
+})
+
+checkKnfButton.addEventListener('click', () => {
+  const userVector = generateVector(knfInput.value, power)
+  userVector.join('') === vector.join('')
+    ? alert('Правильно!')
+    : alert('Неправильно!')
+  console.log(userVector)
 })

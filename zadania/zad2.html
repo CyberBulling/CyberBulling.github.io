@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <header><a href="/index.html" class="back-button">Назад на главную</a></header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/zad2.css">
+  <head>
+    <header>
+      <a href="/index.html" class="back-button">Назад на главную</a>
+    </header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/zad2.css" />
     <title>Задача 2</title>
-</head>
-<body>
-    <h1>На вход — вектор функции, 0 или 1, номер аргумента, на выход — соответствующая остаточная.</h1>
+  </head>
+  <body>
+    <h1>
+      На вход — вектор функции, 0 или 1, номер аргумента, на выход —
+      соответствующая остаточная.
+    </h1>
     <form id="form">
-        <label for="vector">Введите вектор функции</label>
-        <input type="text" id="vector" name="vector" required>
-        <br>
-        <label>
-            Найти 
-            <input type="radio" id="zero" name="value" value="0">
-            <label for="zero">0</label>
-            или
-            <input type="radio" id="one" name="value" value="1">
-            <label for="one">1</label>
-             -ую остаточную по 
-            <input type="text" id="argument" name="argument" min="1" required> аргументу
-        </label>
-        <button type="button" onclick="outputText()">Отправить</button>
+      <label for="vector">Введите вектор функции</label>
+      <input type="text" id="vector" name="vector" required />
+      <br />
+      <label>
+        Найти
+        <input type="radio" id="zero" name="value" value="0" />
+        <label for="zero">0-ую</label>
+        или
+        <input type="radio" id="one" name="value" value="1" />
+        <label for="one">1</label>
+        -ую остаточную по
+        <input type="text" id="argument" name="argument" min="1" required />
+        аргументу
+      </label>
+      <button type="button" onclick="outputText()">Отправить</button>
     </form>
     <div id="output-container">
-        <p id="output0"></p>
+      <p class="output3"></p>
     </div>
 
     <script src="/js/zad2.js"></script>
-</body>
+  </body>
 </html>
