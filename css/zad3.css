@@ -32,3 +32,7 @@
   height: 27px;
   width: max-content;
 }
+h1{
+  height: max-content;
+  width: 60%;
+}
