@@ -21,6 +21,14 @@
 }
 
 button:hover {
-    transition: background-color 0.5s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
     color: #000000;
+}
+
+#output0 span {
+    font-size: var(--table-font);
+    font-weight: bold;
+    margin: 0;
+    height: 30px;
+    width: max-content;
 }
