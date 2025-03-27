@@ -37,7 +37,7 @@ function generateVectorUntilEssentials() {
     document.querySelector("#form").appendChild(button);
   }
   document.getElementById("button").disabled = false;
-  const power = Math.floor(Math.random() * 2) + 2;
+  const power = Math.floor(Math.random() * 5) + 2;
   const vectorLength = Math.pow(2, power);
   const vector = generateVector(vectorLength);
   essentialss = getEssentials(vector);

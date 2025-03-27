@@ -58,6 +58,11 @@ h1 {
   background-color: #fff;
 }
 
+.block{
+  border: var(--border);
+  border-radius: var(--border-radius);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -95,7 +100,7 @@ button[type="button"]:hover {
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
-  transition: var(--transit);
+  transition: background-color 0.3s ease-in-out;
 }
 
 .back-button:hover {
