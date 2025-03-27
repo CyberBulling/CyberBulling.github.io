@@ -8,7 +8,7 @@ imageBlocks.forEach(block => {
 
   // Проверка на наличие информации о посещении
   if (localStorage.getItem(url)) {
-    hoverBlock.style.backgroundImage = 'url(images/image_visited.jpg)'
+    hoverBlock.style.backgroundImage = `url(images/${block.id}.png)`
   }
 
   // Обработчик наведения мыши

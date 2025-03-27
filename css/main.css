@@ -214,6 +214,7 @@ input[type="submit"]:hover {
   border-radius: var(--border-radius);
   box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
   transition: var(--transit);
+  position: relative;
 }
 
 .selected {
@@ -242,4 +243,24 @@ input[type="submit"]:hover {
 .right-unselected{
   background: #acacac;
   box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
+}
+
+.right::after, .wrong-unselected::after {
+  content: "+";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--table-font);
+  color: green;
+}
+
+.wrong::after {
+  content: "-";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--table-font);
+  color: red;
 }
