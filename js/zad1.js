@@ -1,10 +1,24 @@
-var notyf = new Notyf();
+const notyf = new Notyf({
+  types: [
+    {
+      type: 'error',
+      background: 'red',
+      duration: 3000,
+      position: {
+        x: "right",
+        y: "top",
+      },
+      dismissible: true
+    }
+  ]
+});
 
 document.getElementById("n").addEventListener("input", () => {
   const n = parseInt(document.getElementById("n").value);
   const button = document.querySelector('button[type="button"]');
   if (n < 1 || n > 8) {
     notyf.error("Введено недопустимое количество переменных");
+    document.getElementById("n").value = "";
     button.disabled = true;
   } else {
     button.disabled = false;

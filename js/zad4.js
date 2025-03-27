@@ -1,4 +1,22 @@
-var notyf = new Notyf();
+const notyf = new Notyf({
+  duration: 3000,
+  position: {
+    x: "right",
+    y: "top",
+  },
+  types: [
+    {
+      type: "error",
+      background: "red",
+      dismissible: true
+    },
+    {
+      type: "success",
+      background: "green",
+      dismissible: true
+    }
+  ]
+});
 
 const function_value = [
   "0001",
@@ -44,13 +62,13 @@ function checkAnswer() {
   const selectedValue = document.getElementById("function-name").value;
 
   if (!selectedValue) {
-    notyf.custom("Выберите имя функции!");
+    notyf.error("Выберите имя функции!");
     return;
   }
   if (selectedValue === randomString) {
-    notif.success("Правильно! Это верная функция.");
+    notyf.success("Правильно! Это верная функция.");
   } else {
-    notif.error("Неправильно. Попробуйте еще раз.");
+    notyf.error("Неправильно. Попробуйте еще раз.");
   }
 
   initializeGame();

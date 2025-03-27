@@ -1,4 +1,22 @@
-var notyf = new Notyf();
+const notyf = new Notyf({
+  duration: 3000,
+  position: {
+    x: "right",
+    y: "top",
+  },
+  types: [
+    {
+      type: "error",
+      background: "red",
+      dismissible: true
+    },
+    {
+      type: "success",
+      background: "green",
+      dismissible: true
+    }
+  ]
+});
 
 function buildDNF() {
   const vector = document.getElementById("vectorInput").value.trim();
