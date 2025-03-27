@@ -1,8 +1,24 @@
+const notyf = new Notyf({
+  types: [
+    {
+      type: 'error',
+      background: 'red',
+      duration: 3000,
+      position: {
+        x: 'right',
+        y: 'top'
+      },
+      dismissible: true
+    }
+  ]
+})
+
 document.getElementById('n').addEventListener('input', () => {
   const n = parseInt(document.getElementById('n').value)
   const button = document.querySelector('button[type="button"]')
   if (n < 1 || n > 8) {
-    alert('Введено недопустимое количество переменных')
+    notyf.error('Введено недопустимое количество переменных')
+    document.getElementById('n').value = ''
     button.disabled = true
   } else {
     button.disabled = false
@@ -11,6 +27,10 @@ document.getElementById('n').addEventListener('input', () => {
 
 function outputText () {
   const n = parseInt(document.getElementById('n').value)
+  if (isNaN(n)) {
+    notyf.error('Введено недопустимое количество переменных')
+    document.querySelector('th').style.opacity = 0
+  }
   const table = document.createElement('table')
   const thead = document.createElement('thead')
   const tr = document.createElement('tr')
@@ -58,7 +78,11 @@ function outputText () {
   outputContainer.scrollIntoView({ behavior: 'smooth' })
 
   table.addEventListener('mouseover', event => {
-    if (event.target.tagName === 'TD' || event.target.tagName === 'TH' || event.target.tagName === 'TABLE') {
+    if (
+      event.target.tagName === 'TD' ||
+      event.target.tagName === 'TH' ||
+      event.target.tagName === 'TABLE'
+    ) {
       document.querySelector('.output3').id = 'output0'
       document.querySelector('#output0').classList.remove('output3')
     }
@@ -74,7 +98,11 @@ function outputText () {
   })
 
   table.addEventListener('mouseout', event => {
-    if (event.target.tagName === 'TD' || event.target.tagName === 'TH' || event.target.tagName === 'TABLE') {
+    if (
+      event.target.tagName === 'TD' ||
+      event.target.tagName === 'TH' ||
+      event.target.tagName === 'TABLE'
+    ) {
       document.querySelector('#output0').classList.add('output3')
       document.querySelector('.output3').id = ''
     }

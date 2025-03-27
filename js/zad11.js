@@ -1,3 +1,23 @@
+const notyf = new Notyf({
+  duration: 3000,
+  position: {
+    x: 'right',
+    y: 'top'
+  },
+  types: [
+    {
+      type: 'error',
+      background: 'red',
+      dismissible: true
+    },
+    {
+      type: 'success',
+      background: 'green',
+      dismissible: true
+    }
+  ]
+})
+
 const generateVectorButton = document.getElementById('generate-vector')
 const outputContainer = document.getElementById('output1')
 const checkResultButton = document.getElementById('check-result')
@@ -59,7 +79,7 @@ function toggleButtons (enable) {
 classButtons.forEach(button => {
   button.addEventListener('click', () => {
     if (vectors.length === 0) {
-      alert('Сначала сгенерируйте векторы!')
+      notyf.warning('Сначала сгенерируйте векторы!')
       return
     }
 
@@ -79,7 +99,7 @@ classButtons.forEach(button => {
 generateVectorButton.addEventListener('click', () => {
   resetGame()
 
-  const vectorCount = Math.floor(Math.random() * 1) + 1 // 1-3 вектора
+  const vectorCount = Math.floor(Math.random() * 3) + 1 // 1-3 вектора
   const power = Math.floor(Math.random() * 2) + 2 // 2 или 3 переменные
   const vectorLength = Math.pow(2, power)
 
@@ -102,7 +122,7 @@ generateVectorButton.addEventListener('click', () => {
 // Проверка на полноту
 full.addEventListener('click', () => {
   if (vectors.length === 0) {
-    alert('Сначала сгенерируйте векторы!')
+    notyf.warning('Сначала сгенерируйте векторы!')
     return
   }
 
@@ -130,7 +150,7 @@ full.addEventListener('click', () => {
 // Проверка результата
 checkResultButton.addEventListener('click', () => {
   if (vectors.length === 0) {
-    alert('Сначала сгенерируйте векторы!')
+    notyf.warning('Сначала сгенерируйте векторы!')
     return
   }
 
@@ -140,11 +160,11 @@ checkResultButton.addEventListener('click', () => {
   if (isFull) {
     if (full.classList.contains('selected')) {
       full.classList.add('right')
-      alert('Верно! Набор полный.')
+      notyf.success('Верно! Набор полный.')
       return
     } else {
       full.classList.add('wrong-unselected')
-      alert('Ошибка: набор векторов полный!')
+      notyf.error('Ошибка: набор векторов полный!')
       selectedClasses.forEach(cls => {
         const button = document.getElementById(`${cls}`)
         console.log(button)
@@ -182,12 +202,12 @@ checkResultButton.addEventListener('click', () => {
     })
 
     // Определяем общий результат
-    if (correctClasses.union(new Set(selectedClasses).size===5)) {
-      alert('Все правильно')
-    } else if ((new Set(selectedClasses)).difference(diff).size>0) {
-      alert('Выбрано слишком много ಥ_ಥ')
+    if (correctClasses.union(new Set(selectedClasses).size === 5)) {
+      notyf.success('Все выбрано правильно')
+    } else if (new Set(selectedClasses).difference(diff).size > 0) {
+      notyf.error('Выбрано слишком много')
     } else {
-      alert('Выбрано слишком мало ಥ_ಥ')
+      notyf.error('Выбрано слишком мало')
     }
   }
 

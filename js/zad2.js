@@ -1,3 +1,29 @@
+const notyf = new Notyf({
+  duration: 3000,
+  reaple: true,
+  dismissible: true,
+  position: {
+    x: 'right',
+    y: 'top'
+  },
+  types: [
+    {
+      type: 'warning',
+      background: 'orange',
+      icon: {
+        className: 'material-symbols-outlined',
+        tagName: 'span',
+        text: 'priority_high',
+        color: 'grey'
+      }
+    },
+    {
+      type: 'error',
+      background: 'red'
+    }
+  ]
+})
+
 function outputText () {
   const vector = document.getElementById('vector').value.split('')
   const argument = parseInt(document.getElementById('argument').value)
@@ -7,23 +33,31 @@ function outputText () {
     value = document.querySelector('input[name="value"]:checked').value
   } catch (e) {
     error = e
-    alert('Ветор не может быть пустым')
+    notyf.error('Вектор не может быть пустым')
   }
   if (!error) {
     if (Math.log2(vector.length) % 1 != 0) {
-      alert('Вектор должен быть степенью 2')
+      notyf.error('Вектор должен быть степенью 2')
       return
     } else {
       if (value != 0 && value != 1) {
-        alert('Необходимо выбрать тип остаточной функции')
+        notyf.open({
+          type: 'warning',
+          message: 'Необходимо выбрать тип остаточной функции'
+        })
+        // notyf.warning("Необходимо выбрать тип остаточной функции");
         return
       } else {
         if (!argument) {
-          alert('Необходимо ввести номер аргумента')
+          notyf.open({
+            type: 'warning',
+            message: 'Необходимо ввести номер аргумента'
+          })
+          // notyf.warning("Необходимо ввести номер аргумента");
           return
         } else {
           if (argument > Math.log2(vector.length)) {
-            alert(
+            notyf.error(
               `Номер аргумента не должен превышать количество аргументов текущего вектора - ${Math.log2(
                 vector.length
               )}`
@@ -33,7 +67,7 @@ function outputText () {
         }
       }
     }
-    document.querySelector('.output3').id='output0'
+    document.querySelector('.output3').id = 'output0'
     document.getElementById('output0').classList.remove('output3')
     const output = getResidual(vector, value, argument - 1)
     document.getElementById('output0').textContent = `${
