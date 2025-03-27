@@ -1,16 +1,16 @@
 const notyf = new Notyf({
   types: [
     {
-      type: 'error',
-      background: 'red',
+      type: "error",
+      background: "red",
       duration: 3000,
       position: {
         x: "right",
         y: "top",
       },
-      dismissible: true
-    }
-  ]
+      dismissible: true,
+    },
+  ],
 });
 
 document.getElementById("n").addEventListener("input", () => {
@@ -27,6 +27,10 @@ document.getElementById("n").addEventListener("input", () => {
 
 function outputText() {
   const n = parseInt(document.getElementById("n").value);
+  if (isNaN(n)) {
+    notyf.error("Введено недопустимое количество переменных");
+    document.querySelector("th").style.opacity = 0;
+  }
   const table = document.createElement("table");
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
