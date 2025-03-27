@@ -1,21 +1,27 @@
 const notyf = new Notyf({
   duration: 3000,
+  reaple: true,
+  dismissible: true,
   position: {
     x: "right",
     y: "top",
   },
   types: [
     {
-      type: 'warning',
-      background: 'orange',
-      dismissible: true
+      type: "warning",
+      background: "orange",
+      icon: {
+        className: "material-symbols-outlined",
+        tagName: "span",
+        text: "priority_high",
+        color: "grey",
+      },
     },
     {
       type: "error",
       background: "red",
-      dismissible: true
-    }
-  ]
+    },
+  ],
 });
 
 function outputText() {
@@ -36,16 +42,16 @@ function outputText() {
     } else {
       if (value != 0 && value != 1) {
         notyf.open({
-          type: 'warning',
-          message: 'Необходимо выбрать тип остаточной функции'
+          type: "warning",
+          message: "Необходимо выбрать тип остаточной функции",
         });
         // notyf.warning("Необходимо выбрать тип остаточной функции");
         return;
       } else {
         if (!argument) {
           notyf.open({
-            type: 'warning',
-            message: 'Необходимо ввести номер аргумента'
+            type: "warning",
+            message: "Необходимо ввести номер аргумента",
           });
           // notyf.warning("Необходимо ввести номер аргумента");
           return;
