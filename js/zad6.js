@@ -120,7 +120,7 @@ correctAnswerButton.addEventListener('click', () => {
     correctAnswerContainer.innerHTML = ''
   } else {
     const correctAnswer = correctDnf
-    correctAnswerContainer.innerHTML = `Правильный ответ: ${correctAnswer}`
+    correctAnswerContainer.innerHTML = `Подсказка: ${correctAnswer}`
   }
 })
 

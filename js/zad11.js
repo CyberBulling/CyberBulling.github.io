@@ -4,48 +4,67 @@ const checkResultButton = document.getElementById('check-result')
 const classButtons = document.querySelectorAll('.class-button')
 const full = document.getElementById('full')
 
+// Изначально блокируем все кнопки кроме генерации
+classButtons.forEach(btn => {
+  btn.style.pointerEvents = 'none'
+})
+checkResultButton.disabled = true
+full.style.pointerEvents = 'none'
+
 class Vector {
   constructor (vectorLength) {
     this.vector = generateVector(vectorLength)
     this.M = isMonotone(this.vector)
     this.L = isLinear(this.vector)
-    this.T0 = this.vector.join('')[0] == '0' ? true : false
-    this.T1 = this.vector.join('')[this.vector.length - 1] == '1' ? true : false
-    this.S = true
-    for (let i = 0; i < this.vector.length / 2; i++) {
-      if (this.vector[i] == this.vector[this.vector.length - 1 - i]) {
-        this.S = false
-        break
-      }
-    }
+    this.T0 = this.vector[0] === 0
+    this.T1 = this.vector[this.vector.length - 1] === 1
+    this.S = isSelfDual(this.vector)
   }
+
   getVector () {
     return this.vector
   }
+
   toString () {
     return this.vector.join('')
   }
+
   isCanceled () {
-    const notCanceled = []
-    if (!this.M) notCanceled.push('M')
-    if (!this.L) notCanceled.push('L')
-    if (!this.T0) notCanceled.push('T0')
-    if (!this.T1) notCanceled.push('T1')
-    if (!this.S) notCanceled.push('S')
-    return notCanceled
+    const canceledClasses = []
+    if (!this.M) canceledClasses.push('M') // Не монотонный
+    if (!this.L) canceledClasses.push('L') // Не линейный
+    if (!this.T0) canceledClasses.push('T0') // Не сохраняет 0
+    if (!this.T1) canceledClasses.push('T1') // Не сохраняет 1
+    if (!this.S) canceledClasses.push('S') // Не самодвойственный
+    return canceledClasses
   }
 }
 
 let selectedClasses = []
 let vectors = []
-let zhegalkinLength //для рекурсии
-let classes = []
-let mistakes = false
-let isFull = 0
+let classes = new Set()
+let isFull = 0 // 0 - не проверяли, 1 - полный, -1 - неполный
 
+// Функция для блокировки/разблокировки кнопок
+function toggleButtons (enable) {
+  classButtons.forEach(btn => {
+    if (btn.id !== 'full') {
+      btn.style.pointerEvents = enable ? 'auto' : 'none'
+    }
+  })
+  full.style.pointerEvents = enable ? 'auto' : 'none'
+}
+
+// Инициализация кнопок классов
 classButtons.forEach(button => {
-  //проверка выбран ли класс
   button.addEventListener('click', () => {
+    if (vectors.length === 0) {
+      alert('Сначала сгенерируйте векторы!')
+      return
+    }
+
+    if (button.id === 'full') return
+
     if (button.classList.contains('selected')) {
       button.classList.remove('selected')
       selectedClasses = selectedClasses.filter(cls => cls !== button.id)
@@ -56,156 +75,168 @@ classButtons.forEach(button => {
   })
 })
 
-//---------------------------------------------------------------------------------------------------------------------------------
-
+// Генерация векторов
 generateVectorButton.addEventListener('click', () => {
-  document.querySelectorAll('.class-button').forEach(button => {
-    button.style.display = 'block'
-  })
-  isFull = 0
-  document
-    .querySelectorAll('.class-button')
-    .forEach(btn => (btn.style.pointerEvents = 'all'))
-  checkResultButton.disabled = false
-  vectors = []
-  classes = []
-  const vectorCount = Math.floor(Math.random() * 4) + 1
+  resetGame()
+
+  const vectorCount = Math.floor(Math.random() * 1) + 1 // 1-3 вектора
+  const power = Math.floor(Math.random() * 2) + 2 // 2 или 3 переменные
+  const vectorLength = Math.pow(2, power)
 
   for (let i = 0; i < vectorCount; i++) {
-    const power = Math.floor(Math.random() * 2) + 2
-    const vectorLength = Math.pow(2, power)
-    const vector = new Vector(vectorLength)
-    if (vectors.indexOf(vector) === -1) {
-      vectors.push(vector)
-    } else {
-      i--
-    }
+    let vector
+    do {
+      vector = new Vector(vectorLength)
+    } while (vectors.some(v => v.toString() === vector.toString()))
+
+    vectors.push(vector)
   }
 
-  outputContainer.innerText = `Набор векторов: {${vectors.join(', ')}}`
-
-  // Очистить все дополнительные классы и выделения
-  classButtons.forEach(button => {
-    button.classList.remove(
-      'selected',
-      'right',
-      'wrong',
-      'wrong-unselected',
-      'right-unselected'
-    )
-  })
-  selectedClasses = []
+  outputContainer.textContent = `Набор векторов: {${vectors
+    .map(v => v.toString())
+    .join(', ')}}`
+  checkResultButton.disabled = false
+  toggleButtons(true) // Разблокируем кнопки после генерации
 })
 
-//---------------------------------------------------------------------------------------------------------------------------------
-
+// Проверка на полноту
 full.addEventListener('click', () => {
-  if (!full.classList.contains('selected')) {
+  if (vectors.length === 0) {
+    alert('Сначала сгенерируйте векторы!')
+    return
+  }
+
+  if (full.classList.contains('selected')) {
     full.classList.remove('selected')
-    document.querySelectorAll('.class-button').forEach(button => {
-      if (button.id !== 'full') {
-        button.style.display = 'block'
-        button.classList.remove('selected')
-      }
+    isFull = checkFullness()
+    classButtons.forEach(btn => {
+      btn.classList.remove('selected')
+      btn.style.display = 'inline-block'
+      btn.style.pointerEvents = 'auto'
     })
   } else {
     full.classList.add('selected')
-    document.querySelectorAll('.class-button').forEach(button => {
-      if (button.id !== 'full') {
-        button.style.display = 'none'
+    isFull = checkFullness()
+    classButtons.forEach(btn => {
+      if (btn.id !== 'full') {
+        btn.style.display = 'none'
+        btn.style.pointerEvents = 'none'
       }
     })
-    const classes = []
-    const allClasses = ['M', 'L', 'T0', 'T1', 'S']
-    vectors.forEach(vector => {
-      const canceled = vector.isCanceled() //классы которым не принадлежит вектор
-      allClasses.forEach(cls => {
-        if (canceled.includes(cls) && !classes.includes(cls)) {
-          classes.push(cls)
-        }
-      })
-    })
-    classes.length === 5 ? (isFull = 1) : (isFull = -1)
-    console.log(isFull, classes)
+    selectedClasses = []
   }
 })
 
-//---------------------------------------------------------------------------------------------------------------------------------
-
+// Проверка результата
 checkResultButton.addEventListener('click', () => {
-  checkResultButton.disabled = true //классы в которых не содержится набор
-  if (isFull === 1) {
-    full.classList.add('right')
-    alert('all right')
-    full.style.pointerEvents = 'none'
-  } else if (isFull === 0) {
-    //---------------------------------------------------------------------------------------------------------------------------------
-    const allClasses = ['M', 'L', 'T0', 'T1', 'S']
-    mistakes = false
-    console.log(vectors)
-    vectors.forEach(vector => {
-      const canceled = vector.isCanceled() //классы которым не принадлежит вектор
-      allClasses.forEach(cls => {
-        if (canceled.includes(cls) && !classes.includes(cls)) {
-          classes.push(cls)
-        }
+  if (vectors.length === 0) {
+    alert('Сначала сгенерируйте векторы!')
+    return
+  }
+
+  isFull = checkFullness()
+  console.log(isFull)
+
+  if (isFull) {
+    if (full.classList.contains('selected')) {
+      full.classList.add('right')
+      alert('Верно! Набор полный.')
+      return
+    } else {
+      full.classList.add('wrong-unselected')
+      alert('Ошибка: набор векторов полный!')
+      selectedClasses.forEach(cls => {
+        const button = document.getElementById(`${cls}`)
+        console.log(button)
+        button.classList.add('wrong')
       })
+      toggleButtons(false)
+      return
+    }
+  } else {
+    const correctClasses = getNonContainingClasses()
+    const allClasses = new Set(['T0', 'T1', 'S', 'M', 'L'])
+    const diff = allClasses.difference(correctClasses)
+    console.log(diff)
+
+    diff.forEach(cls => {
+      if (!document.getElementById(cls).classList.contains('selected')) {
+        document.getElementById(cls).classList.add('wrong-unselected')
+      }
     })
 
-    if (classes.length === 5) {
-      mistakes = true
-      full.classList.add('wrong')
-      selectedClasses.forEach(clas => {
-        document.querySelector(`div #${clas}`).classList.add('wrong')
-      })
+    // Проверяем все возможные варианты
+    selectedClasses.forEach(cls => {
+      const button = document.getElementById(cls)
+      button.classList.add(!correctClasses.has(cls) ? 'right' : 'wrong')
+    })
+
+    // Помечаем пропущенные правильные классы
+    diff.forEach(cls => {
+      if (
+        selectedClasses.includes(cls) &&
+        !document.getElementById(cls).classList.contains('selected')
+      ) {
+        document.getElementById(cls).classList.add('wrong-unselected')
+      }
+    })
+
+    // Определяем общий результат
+    if (correctClasses.union(new Set(selectedClasses).size===5)) {
+      alert('Все правильно')
+    } else if ((new Set(selectedClasses)).difference(diff).size>0) {
+      alert('Выбрано слишком много ಥ_ಥ')
     } else {
-      selectedClasses.forEach(clas => {
-        if (classes.includes(clas)) {
-          mistakes = true
-          document
-            .querySelector(`div #${clas}`)
-            .classList.remove('selected', 'right')
-          document.querySelector(`div #${clas}`).classList.add('wrong')
-        } else {
-          document
-            .querySelector(`div #${clas}`)
-            .classList.remove('selected', 'wrong')
-          document.querySelector(`div #${clas}`).classList.add('right')
-        }
-      })
-
-      classButtons.forEach(button => {
-        if (
-          selectedClasses.includes(button.id) &&
-          classes.includes(button.id)
-        ) {
-          mistakes = true
-          button.classList.remove('wrong', 'right', 'selected')
-          button.classList.add('wrong-unselected')
-        } else if (
-          !selectedClasses.includes(button.id) &&
-          classes.includes(button.id)
-        ) {
-          button.classList.remove('wrong', 'right', 'selected')
-          button.classList.add('right-unselected')
-        }
-      })
+      alert('Выбрано слишком мало ಥ_ಥ')
     }
-
-    mistakes ? alert('some mistakes here') : alert('all right')
-
-    document
-      .querySelectorAll('.class-button')
-      .forEach(btn => (btn.style.pointerEvents = 'none'))
-
-    console.log(classes, selectedClasses)
-    //---------------------------------------------------------------------------------------------------------------------------------
-  } else {
-    full.classList.add('wrong')
-    alert('some mistakes here')
-    full.style.pointerEvents = 'none'
   }
+
+  disableControls()
 })
+
+// ======= Вспомогательные функции =======
+
+function resetGame () {
+  vectors = []
+  selectedClasses = []
+  classes = new Set()
+  isFull = 0
+
+  full.classList.remove('selected', 'right', 'wrong')
+  classButtons.forEach(btn => {
+    btn.classList.remove('selected', 'right', 'wrong', 'wrong-unselected')
+    btn.style.display = 'inline-block'
+  })
+
+  checkResultButton.disabled = true
+  outputContainer.textContent = ''
+  toggleButtons(false) // Блокируем кнопки при сбросе
+}
+
+function disableControls () {
+  toggleButtons(false)
+  checkResultButton.disabled = true
+}
+
+function checkFullness () {
+  classes = new Set()
+  vectors.forEach(vector => {
+    // Добавляем классы, которым НЕ принадлежат векторы
+    vector.isCanceled().forEach(cls => classes.add(cls))
+  })
+  // Если набрались все 5 классов - система полна
+  return classes.size === 5 ? 1 : 0
+}
+
+function getNonContainingClasses () {
+  const result = new Set()
+  vectors.forEach(vector => {
+    // Собираем классы, которым НЕ принадлежат векторы
+    vector.isCanceled().forEach(cls => result.add(cls))
+    console.log(vector)
+  })
+  return result
+}
 
 function generateVector (length) {
   const vector = []
@@ -215,61 +246,59 @@ function generateVector (length) {
   return vector
 }
 
-function getBinaryRepresentation (vector) {
-  const binaryVector = []
-  for (let i = 0; i < vector.length; i++) {
-    const binaryRepresentation = i
-      .toString(2)
-      .padStart(Math.log2(vector.length), '0')
-    binaryVector[i] = binaryRepresentation
-  }
-  return binaryVector
-}
-
 function isMonotone (vector) {
-  const binaryVector = getBinaryRepresentation(vector)
+  const n = Math.log2(vector.length)
+  if (!Number.isInteger(n)) return false
 
   for (let i = 0; i < vector.length; i++) {
     for (let j = i + 1; j < vector.length; j++) {
-      const binaryRepresentationI = binaryVector[i]
-      const binaryRepresentationJ = binaryVector[j]
-      const countOnesI = binaryRepresentationI.split('1').length - 1
-      const countOnesJ = binaryRepresentationJ.split('1').length - 1
-
-      if (countOnesI < countOnesJ && vector[j] === 0 && vector[i] === 1) {
+      // Проверяем, что i "покрывает" j (все биты i <= j)
+      let covers = true
+      for (let k = 0; k < n; k++) {
+        if (((i >> k) & 1) > ((j >> k) & 1)) {
+          covers = false
+          break
+        }
+      }
+      if (covers && vector[i] > vector[j]) {
         return false
       }
     }
   }
-
   return true
 }
 
 function isLinear (vector) {
-  let linear = true
-  zhegalkinLength = vector.length
-  const zhegalkinPolynom = createZhegalkin(vector, [], vector)
-  const binaryZhegalkin = getBinaryRepresentation(zhegalkinPolynom)
-  for (let i = 0; i < binaryZhegalkin.length; i++) {
-    if (binaryZhegalkin[i].split(1).length > 1 && zhegalkinPolynom[i] === 1) {
-      linear = false
-      break
+  const n = Math.log2(vector.length)
+  if (!Number.isInteger(n)) return false
+
+  // Вычисляем полином Жегалкина
+  const coeffs = [...vector]
+  for (let i = 0; i < vector.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if ((i & j) === j) {
+        coeffs[i] ^= coeffs[j]
+      }
     }
   }
-  return linear
+
+  // Проверяем, что нет нелинейных членов
+  for (let i = 0; i < vector.length; i++) {
+    if (coeffs[i]) {
+      const ones = i.toString(2).split('1').length - 1
+      if (ones > 1) return false
+    }
+  }
+  return true
 }
 
-function createZhegalkin (vector, polynom) {
-  if (polynom.length < zhegalkinLength - 1) {
-    let polynomialRepresentation = []
-    for (let i = 1; i < vector.length; i++) {
-      polynomialRepresentation.push(vector[i] ^ vector[i - 1])
+function isSelfDual (vector) {
+  if (vector.length % 2 !== 0) return false
+  const n = vector.length
+  for (let i = 0; i < n / 2; i++) {
+    if (vector[i] === vector[n - 1 - i]) {
+      return false
     }
-    polynom.push(polynomialRepresentation[0])
-    vector = polynomialRepresentation
-    createZhegalkin(vector, polynom)
-  } else {
-    polynom.push(vector[0])
   }
-  return polynom
+  return true
 }
