@@ -6,11 +6,16 @@ const notyf = new Notyf({
   },
   types: [
     {
+      type: 'warning',
+      background: 'orange',
+      dismissible: true
+    },
+    {
       type: "error",
       background: "red",
-      dismissible: true,
-    },
-  ],
+      dismissible: true
+    }
+  ]
 });
 
 function outputText() {
@@ -30,11 +35,19 @@ function outputText() {
       return;
     } else {
       if (value != 0 && value != 1) {
-        notyf.error("Необходимо выбрать тип остаточной функции");
+        notyf.open({
+          type: 'warning',
+          message: 'Необходимо выбрать тип остаточной функции'
+        });
+        // notyf.warning("Необходимо выбрать тип остаточной функции");
         return;
       } else {
         if (!argument) {
-          notyf.error("Необходимо ввести номер аргумента");
+          notyf.open({
+            type: 'warning',
+            message: 'Необходимо ввести номер аргумента'
+          });
+          // notyf.warning("Необходимо ввести номер аргумента");
           return;
         } else {
           if (argument > Math.log2(vector.length)) {
