@@ -1,3 +1,5 @@
+var notyf = new Notyf();
+
 function buildSDNF () {
   const vectorInput = document.getElementById('vector').value.trim()
   if(document.querySelector('.output3')!=undefined){
@@ -11,13 +13,12 @@ function buildSDNF () {
 
   // Проверки
   if (!/^[01]+$/.test(vectorInput)) {
-    outputElement.textContent = 'Ошибка: Вектор должен содержать только 0 и 1.'
+    notyf.error('Ошибка: Вектор должен содержать только 0 и 1.');
     return
   }
 
   if (length === 0 || (length & (length - 1)) !== 0) {
-    outputElement.textContent =
-      'Ошибка: Длина вектора должна быть степенью двойки (2, 4, 8, 16, ...).'
+    notyf.error('Ошибка: Длина вектора должна быть степенью двойки (2, 4, 8, 16, ...).');
     return
   }
 
