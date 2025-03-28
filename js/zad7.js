@@ -52,53 +52,41 @@ generateVectorButton.addEventListener('click', () => {
   }
 })
 
-function generateTerm () {
-  const maxConjunctions = Math.min(4, 2 ** power - 1) // Ограничение макс. конъюнкций
-  const numConjunctions = Math.floor(Math.random() * (maxConjunctions - 1)) + 2
+function generateTerm() {
+  const power = 3; // Предполагаем, что power определен где-то выше
+  const maxConjunctions = Math.min(4, 2 ** power - 1);
+  const numConjunctions = 2 + Math.floor(Math.random() * (maxConjunctions - 1));
+  
+  const usedConjunctions = new Set();
+  const dnf = [];
+  const availableVars = Array.from({length: power}, (_, i) => i + 1);
 
-  const usedConjunctions = new Set()
-  let knf = []
-
-  for (let i = 0; i < numConjunctions; i++) {
-    let conjunctionKey
-    let conjunction
-    let attempts = 0
-
-    do {
-      // Генерация конъюнкции
-      const varsInConjunction = Math.floor(Math.random() * power) + 1
-      const availableVars = Array.from({ length: power }, (_, idx) => idx + 1)
-      conjunction = []
-
-      for (let j = 0; j < varsInConjunction; j++) {
-        const randomIndex = Math.floor(Math.random() * availableVars.length)
-        const varNum = availableVars.splice(randomIndex, 1)[0]
-        const isNegated = Math.random() < 0.5
-        conjunction.push({
-          name: varNum,
-          negated: isNegated
-        })
-      }
-
-      conjunction.sort((a, b) => a.name - b.name)
-      conjunctionKey = conjunction
-        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
-        .join(',')
-
-      attempts++
-      if (attempts > 20) break // Защита от бесконечного цикла
-    } while (usedConjunctions.has(conjunctionKey))
-
-    if (attempts > 20) break
-    usedConjunctions.add(conjunctionKey)
-    knf.push(
-      `(${conjunction
-        .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
-        .join(' ∨ ')})`
-    )
+  while (dnf.length < numConjunctions && usedConjunctions.size < 2 ** power) {
+    // Генерация уникальной конъюнкции
+    const varsInConjunction = 1 + Math.floor(Math.random() * power);
+    const shuffledVars = [...availableVars].sort(() => Math.random() - 0.5);
+    const selectedVars = shuffledVars.slice(0, varsInConjunction);
+    
+    const conjunction = selectedVars.map(varNum => ({
+      name: varNum,
+      negated: Math.random() < 0.5
+    })).sort((a, b) => a.name - b.name);
+    
+    const conjunctionKey = conjunction.map(v => 
+      `${v.negated ? '¬' : ''}x${v.name}`
+    ).join(',');
+    
+    if (!usedConjunctions.has(conjunctionKey)) {
+      usedConjunctions.add(conjunctionKey);
+      dnf.push(
+        `(${conjunction.map(v => 
+          `${v.negated ? '¬' : ''}x${v.name}`
+        ).join(' ∧ ')})`
+      );
+    }
   }
 
-  return knf.join(' ∧ ')
+  return dnf.join(' ∨ ');
 }
 
 function generateVector (term) {
