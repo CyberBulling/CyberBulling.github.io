@@ -5,7 +5,9 @@
   margin: var(--margin);
   flex-grow: 1;
   flex-basis: 0;
-  padding: 1%;
+  text-align: center;
+  border: var(--border);
+  border-radius: var(--border-radius);
 }
 
 .row {
@@ -17,8 +19,8 @@
 }
 
 .block,
-.hover,
-.visited {
+.visited,
+.hover {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -58,10 +60,11 @@
   pointer-events: none;
   white-space: nowrap;
   z-index: 1000;
+  opacity: 1;
 }
 
 .image-block:hover::after {
-  opacity: 1;
+  opacity: 0;
   transform: translateX(-50%) translateY(-5px);
 }
 
@@ -69,8 +72,8 @@
   opacity: 1;
 }
 
-.hover,
-.visited {
+.visited,
+.hover {
   opacity: 0;
 }
 
@@ -78,11 +81,11 @@
   opacity: 0;
 }
 
-.image-block:hover .hover {
+.image-block:hover .visited {
   opacity: 1;
 }
 
-.visited {
+.hover {
   opacity: 0;
 }
 

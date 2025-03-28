@@ -60,6 +60,7 @@
   right: 20px !important;
   padding: 10px 20px !important;
   width: 180px !important;
+  margin: 0;
 }
 
 #correct-answer:hover {
@@ -70,4 +71,5 @@
   margin-top: 20px;
   font-size: var(--table-font);
   font-weight: bold;
+  user-select: auto;
 }
