@@ -45,6 +45,7 @@
   background: #fff;
 }
 
+.select option:checked,
 .select option:hover {
   background-color: #4ae263;
   color: white;
