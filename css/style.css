@@ -1,7 +1,7 @@
 @import url("main.css");
 
 .col {
-  width: calc(25% - var(--margin));
+  width: 200px;
   margin: var(--margin);
   flex-grow: 1;
   flex-basis: 0;
@@ -13,9 +13,9 @@
 .row {
   display: flex;
   justify-content: space-around;
-  margin-bottom: var(--margin);
+  margin-top: var(--margin);
   width: 100%;
-  height: calc(100vh / 3);
+  height: calc(90vh / 3 - 5px);
 }
 
 .block,
@@ -74,7 +74,7 @@
 
 .visited,
 .hover {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .image-block:hover .block {
@@ -82,7 +82,7 @@
 }
 
 .image-block:hover .visited {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .hover {
