@@ -7,9 +7,9 @@ imageBlocks.forEach(block => {
   const url = block.getAttribute('data-url')
 
   // Проверка на наличие информации о посещении
-  /*if (localStorage.getItem(url)) {
+  if (localStorage.getItem(url)) {
     hoverBlock.style.backgroundImage = `url(images/${block.id}.png)`
-  }*/
+  }
 
   // Обработчик наведения мыши
   block.addEventListener('mouseover', () => {
