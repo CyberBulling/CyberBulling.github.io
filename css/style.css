@@ -1,7 +1,6 @@
 @import url("main.css");
 
 .col {
-  width: 200px;
   margin: var(--margin);
   flex-grow: 1;
   flex-basis: 0;

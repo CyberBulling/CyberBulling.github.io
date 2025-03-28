@@ -11,6 +11,16 @@ const notyf = new Notyf({
       dismissible: true
     },
     {
+      type: 'warning',
+      background: 'orange',
+      icon: {
+        className: 'material-symbols-outlined',
+        tagName: 'span',
+        text: 'priority_high',
+        color: 'grey'
+      }
+    },
+    {
       type: 'success',
       background: 'green',
       dismissible: true
@@ -24,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const themeSwitcher = document.querySelectorAll('#theme')
 
-  themeSwitcher.forEach((element) => {
+  themeSwitcher.forEach(element => {
     element.addEventListener('click', () => {
       document.body.classList.toggle('dark')
       localStorage.setItem(
@@ -99,7 +109,10 @@ function toggleButtons (enable) {
 classButtons.forEach(button => {
   button.addEventListener('click', () => {
     if (vectors.length === 0) {
-      notyf.warning('Сначала сгенерируйте векторы!')
+      notyf.open({
+        type: 'warning',
+        message: 'Сначала сгенерируйте векторы!'
+      })
       return
     }
 
@@ -142,7 +155,10 @@ generateVectorButton.addEventListener('click', () => {
 // Проверка на полноту
 full.addEventListener('click', () => {
   if (vectors.length === 0) {
-    notyf.warning('Сначала сгенерируйте векторы!')
+    notyf.open({
+      type: 'warning',
+      message: 'Сначала сгенерируйте векторы!'
+    })
     return
   }
 
@@ -170,7 +186,10 @@ full.addEventListener('click', () => {
 // Проверка результата
 checkResultButton.addEventListener('click', () => {
   if (vectors.length === 0) {
-    notyf.warning('Сначала сгенерируйте векторы!')
+    notyf.open({
+      type: 'warning',
+      message: 'Сначала сгенерируйте векторы!'
+    })
     return
   }
 
@@ -197,7 +216,7 @@ checkResultButton.addEventListener('click', () => {
     const correctClasses = getNonContainingClasses()
     const allClasses = new Set(['T0', 'T1', 'S', 'M', 'L'])
     const diff = allClasses.difference(correctClasses)
-    console.log(diff)
+    console.log(correctClasses, diff, selectedClasses)
 
     diff.forEach(cls => {
       if (!document.getElementById(cls).classList.contains('selected')) {
@@ -222,12 +241,18 @@ checkResultButton.addEventListener('click', () => {
     })
 
     // Определяем общий результат
-    if (correctClasses.union(new Set(selectedClasses).size === 5)) {
+    if (correctClasses.union(new Set(selectedClasses)).size === 5) {
       notyf.success('Все выбрано правильно')
     } else if (new Set(selectedClasses).difference(diff).size > 0) {
       notyf.error('Выбрано слишком много')
     } else {
-      notyf.error('Выбрано слишком мало')
+      if(full.classList.contains('selected')){
+        full.classList.remove('selected')
+        full.classList.add('wrong')
+        notyf.error('Множество не полное')
+      }else{
+        notyf.error('Выбрано слишком мало')
+      }
     }
   }
 

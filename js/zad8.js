@@ -92,14 +92,3 @@ function buildSDNF () {
   }
   outputElement.innerHTML = `${terms.join(' ∨ ') || '0'}`
 }
-
-document.getElementById('output0').addEventListener('click', () => {
-  navigator.clipboard
-    .writeText(correctAnswerContainer.innerText)
-    .then(() => {
-      notyf.success('Ответ скопирован в буфер обмена')
-    })
-    .catch(function (error) {
-      notyf.error('Ошибка:', error)
-    })
-})
