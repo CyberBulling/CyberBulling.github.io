@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+@import url("main.css");
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 50px;
+  text-align: center;
+  height: 350px;
+  width: 30%;
+  margin: 40px auto;
+  padding: 10px;
+  border-radius: 10px;
+  /* border: var(--border);
+  border-radius: var(--border-radius); */
+  align-items: center;
+  background: #bcbcbc;
+}
+
+.button-container button {
+  padding: 15px;
+  border: none;
+  border-radius: 50%;
+  background: grey;
+  cursor: pointer;
+  transition: var(--transit);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.material-symbols-outlined {
+  font-size: 60px !important;
+  color: var(--form-color);
+}
+
+.button-container button:hover {
+  background: var(--secondary-color);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
