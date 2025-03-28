@@ -1,28 +1,28 @@
 const notyf = new Notyf({
   duration: 3000,
   position: {
-    x: "right",
-    y: "top",
+    x: 'right',
+    y: 'top'
   },
   types: [
     {
-      type: "error",
-      background: "red",
+      type: 'error',
+      background: 'red',
       dismissible: true
     },
     {
-      type: "success",
-      background: "green",
+      type: 'success',
+      background: 'green',
       dismissible: true
     }
   ]
-});
+})
 
 function buildSDNF () {
   const vectorInput = document.getElementById('vector').value.trim()
-  if(document.querySelector('.output3')!=undefined){
-    document.querySelector('.output3').id ='output0'
-    document.getElementById('output0').classList.remove('output3') 
+  if (document.querySelector('.output3') != undefined) {
+    document.querySelector('.output3').id = 'output0'
+    document.getElementById('output0').classList.remove('output3')
   }
   const outputElement = document.getElementById('output0')
 
@@ -31,12 +31,12 @@ function buildSDNF () {
 
   // Проверки
   if (!/^[01]+$/.test(vectorInput)) {
-    notyf.error('Ошибка: Вектор должен содержать только 0 и 1.');
+    notyf.error('Вектор должен содержать только 0 и 1.')
     return
   }
 
   if (length === 0 || (length & (length - 1)) !== 0) {
-    notyf.error('Ошибка: Длина вектора должна быть степенью двойки (2, 4, 8, 16, ...).');
+    notyf.error('Длина вектора должна быть степенью двойки.')
     return
   }
 

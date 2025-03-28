@@ -20,8 +20,7 @@
   /* Основные шрифты */
   --font-family: "Samsung Myanmar Regular";
   /**/
-  --transit: background-color 0.2s ease-in-out;
-  /* transition: background-color; */
+  --transit: all 0.2s ease-in-out;
 }
 
 @font-face {
@@ -40,6 +39,7 @@ body {
   margin: 0;
   padding: 0;
   background: var(--background);
+  background-size: cover;
   color: var(--text-color);
   overflow-y: hidden;
 }
@@ -56,6 +56,11 @@ h1 {
   border: var(--border);
   border-radius: var(--border-radius);
   background-color: #fff;
+}
+
+.block{
+  border: var(--border);
+  border-radius: var(--border-radius);
 }
 
 .container {
@@ -95,7 +100,7 @@ button[type="button"]:hover {
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
-  transition: var(--transit);
+  transition: background-color 0.3s ease-in-out;
 }
 
 .back-button:hover {
@@ -131,7 +136,7 @@ input[type="text"]:focus {
   border-color: var(--primary-color);
 }
 
-#output-container{
+#output-container {
   width: 100%;
   text-align: center;
   display: flex;
@@ -139,7 +144,7 @@ input[type="text"]:focus {
   height: 50px;
 }
 
-#output-container2{
+#output-container2 {
   width: 100%;
   text-align: center;
   display: flex;
@@ -235,20 +240,16 @@ input[type="submit"]:hover {
   transform: translateY(3px);
 }
 
-.wrong-unselected{
+.wrong-unselected {
   background: var(--red);
   box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
 }
 
-.right-unselected{
-  background: #acacac;
-  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
-}
-
-.right::after, .wrong-unselected::after {
+.right::after,
+.wrong-unselected::after {
   content: "+";
   position: absolute;
-  bottom: -30px;
+  bottom: 65px;
   left: 50%;
   transform: translateX(-50%);
   font-size: var(--table-font);
@@ -258,7 +259,7 @@ input[type="submit"]:hover {
 .wrong::after {
   content: "-";
   position: absolute;
-  bottom: -30px;
+  bottom: 65px;
   left: 50%;
   transform: translateX(-50%);
   font-size: var(--table-font);

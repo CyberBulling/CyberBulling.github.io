@@ -1,22 +1,22 @@
 const notyf = new Notyf({
   duration: 3000,
   position: {
-    x: "right",
-    y: "top",
+    x: 'right',
+    y: 'top'
   },
   types: [
     {
-      type: "error",
-      background: "red",
+      type: 'error',
+      background: 'red',
       dismissible: true
     },
     {
-      type: "success",
-      background: "green",
+      type: 'success',
+      background: 'green',
       dismissible: true
     }
   ]
-});
+})
 
 const generateVectorButton = document.getElementById('generate-vector')
 const vectorContainer = document.getElementById('output-container')
@@ -140,7 +140,7 @@ correctAnswerButton.addEventListener('click', () => {
     correctAnswerContainer.innerHTML = ''
   } else {
     const correctAnswer = correctDnf
-    correctAnswerContainer.innerHTML = `Правильный ответ: ${correctAnswer}`
+    correctAnswerContainer.innerHTML = `Подсказка: ${correctAnswer}`
   }
 })
 
