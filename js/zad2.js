@@ -24,6 +24,26 @@ const notyf = new Notyf({
   ]
 })
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') == null)
+    localStorage.setItem('theme', 'light')
+
+  const themeSwitcher = document.querySelectorAll('#theme')
+
+  themeSwitcher.forEach((element) => {
+    element.addEventListener('click', () => {
+      document.body.classList.toggle('dark')
+      localStorage.setItem(
+        'theme',
+        document.body.classList.contains('dark') ? 'dark' : 'light'
+      )
+    })
+  })
+  if (localStorage.getItem('theme') == 'dark') {
+    document.body.classList.add('dark')
+  }
+})
+
 function outputText () {
   const vector = document.getElementById('vector').value.split('')
   const argument = parseInt(document.getElementById('argument').value)
