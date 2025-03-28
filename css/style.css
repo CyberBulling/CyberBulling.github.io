@@ -5,7 +5,9 @@
   margin: var(--margin);
   flex-grow: 1;
   flex-basis: 0;
-  padding: 1%;
+  text-align: center;
+  border: var(--border);
+  border-radius: var(--border-radius);
 }
 
 .row {

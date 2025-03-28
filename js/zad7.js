@@ -37,6 +37,7 @@ let correctKnf
 let power
 
 generateVectorButton.addEventListener('click', () => {
+  correctAnswerButton.disabled=false
   knfInput.value = ''
   power = Math.floor(Math.random() * 2) + 2
   term = generateTerm()
@@ -149,4 +150,15 @@ checkKnfButton.addEventListener('click', () => {
     ? notyf.success('Правильно!')
     : notyf.error('Неправильно!')
   console.log(userVector)
+})
+
+correctAnswerContainer.addEventListener('click', () => {
+  navigator.clipboard
+    .writeText(correctAnswerContainer.innerText.substring(11))
+    .then(() => {
+      notyf.success('Ответ скопирован в буфер обмена')
+    })
+    .catch(function (error) {
+      notyf.error('Ошибка:', error)
+    })
 })

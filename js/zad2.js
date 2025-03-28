@@ -30,14 +30,14 @@ function outputText () {
   let error = null
   let value
   try {
-    value = document.querySelector('input[name="value"]:checked').value
+    value = document.getElementById('vector').value
   } catch (e) {
     error = e
-    notyf.error('Вектор не может быть пустым')
+    value.length<1 ? notyf.error('Вектор не может быть пустым') : null
   }
   if (!error) {
-    if (Math.log2(vector.length) % 1 != 0) {
-      notyf.error('Вектор должен быть степенью 2')
+    if (Math.log2(vector.length) % 1 != 0 || vector.length===1) {
+      notyf.error('Длина вектора должен быть степенью 2 и больше 1')
       return
     } else {
       if (value != 0 && value != 1) {

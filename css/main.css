@@ -6,6 +6,7 @@
   --text-color: #333;
   --border: 1px solid #ccc;
   --form-color: #f5fff0;
+  --button-color: #f5fff0;
   --red: rgb(192 15 15);
 
   /* Основные размеры */
@@ -59,8 +60,17 @@ h1 {
 }
 
 .block{
-  border: var(--border);
+  width: 100%;
+  height: 100%;
+  font-size: var(--table-font);
+  align-content: center;
+  background-color: var(--form-color);
   border-radius: var(--border-radius);
+  opacity: 0.9 !important;
+}
+
+.hover{
+  background-color: var(--form-color);
 }
 
 .container {
@@ -69,6 +79,7 @@ h1 {
   align-items: center;
   height: 100vh;
   padding: var(--padding);
+  padding-top: 10px;
 }
 
 button[type="button"] {
@@ -80,7 +91,7 @@ button[type="button"] {
   border-radius: var(--border-radius);
   cursor: pointer;
   background-color: var(--primary-color);
-  color: var(--form-color) !important;
+  color: var(--button-color) !important;
 }
 
 button[type="button"]:hover {
@@ -94,7 +105,7 @@ button[type="button"]:hover {
   top: 20px;
   left: 20px;
   background: var(--primary-color);
-  color: var(--form-color);
+  color: var(--button-color);
   padding: 10px 20px;
   border: none;
   border-radius: var(--border-radius);

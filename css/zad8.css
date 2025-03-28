@@ -1,14 +1,7 @@
 @import url('main.css');
 
-#pmka{
-   font-size: var(--table-font);
-}
-
-.output0 {
+#output0 span{
   font-size: var(--table-font);
   font-weight: bold;
-  margin: 0;
-  height: 27px;
-  width: max-content;
 }
 

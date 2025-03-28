@@ -37,6 +37,7 @@ let correctDnf
 let power
 
 generateVectorButton.addEventListener('click', () => {
+  correctAnswerButton.disabled = false
   dnfInput.value = ''
   power = Math.floor(Math.random() * 2) + 2
   term = generateTerm()
@@ -150,4 +151,15 @@ checkDnfButton.addEventListener('click', () => {
     ? notyf.success('Правильно!')
     : notyf.error('Неправильно!')
   console.log(userVector)
+})
+
+correctAnswerContainer.addEventListener('click', () => {
+  navigator.clipboard
+    .writeText(correctAnswerContainer.innerText.substring(11))
+    .then(() => {
+      notyf.success('Ответ скопирован в буфер обмена')
+    })
+    .catch(function (error) {
+      notyf.error('Ошибка:', error)
+    })
 })

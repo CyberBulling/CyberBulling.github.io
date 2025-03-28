@@ -70,4 +70,5 @@
   margin-top: 20px;
   font-size: var(--table-font);
   font-weight: bold;
+  user-select: auto;
 }
