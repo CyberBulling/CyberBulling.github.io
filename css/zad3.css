@@ -6,15 +6,11 @@
   height: 30px;
   font-size: 20px;
   text-align: center;
-  margin: 20px auto;
+  margin: 17px auto;
   padding: 10px;
   border: var(--border);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-}
-
-p {
-  font-size: var(--table-font);
 }
 
 #argument {
@@ -40,4 +36,12 @@ h1 {
   height: max-content;
   width: 60%;
   margin-bottom: 30px;
+}
+
+label, p {
+  font-size: 20px;
+}
+
+p{
+  margin: 10px;
 }

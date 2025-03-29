@@ -16,7 +16,7 @@ function VectorFunction (
     // console.log(resultVector);
     return resultVector
   } else {
-    const blocksCount = 2 ** (argumentIndex - 1) 
+    const blocksCount = 2 ** (argumentIndex - 1)
     const step = zeroResidual.length / blocksCount
     for (let i = 0; i < blocksCount; i++) {
       const zeroBlock = zeroResidual.slice(i * step, (i + 1) * step)
@@ -131,7 +131,7 @@ function outputText () {
 
   // Вывод результата
   const output = document.createElement('p')
-  output.classList.add('output0')
+  output.id = 'output0'
   output.textContent = `Вектор функции: ${vector.join('')}`
   outputContainer.appendChild(output)
 }

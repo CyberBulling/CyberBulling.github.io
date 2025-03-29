@@ -18,6 +18,8 @@
   --margin: 10px;
   --border-radius: 5px;
   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --shadow-class: 3px 4px 2px 0px rgba(0, 0, 0, 0.5);
+  --shadow-class-invert: 3px 4px 2px 0px rgba(0, 0, 0, 0.5);
 
   /* Основные шрифты */
   --font-family: "Samsung Myanmar Regular";
@@ -26,11 +28,14 @@
 }
 
 .dark {
-  /*--primary-color: #333;
-  --secondary-color: rgb(62, 62, 62);*/
+  --primary-color: #f000fd82;
+  --secondary-color:rgb(240 0 253 / 35%);
   --text-color: #f5fff0;
   --form-color: rgb(20, 20, 20);
   --back-color: #000;
+  --box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  --shadow-class: 3px 4px 2px 0px rgba(255, 255, 255, 0.5);
+  --shadow-class-invert: 3px 4px 2px 0px rgba(0, 0, 0, 0.7);
 }
 
 @font-face {
@@ -222,32 +227,32 @@ input[type="submit"]:hover {
   margin: 10px 4px;
   cursor: pointer;
   border-radius: var(--border-radius);
-  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  box-shadow: var(--shadow-class);
   transition: var(--transit);
   position: relative;
 }
 
 .selected {
   background: #cececece;
-  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
+  box-shadow: inset var(--shadow-class-invert);
   transform: translateY(3px);
 }
 
 .right {
+  box-shadow: inset var(--shadow-class-invert);
   background: var(--secondary-color);
-  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
   transform: translateY(3px);
 }
 
 .wrong {
+  box-shadow: inset var(--shadow-class-invert);
   background: var(--red);
-  box-shadow: inset 3px 4px 2px 0px rgb(0 0 0 / 25%);
   transform: translateY(3px);
 }
 
 .wrong-unselected {
+  box-shadow: inset var(--shadow-class-invert);
   background: var(--red);
-  box-shadow: 3px 4px 2px 0px rgb(0 0 0 / 25%);
 }
 
 .right::after,

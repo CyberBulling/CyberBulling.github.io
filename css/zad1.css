@@ -36,5 +36,5 @@ th {
 }
 
 td {
-  background-color: white;
+  background-color: var(--back-color);
 }
