@@ -7,6 +7,24 @@
   height: 27px;
   width: max-content;
 }
+#classs{
+  font-size: 20px;
+  font-weight: bold;
+}
+.info-button::after {
+  width: 400px;
+  content: attr(data-tooltip);
+  position: absolute;
+  background: var(--back-color);
+  color: var(--text-color);
+  font-size: 17px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  visibility: hidden;
+  transition: 1s;
+  border: 1px solid black;
+  /* pointer-events: none; */
+}
 
 #function-container {
   margin: 10px;
@@ -30,7 +48,7 @@
 }
 
 #check-result {
-  width: calc(100% - 40px);
+  width: 50%;
   height: 40px;
   margin: 20px;
   padding: 10px;
@@ -68,10 +86,11 @@
   justify-content: center;
 }
 
-p{
-  font-size: var(--font-size);
+p {
+  font-size: 20px;
+  font-weight: bold;
 }
 
-#full{
+#full {
   width: auto;
 }

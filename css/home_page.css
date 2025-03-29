@@ -1,9 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
 @import url("main.css");
 
+h1 {
+  font-size: 40px;
+}
+
+img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+}
 .button-container {
   display: flex;
-  gap: 20px;
+  flex-direction: row;
+  gap: 70px;
   justify-content: center;
   margin-top: 50px;
   text-align: center;
@@ -11,30 +23,42 @@
   width: 30%;
   margin: 40px auto;
   padding: 10px;
-  border-radius: 10px;
-  /* border: var(--border);
-  border-radius: var(--border-radius); */
+  border: 1px solid grey;
+  border-radius: 20px;
   align-items: center;
-  background: #bcbcbc;
+  background: #f4f4f4;
+}
+.button-description {
+  margin-top: 10px;
+  text-align: center;
+}
+.button-description p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#graph {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .button-container button {
   padding: 15px;
   border: none;
-  border-radius: 50%;
+  border-radius: 25%;
   background: grey;
   cursor: pointer;
   transition: var(--transit);
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .material-symbols-outlined {
-  font-size: 60px !important;
-  color: var(--form-color);
+  font-size: 100px !important;
+  color: white;
 }
 
 .button-container button:hover {

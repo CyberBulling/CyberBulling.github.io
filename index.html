@@ -6,19 +6,20 @@
     <link rel="stylesheet" href="css/home_page.css" />
     <link rel="icon" href="images/logo.png" type="image/x-icon" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
     />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=graph_4,table_edit"
     />
     <title>Главная страница</title>
   </head>
 
   <body>
-    <h1>Конференция по булевым функциям. <br />Команда WW.</h1>
+    <h1>Конференция по дискретным структурам. <br />Команда WW.</h1>
     <div class="header-buttons">
+      <img src="images/logo.png">
       <div class="theme-switch-wrapper">
         <label
           class="theme-switch"
@@ -73,19 +74,24 @@
       </div>
     </div>
     <div class="button-container">
-      <!-- <button id="open-settings">
-        <span class="material-symbols-outlined">settings</span>
-      </button> -->
-      <button
-        id="play"
-        onclick="()=>{e.preventDefault()
+      <div class="button-description">
+        <button
+          id="play"
+          onclick="()=>{e.preventDefault()
         window.location.href = 'zads.html'}"
-      >
-        <span class="material-symbols-outlined">play_circle</span>
-      </button>
-      <!-- <button id="open-rate">
-        <span class="material-symbols-outlined">signal_cellular_alt</span>
-      </button> -->
+        >
+          <span class="material-symbols-outlined"> table_edit </span>
+        </button>
+        <p>Булевы Функции</p>
+      </div>
+      <div class="button-description">
+        <button id="graph">
+          <span class="material-symbols-outlined" style="color: #e3e3e3">
+            graph_4
+          </span>
+        </button>
+        <p>Графы</p>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="js/index.js"></script>
