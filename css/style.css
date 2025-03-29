@@ -48,7 +48,7 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: #4caf50;
+  background: var(--primary-color);
   color: white;
   padding: 5px 10px;
   border: 0;
