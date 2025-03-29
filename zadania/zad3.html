@@ -9,26 +9,64 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=question_mark"
+    />
     <title>Задача 3</title>
   </head>
   <body>
     <div class="header-buttons">
-      <button onclick="location.href='../zads.html'" class="back-button">К задачам</button>
+      <button onclick="location.href='../zads.html'" class="back-button">
+        К задачам
+      </button>
       <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="theme-checkbox" aria-label="Переключить тему">
-          <input type="checkbox" id="theme-checkbox" class="theme-switch__input" />
+        <label
+          class="theme-switch"
+          for="theme-checkbox"
+          aria-label="Переключить тему"
+        >
+          <input
+            type="checkbox"
+            id="theme-checkbox"
+            class="theme-switch__input"
+          />
           <div class="theme-switch__container">
             <div class="theme-switch__toggle">
-              <svg class="theme-switch__icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z" />
+              <svg
+                class="theme-switch__icon"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z"
+                />
               </svg>
             </div>
             <div class="theme-switch__icons">
-              <svg class="theme-switch__icon-sun" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z" />
+              <svg
+                class="theme-switch__icon-sun"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z"
+                />
               </svg>
-              <svg class="theme-switch__icon-moon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18Z" />
+              <svg
+                class="theme-switch__icon-moon"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18Z"
+                />
               </svg>
             </div>
           </div>
@@ -40,15 +78,25 @@
       номер аргумента.
     </h1>
     <form id="form">
+      <button
+        id="info"
+        class="info-button"
+        data-tooltip="Чтобы получить вектор функции из остаточных, введите нулевую и единичную остаточные, а также укажите аргумент по которому были получены остаточные. После этого нажмите кнопку 'Построить'."
+      >
+        <span class="material-symbols-outlined"> question_mark </span>
+      </button>
       <label for="vector">Введите нулевую остаточную</label>
-      <input type="text" id="nullvector" name="nullvector" required />
+      <input type="text" id="nullvector" name="nullvector" required
+      placeholder="Например: 1010" />
       <label for="vector">Введите единичную остаточную</label>
-      <input type="text" id="edvector" name="edvector" required />
+      <input type="text" id="edvector" name="edvector" required
+      placeholder="Например: 0011" />
       <label>
         <p>Введите номер аргумента</p>
-        <input type="text" id="argument" name="argument" min="1" max="6" />
+        <input type="text" id="argument" name="argument" min="1" max="6" required
+        placeholder="2"/>
       </label>
-      <button type="button" onclick="outputText()">Отправить</button>
+      <button type="button" onclick="outputText()">Построить</button>
     </form>
     <div id="output-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
