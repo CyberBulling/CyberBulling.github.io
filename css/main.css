@@ -6,6 +6,7 @@
   --text-color: #333;
   --border: 1px solid #ccc;
   --form-color: #f5fff0;
+  --main-color: #f4f4f4;
   --button-color: white;
   --red: rgb(192 15 15);
   --back-color: white;
@@ -28,6 +29,7 @@
 }
 
 .dark {
+  --main-color: rgb(20, 20, 20);
   --primary-color: #f000fd82;
   --secondary-color:rgb(240 0 253 / 35%);
   --text-color: #f5fff0;

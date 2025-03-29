@@ -2,7 +2,7 @@
 @import url("main.css");
 
 h1 {
-  font-size: 40px;
+  font-size: 35px !important;
 }
 img {
   position: absolute;
@@ -25,7 +25,7 @@ img {
   border: 1px solid grey;
   border-radius: 20px;
   align-items: center;
-  background: #f4f4f4;
+  background: var(--main-color);
 }
 .button-description {
   margin-top: 10px;
@@ -58,7 +58,7 @@ img {
 
 .material-symbols-outlined {
   font-size: 100px !important;
-  color: white;
+  color: white !important;
 }
 
 .button-container button:hover {
