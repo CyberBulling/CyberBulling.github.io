@@ -25,10 +25,8 @@ function outputText () {
   const th2 = document.createElement('th')
   const tbody = document.createElement('tbody')
   const outputContainer = document.getElementById('output-container')
-
   table.border = 1
   tr2.appendChild(th2.cloneNode())
-
   // Заголовки столбцов (большая половина)
   for (let i = 0; i < Math.pow(2, n - half); i++) {
     const colHeader = document.createElement('th')
@@ -37,16 +35,13 @@ function outputText () {
   }
   thead.appendChild(tr2)
   table.appendChild(thead)
-
   // Тело таблицы
   for (let i = 0; i < Math.pow(2, half); i++) {
     const row = document.createElement('tr')
     const rowHeader = document.createElement('th')
-
     // Заголовок строки (меньшая половина)
     rowHeader.textContent = i.toString(2).padStart(half, '0')
     row.appendChild(rowHeader)
-
     // Ячейки таблицы
     for (let j = 0; j < Math.pow(2, n - half); j++) {
       const cell = document.createElement('td')
@@ -56,12 +51,10 @@ function outputText () {
     tbody.appendChild(row)
   }
   table.appendChild(tbody)
-
   // Очистка и вывод
   document.getElementById('output1').innerHTML = ''
   document.getElementById('output1').appendChild(table)
   outputContainer.scrollIntoView({ behavior: 'smooth' })
-
   table.addEventListener('mouseover', event => {
     if (
       event.target.tagName === 'TD' ||
