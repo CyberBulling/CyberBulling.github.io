@@ -28,13 +28,13 @@ function getRandomString (function_value) {
   return function_value[randomIndex]
 }
 
-function displayFunctionValue () {
+function displayFunctionValue() {
   const outputContainer = document.getElementById('output-container')
   outputContainer.innerHTML = ''
 
   const output = document.createElement('p')
   output.classList.add('output0')
-  output.textContent = `Значение функции: ${randomString}`
+  output.innerHTML = `Значение функции: <i>${randomString}</i>`
   outputContainer.appendChild(output)
 }
 

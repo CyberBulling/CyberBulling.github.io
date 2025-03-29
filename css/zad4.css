@@ -1,7 +1,7 @@
 @import url("main.css");
 
 #pmka {
-  font-size: var(--table-font);
+  font-size: 20px;
 }
 
 .output0 {
@@ -44,9 +44,12 @@
   padding: 10px;
   background: #fff;
 }
+#output-container {
+  position: relative;
+  top: -15px;
+}
 
-.select option:checked,
-.select option:hover {
-  background-color: #4ae263;
-  color: white;
+.output0 i{
+  text-decoration: underline;
+  font-size: 22px;
 }

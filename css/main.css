@@ -94,7 +94,7 @@ h1 {
 }
 
 button[type="button"] {
-  width: calc(100% - 40px);
+  width: 50%;
   height: 40px;
   margin: 20px;
   padding: 10px;
@@ -193,7 +193,9 @@ input[type="submit"]:hover {
 }
 
 #generate-vector {
-  width: calc(100% - 40px);
+  position: relative;
+  top: -18px;
+  width: 450px;
   height: 40px;
   margin: 20px;
   padding: 10px;
@@ -438,4 +440,47 @@ input[type="submit"]:hover {
 
 .dark .theme-switch__icon-sun {
   color: var(--icon-dark-color);
+}
+
+
+.info-button {
+  position:relative;
+  top: -10px;
+  right: -48%;
+  margin: 5px;
+  padding: 0;
+  border-radius: 50% !important;
+  background: white;
+}
+
+label {
+  font-size: var(--table-font);
+  font-weight: bold;
+}
+
+.info-button::after {
+  width: 350px;
+  content: attr(data-tooltip);
+  position: absolute;
+  background: var(--back-color);
+  color: var(--text-color);
+  font-size: 17px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  visibility: hidden;
+  transition: 1s;
+  border: 1px solid black;
+  /* pointer-events: none; */
+}
+
+.info-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+  font-weight: bold;
+}
+
+.material-symbols-outlined {
+  font-size: 100px;
+  vertical-align: middle;
+  color: black;
 }

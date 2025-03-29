@@ -1,10 +1,10 @@
-@import url('main.css');
+@import url("main.css");
 
 #nullvector,
 #edvector {
   width: calc(100% - 40px);
   height: 30px;
-  font-size: var(--table-font);
+  font-size: 20px;
   text-align: center;
   margin: 20px auto;
   padding: 10px;
@@ -13,10 +13,14 @@
   box-shadow: var(--box-shadow);
 }
 
+p {
+  font-size: var(--table-font);
+}
+
 #argument {
   width: 10%;
   height: 30px;
-  font-size: var(--table-font);
+  font-size: 20px;
   text-align: center;
   margin: 0;
   padding: 10px;
@@ -32,7 +36,7 @@
   height: 27px;
   width: max-content;
 }
-h1{
+h1 {
   height: max-content;
   width: 60%;
   margin-bottom: 30px;

@@ -4,4 +4,7 @@
   font-size: var(--table-font);
   font-weight: bold;
 }
-
+.input-header {
+  position: relative;
+  top: -20px;
+}

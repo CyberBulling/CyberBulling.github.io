@@ -14,7 +14,7 @@
 }
 
 #knf {
-  width: calc(100% - 40px);
+  width: 450px;
   height: 40px;
   margin: 20px;
   padding: 10px;
@@ -23,7 +23,7 @@
 }
 
 #check-knf {
-  width: calc(100% - 40px);
+  width: 50%;
   height: 40px;
   margin: 20px;
   padding: 10px;
@@ -55,7 +55,7 @@
 }
 
 #correct-answer {
-  position: absolute !important; 
+  position: absolute !important;
   top: 60px !important;
   right: 20px !important;
   padding: 10px 20px !important;
@@ -70,4 +70,7 @@
   margin-top: 20px;
   font-size: var(--table-font);
   font-weight: bold;
+}
+.info-button::after {
+  width: 400px !important;
 }
