@@ -1,4 +1,4 @@
-function VectorFunction (
+function VectorFunction(
   zeroResidual,
   oneResidual,
   argumentIndex,
@@ -13,7 +13,7 @@ function VectorFunction (
       resultVector.push(zeroResidual[i])
       resultVector.push(oneResidual[i])
     }
-     console.log(resultVector);
+    // console.log(resultVector);
     return resultVector
   } else {
     const blocksCount = 2 ** (argumentIndex - 1)
@@ -27,7 +27,7 @@ function VectorFunction (
   }
 }
 
-let zeroResidualInput = document.getElementById('nullvector')
+const zeroResidualInput = document.getElementById('nullvector')
 zeroResidualInput.addEventListener('change', event => {
   const input = event.target.value
   if (!isBinary(input)) {
@@ -44,7 +44,7 @@ zeroResidualInput.addEventListener('change', event => {
     }
   }
 })
-let oneResidualInput = document.getElementById('edvector')
+const oneResidualInput = document.getElementById('edvector')
 oneResidualInput.addEventListener('change', event => {
   const input = event.target.value
   if (!isBinary(input)) {
@@ -69,56 +69,69 @@ function isBinary (input) {
 function outputText () {
   const outputContainer = document.getElementById('output-container')
   outputContainer.innerHTML = ''
-  let argumentIndex
-  // Считываем данные из формы
-  if (
-    zeroResidualInput.value.length === 0 ||
-    oneResidualInput.value.length === 0
-  ) {
-    notyf.error('Поля не должны быть пустыми')
-  } else if (document.getElementById('argument').value.length === 0) {
-    notyf.error('Введите номер аргумента')
-  } else {
-    argumentIndex = parseInt(document.getElementById('argument').value, 10)
-    if (
-      argumentIndex < 1 ||
-      argumentIndex > Math.log2(zeroResidualInput.value.length)+1
-    ) {
-      notyf.error(
-        `Номер аргумента должен быть больше 0 и не больше ${
-          Math.log2(zeroResidualInput.value.length) + 1
-        }`
-      )
-    } else {
-      const zeroResidual = new Array(zeroResidualInput.value.length)
-      const oneResidual = new Array(oneResidualInput.value.length)
 
-      if (zeroResidual.length !== oneResidual.length) {
-        notyf.error('Длины векторов должны совпадать')
-      }
+  // Считываем данные
+  const zeroResidualInput = document.getElementById('nullvector').value.trim()
+  const oneResidualInput = document.getElementById('edvector').value.trim()
+  const argumentIndex = parseInt(document.getElementById('argument').value, 10)
 
-      for (let i = 0; i < zeroResidual.length; ++i) {
-        zeroResidual[i] = parseInt(zeroResidualInput.value[i])
-        oneResidual[i] = parseInt(oneResidualInput.value[i])
-      }
-
-      // Вычисляем количество переменных
-      const number_of_variables = Math.log2(zeroResidual.length * 2)
-      // Получаем результат
-      const vector = VectorFunction(
-        zeroResidual,
-        oneResidual,
-        argumentIndex,
-        number_of_variables
-      )
-
-      if (!vector.length === 0) {
-        // Выводим результат на страницу
-        const output = document.createElement('p')
-        output.id = 'output0'
-        output.textContent = `Вектор функции: ${vector.join('')}`
-        outputContainer.appendChild(output)
-      }
-    }
+  // Проверка на пустые остаточные
+  if (!zeroResidualInput) {
+    notyf.error('Остаточная (0) не может быть пустой!')
+    return
   }
+  if (!oneResidualInput) {
+    notyf.error('Остаточная (1) не может быть пустой!')
+    return
+  }
+
+  // Проверка аргумента
+  if (isNaN(argumentIndex) || argumentIndex <= 0) {
+    notyf.error('Введите корректный номер аргумента!')
+    return
+  }
+
+  // Проверка бинарного формата
+  if (!isBinary(zeroResidualInput) || !isBinary(oneResidualInput)) {
+    notyf.error('Разрешены только 0 и 1')
+    return
+  }
+
+  // Проверка длины остаточных
+  if (zeroResidualInput.length !== oneResidualInput.length) {
+    notyf.error('Длины векторов должны совпадать')
+    return
+  }
+
+  // Проверка степени двойки
+  const totalLength = zeroResidualInput.length * 2
+  if (!Number.isInteger(Math.log2(totalLength)) || totalLength < 2) {
+    notyf.error('Длина остаточных должна быть степенью двойки (2, 4, 8, 16...)')
+    return
+  }
+
+  // Конвертация в массив чисел
+  const zeroResidual = Array.from(zeroResidualInput, Number)
+  const oneResidual = Array.from(oneResidualInput, Number)
+
+  // Проверка номера аргумента
+  const number_of_variables = Math.log2(totalLength)
+  if (argumentIndex > number_of_variables) {
+    notyf.error('Номер аргумента превышает количество переменных')
+    return
+  }
+
+  // Получение результата
+  const vector = VectorFunction(
+    zeroResidual,
+    oneResidual,
+    argumentIndex,
+    number_of_variables
+  )
+
+  // Вывод результата
+  const output = document.createElement('p')
+  output.classList.add('output0')
+  output.textContent = `Вектор функции: ${vector.join('')}`
+  outputContainer.appendChild(output)
 }
