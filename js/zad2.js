@@ -52,7 +52,7 @@ function outputText () {
     
     const output = getResidual(value, type, argument - 1)
     document.getElementById('output0').textContent = `${
-      value == 0 ? 'Нулевая' : 'Еденичная'
+      type == 0 ? 'Нулевая' : 'Еденичная'
     } остаточная по ${argument} аргументу - ${output.join('')}`
   }
 }
