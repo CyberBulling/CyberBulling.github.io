@@ -96,19 +96,3 @@ function outputText () {
     }
   })
 }
-
-function getGrayCode (n) {
-  const grayCode = []
-  for (let i = 0; i < Math.pow(2, n); i++) {
-    const binaryString = i.toString(2).padStart(n, '0')
-    const grayString = binaryString
-      .split('')
-      .map((bit, index) => {
-        if (index === 0) return bit
-        return (parseInt(bit) + parseInt(binaryString[index - 1])) % 2
-      })
-      .join('')
-    grayCode.push(grayString.split(''))
-  }
-  return grayCode
-} //Основной код
