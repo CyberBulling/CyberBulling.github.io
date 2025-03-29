@@ -1,38 +1,3 @@
-const notyf = new Notyf({
-  types: [
-    {
-      type: 'error',
-      background: 'red',
-      duration: 3000,
-      position: {
-        x: 'right',
-        y: 'top'
-      },
-      dismissible: true
-    }
-  ]
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') == null)
-    localStorage.setItem('theme', 'light')
-
-  const themeSwitcher = document.querySelectorAll('#theme')
-
-  themeSwitcher.forEach((element) => {
-    element.addEventListener('click', () => {
-      document.body.classList.toggle('dark')
-      localStorage.setItem(
-        'theme',
-        document.body.classList.contains('dark') ? 'dark' : 'light'
-      )
-    })
-  })
-  if (localStorage.getItem('theme') == 'dark') {
-    document.body.classList.add('dark')
-  }
-})
-
 document.getElementById('n').addEventListener('input', () => {
   const n = parseInt(document.getElementById('n').value)
   const button = document.querySelector('button[type="button"]')

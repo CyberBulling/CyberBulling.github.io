@@ -3,7 +3,7 @@
 #nullvector,
 #edvector {
   width: calc(100% - 40px);
-  height: 40px;
+  height: 30px;
   font-size: var(--table-font);
   text-align: center;
   margin: 20px auto;
@@ -15,7 +15,7 @@
 
 #argument {
   width: 10%;
-  height: 50px;
+  height: 30px;
   font-size: var(--table-font);
   text-align: center;
   margin: 0;
@@ -35,4 +35,5 @@
 h1{
   height: max-content;
   width: 60%;
+  margin-bottom: 30px;
 }

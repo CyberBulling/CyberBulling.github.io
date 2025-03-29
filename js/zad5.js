@@ -1,43 +1,3 @@
-const notyf = new Notyf({
-  duration: 3000,
-  position: {
-    x: 'right',
-    y: 'top'
-  },
-  types: [
-    {
-      type: 'error',
-      background: 'red',
-      dismissible: true
-    },
-    {
-      type: 'success',
-      background: 'green',
-      dismissible: true
-    }
-  ]
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') == null)
-    localStorage.setItem('theme', 'light')
-
-  const themeSwitcher = document.querySelectorAll('#theme')
-
-  themeSwitcher.forEach(element => {
-    element.addEventListener('click', () => {
-      document.body.classList.toggle('dark')
-      localStorage.setItem(
-        'theme',
-        document.body.classList.contains('dark') ? 'dark' : 'light'
-      )
-    })
-  })
-  if (localStorage.getItem('theme') == 'dark') {
-    document.body.classList.add('dark')
-  }
-})
-
 const generateVectorButton = document.getElementById('generate-vector')
 const vectorContainer = document.getElementById('vector-container')
 const outputContainer = document.getElementById('output1')
@@ -85,40 +45,47 @@ function generateVectorUntilEssentials () {
 }
 
 function outputText () {
-  let allCorrect = true
-  const buttons = vectorContainer.children
+  if (document.querySelectorAll('.selected').length === 0) {
+    notyf.open({
+      type: 'warning',
+      message: 'Необходио выбрать хотя-бы одну фиктивную переменную'
+    })
+  } else {
+    let allCorrect = true
+    const buttons = vectorContainer.children
 
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].classList.remove('right', 'wrong')
-  }
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove('right', 'wrong')
+    }
 
-  for (let i = 0; i < buttons.length; i++) {
-    const varButton = buttons[i]
-    const varIndex = parseInt(varButton.textContent.substring(1)) - 1
-    const isSelected = varButton.classList.contains('selected')
-    const isEssential = essentialss.includes(varIndex)
+    for (let i = 0; i < buttons.length; i++) {
+      const varButton = buttons[i]
+      const varIndex = parseInt(varButton.textContent.substring(1)) - 1
+      const isSelected = varButton.classList.contains('selected')
+      const isEssential = essentialss.includes(varIndex)
 
-    if (isSelected) {
-      if (isEssential) {
-        varButton.classList.add('right')
+      if (isSelected) {
+        if (isEssential) {
+          varButton.classList.add('right')
+        } else {
+          varButton.classList.add('wrong')
+        }
       } else {
-        varButton.classList.add('wrong')
-      }
-    } else {
-      if (isEssential) {
-        varButton.classList.add('wrong-unselected')
-        allCorrect = false
+        if (isEssential) {
+          varButton.classList.add('wrong-unselected')
+          allCorrect = false
+        }
       }
     }
+
+    document
+      .querySelectorAll('.class-button')
+      .forEach(btn => (btn.style.pointerEvents = 'none'))
+
+    document.getElementById('button').disabled = true
+
+    allCorrect ? notyf.success('Все правильно!') : notyf.error('Ошибка!')
   }
-
-  document
-    .querySelectorAll('.class-button')
-    .forEach(btn => (btn.style.pointerEvents = 'none'))
-
-  document.getElementById('button').disabled = true
-
-  allCorrect ? notyf.success('Все правильно!') : notyf.error('Ошибка!')
 }
 
 function generateVector (length) {

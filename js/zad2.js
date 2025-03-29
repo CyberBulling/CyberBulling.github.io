@@ -1,52 +1,13 @@
-const notyf = new Notyf({
-  duration: 3000,
-  reaple: true,
-  dismissible: true,
-  position: {
-    x: 'right',
-    y: 'top'
-  },
-  types: [
-    {
-      type: 'warning',
-      background: 'orange',
-      icon: {
-        className: 'material-symbols-outlined',
-        tagName: 'span',
-        text: 'priority_high',
-        color: 'grey'
-      }
-    },
-    {
-      type: 'error',
-      background: 'red'
-    }
-  ]
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') == null)
-    localStorage.setItem('theme', 'light')
-
-  const themeSwitcher = document.querySelectorAll('#theme')
-
-  themeSwitcher.forEach((element) => {
-    element.addEventListener('click', () => {
-      document.body.classList.toggle('dark')
-      localStorage.setItem(
-        'theme',
-        document.body.classList.contains('dark') ? 'dark' : 'light'
-      )
-    })
-  })
-  if (localStorage.getItem('theme') == 'dark') {
-    document.body.classList.add('dark')
-  }
-})
-
 function outputText () {
+  if(document.querySelector('.output3')){
+    document.querySelector('.output3').id = 'output0'
+    document.getElementById('output0').classList.remove('output3')
+  }
+  
   const vector = document.getElementById('vector').value.split('')
   const argument = parseInt(document.getElementById('argument').value)
+  const one = document.getElementById('one')
+  const zero = document.getElementById('zero')
   let error = null
   let value
   try {
@@ -60,7 +21,7 @@ function outputText () {
       notyf.error('Длина вектора должен быть степенью 2 и больше 1')
       return
     } else {
-      if (value != 0 && value != 1) {
+      if (!(zero.checked || one.checked)) {
         notyf.open({
           type: 'warning',
           message: 'Необходимо выбрать тип остаточной функции'
@@ -87,9 +48,9 @@ function outputText () {
         }
       }
     }
-    document.querySelector('.output3').id = 'output0'
-    document.getElementById('output0').classList.remove('output3')
-    const output = getResidual(vector, value, argument - 1)
+    const type = zero.checked ? zero.value : one.value
+    
+    const output = getResidual(value, type, argument - 1)
     document.getElementById('output0').textContent = `${
       value == 0 ? 'Нулевая' : 'Еденичная'
     } остаточная по ${argument} аргументу - ${output.join('')}`

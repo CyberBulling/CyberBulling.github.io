@@ -1,43 +1,3 @@
-const notyf = new Notyf({
-  duration: 3000,
-  position: {
-    x: 'center',
-    y: 'top'
-  },
-  types: [
-    {
-      type: 'error',
-      background: 'red',
-      dismissible: true
-    },
-    {
-      type: 'success',
-      background: 'green',
-      dismissible: true
-    }
-  ]
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') == null)
-    localStorage.setItem('theme', 'light')
-
-  const themeSwitcher = document.querySelectorAll('#theme')
-
-  themeSwitcher.forEach((element) => {
-    element.addEventListener('click', () => {
-      document.body.classList.toggle('dark')
-      localStorage.setItem(
-        'theme',
-        document.body.classList.contains('dark') ? 'dark' : 'light'
-      )
-    })
-  })
-  if (localStorage.getItem('theme') == 'dark') {
-    document.body.classList.add('dark')
-  }
-})
-
 const generateVectorButton = document.getElementById('generate-vector')
 const vectorContainer = document.getElementById('output-container')
 const outputContainer = document.getElementById('output1')
@@ -72,41 +32,43 @@ generateVectorButton.addEventListener('click', () => {
   }
 })
 
-function generateTerm() {
-  const power = 3; // Предполагаем, что power определен где-то выше
-  const maxConjunctions = Math.min(4, 2 ** power - 1);
-  const numConjunctions = 2 + Math.floor(Math.random() * (maxConjunctions - 1));
-  
-  const usedConjunctions = new Set();
-  const dnf = [];
-  const availableVars = Array.from({length: power}, (_, i) => i + 1);
+function generateTerm () {
+  const power = 3 // Предполагаем, что power определен где-то выше
+  const maxConjunctions = Math.min(4, 2 ** power - 1)
+  const numConjunctions = 2 + Math.floor(Math.random() * (maxConjunctions - 1))
+
+  const usedConjunctions = new Set()
+  const dnf = []
+  const availableVars = Array.from({ length: power }, (_, i) => i + 1)
 
   while (dnf.length < numConjunctions && usedConjunctions.size < 2 ** power) {
     // Генерация уникальной конъюнкции
-    const varsInConjunction = 1 + Math.floor(Math.random() * power);
-    const shuffledVars = [...availableVars].sort(() => Math.random() - 0.5);
-    const selectedVars = shuffledVars.slice(0, varsInConjunction);
-    
-    const conjunction = selectedVars.map(varNum => ({
-      name: varNum,
-      negated: Math.random() < 0.5
-    })).sort((a, b) => a.name - b.name);
-    
-    const conjunctionKey = conjunction.map(v => 
-      `${v.negated ? '¬' : ''}x${v.name}`
-    ).join(',');
-    
+    const varsInConjunction = 1 + Math.floor(Math.random() * power)
+    const shuffledVars = [...availableVars].sort(() => Math.random() - 0.5)
+    const selectedVars = shuffledVars.slice(0, varsInConjunction)
+
+    const conjunction = selectedVars
+      .map(varNum => ({
+        name: varNum,
+        negated: Math.random() < 0.5
+      }))
+      .sort((a, b) => a.name - b.name)
+
+    const conjunctionKey = conjunction
+      .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
+      .join(',')
+
     if (!usedConjunctions.has(conjunctionKey)) {
-      usedConjunctions.add(conjunctionKey);
+      usedConjunctions.add(conjunctionKey)
       dnf.push(
-        `(${conjunction.map(v => 
-          `${v.negated ? '¬' : ''}x${v.name}`
-        ).join(' ∧ ')})`
-      );
+        `(${conjunction
+          .map(v => `${v.negated ? '¬' : ''}x${v.name}`)
+          .join(' ∧ ')})`
+      )
     }
   }
 
-  return dnf.join(' ∨ ');
+  return dnf.join(' ∨ ')
 }
 
 function generateVector (term) {
@@ -155,10 +117,16 @@ correctAnswerButton.addEventListener('click', () => {
 
 checkDnfButton.addEventListener('click', () => {
   const userVector = generateVector(dnfInput.value, power)
-  userVector.join('') === vector.join('')
-    ? notyf.success('Правильно!')
-    : notyf.error('Неправильно!')
-  console.log(userVector)
+  if (userVector.length === 0) {
+    notyf.open({
+      type: 'warning',
+      message: 'Сначала сгенерируйте вектор!'
+    })
+  } else {
+    userVector.join('') === vector.join('')
+      ? notyf.success('Правильно!')
+      : notyf.error('Неправильно!')
+  }
 })
 
 correctAnswerContainer.addEventListener('click', () => {

@@ -1,38 +1,3 @@
-const notyf = new Notyf({
-  duration: 3000,
-  position: {
-    x: 'right',
-    y: 'top'
-  },
-  types: [
-    {
-      type: 'error',
-      background: 'red',
-      dismissible: true
-    }
-  ]
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') == null)
-    localStorage.setItem('theme', 'light')
-
-  const themeSwitcher = document.querySelectorAll('#theme')
-
-  themeSwitcher.forEach((element) => {
-    element.addEventListener('click', () => {
-      document.body.classList.toggle('dark')
-      localStorage.setItem(
-        'theme',
-        document.body.classList.contains('dark') ? 'dark' : 'light'
-      )
-    })
-  })
-  if (localStorage.getItem('theme') == 'dark') {
-    document.body.classList.add('dark')
-  }
-})
-
 function VectorFunction (
   zeroResidual,
   oneResidual,
@@ -48,7 +13,7 @@ function VectorFunction (
       resultVector.push(zeroResidual[i])
       resultVector.push(oneResidual[i])
     }
-    // console.log(resultVector);
+     console.log(resultVector);
     return resultVector
   } else {
     const blocksCount = 2 ** (argumentIndex - 1)
@@ -62,7 +27,7 @@ function VectorFunction (
   }
 }
 
-const zeroResidualInput = document.getElementById('nullvector')
+let zeroResidualInput = document.getElementById('nullvector')
 zeroResidualInput.addEventListener('change', event => {
   const input = event.target.value
   if (!isBinary(input)) {
@@ -79,7 +44,7 @@ zeroResidualInput.addEventListener('change', event => {
     }
   }
 })
-const oneResidualInput = document.getElementById('edvector')
+let oneResidualInput = document.getElementById('edvector')
 oneResidualInput.addEventListener('change', event => {
   const input = event.target.value
   if (!isBinary(input)) {
@@ -104,37 +69,56 @@ function isBinary (input) {
 function outputText () {
   const outputContainer = document.getElementById('output-container')
   outputContainer.innerHTML = ''
+  let argumentIndex
   // Считываем данные из формы
-  const zeroResidualInput = document.getElementById('nullvector').value
-  const oneResidualInput = document.getElementById('edvector').value
-  const argumentIndex = parseInt(document.getElementById('argument').value, 10)
+  if (
+    zeroResidualInput.value.length === 0 ||
+    oneResidualInput.value.length === 0
+  ) {
+    notyf.error('Поля не должны быть пустыми')
+  } else if (document.getElementById('argument').value.length === 0) {
+    notyf.error('Введите номер аргумента')
+  } else {
+    argumentIndex = parseInt(document.getElementById('argument').value, 10)
+    if (
+      argumentIndex < 1 ||
+      argumentIndex > Math.log2(zeroResidualInput.value.length)+1
+    ) {
+      notyf.error(
+        `Номер аргумента должен быть больше 0 и не больше ${
+          Math.log2(zeroResidualInput.value.length) + 1
+        }`
+      )
+    } else {
+      const zeroResidual = new Array(zeroResidualInput.value.length)
+      const oneResidual = new Array(oneResidualInput.value.length)
 
-  const zeroResidual = new Array(zeroResidualInput.length)
-  const oneResidual = new Array(oneResidualInput.length)
+      if (zeroResidual.length !== oneResidual.length) {
+        notyf.error('Длины векторов должны совпадать')
+      }
 
-  if (zeroResidual.length !== oneResidual.length) {
-    notyf.error('Длины векторов должны совпадать')
+      for (let i = 0; i < zeroResidual.length; ++i) {
+        zeroResidual[i] = parseInt(zeroResidualInput.value[i])
+        oneResidual[i] = parseInt(oneResidualInput.value[i])
+      }
+
+      // Вычисляем количество переменных
+      const number_of_variables = Math.log2(zeroResidual.length * 2)
+      // Получаем результат
+      const vector = VectorFunction(
+        zeroResidual,
+        oneResidual,
+        argumentIndex,
+        number_of_variables
+      )
+
+      if (!vector.length === 0) {
+        // Выводим результат на страницу
+        const output = document.createElement('p')
+        output.id = 'output0'
+        output.textContent = `Вектор функции: ${vector.join('')}`
+        outputContainer.appendChild(output)
+      }
+    }
   }
-
-  for (let i = 0; i < zeroResidual.length; ++i) {
-    zeroResidual[i] = parseInt(zeroResidualInput[i])
-    oneResidual[i] = parseInt(oneResidualInput[i])
-  }
-
-  // Вычисляем количество переменных
-  const number_of_variables = Math.log2(zeroResidual.length * 2)
-
-  // Получаем результат
-  const vector = VectorFunction(
-    zeroResidual,
-    oneResidual,
-    argumentIndex,
-    number_of_variables
-  )
-
-  // Выводим результат на страницу
-  const output = document.createElement('p')
-  output.classList.add('output0')
-  output.textContent = `Вектор функции: ${vector.join('')}`
-  outputContainer.appendChild(output)
 }

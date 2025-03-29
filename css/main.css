@@ -30,7 +30,6 @@
   --secondary-color: rgb(62, 62, 62);*/
   --text-color: #f5fff0;
   --form-color: rgb(20, 20, 20);
-  --button-color: rgb(20, 20, 20);
   --back-color: #000;
 }
 
@@ -61,7 +60,7 @@ h1 {
   height: auto;
   width: max-content;
   padding: 10px;
-  margin: 50px auto;
+  margin: 80px auto;
   font-size: var(--table-font);
   font-weight: bold;
   color: var(--text-color);
@@ -317,4 +316,126 @@ input[type="submit"]:hover {
 
 #theme {
   margin-left: auto; /* Прижимает к правому краю */
+}
+
+.theme-switch-wrapper {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.theme-switch {
+  --switch-width: 60px;
+  --switch-height: 30px;
+  --thumb-size: 24px;
+  --icon-size: 16px;
+  
+  /* Цвета для разных тем */
+  --thumb-light-color: #ffffff; /* Цвет круга в светлой теме */
+  --thumb-dark-color: #333333;  /* Цвет круга в темной теме */
+  --icon-light-color: #333333;  /* Цвет иконки в светлой теме */
+  --icon-dark-color: #ffffff;   /* Цвет иконки в темной теме */
+  
+  display: inline-block;
+  position: relative;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  cursor: pointer;
+}
+
+.theme-switch__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-switch__container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.theme-switch__toggle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  background-color: var(--thumb-light-color);
+  border-radius: 50%;
+  transition: transform 0.3s, background-color 0.3s;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-switch__icons {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.theme-switch__icon,
+.theme-switch__icon-sun,
+.theme-switch__icon-moon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: currentColor;
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.theme-switch__icon {
+  color: var(--icon-light-color);
+  z-index: 1;
+}
+
+.theme-switch__icon-sun {
+  left: 6px;
+  color: var(--icon-light-color);
+  opacity: 1;
+}
+
+.theme-switch__icon-moon {
+  right: 6px;
+  color: var(--icon-dark-color);
+  opacity: 0;
+}
+
+.theme-switch__input:checked + .theme-switch__container {
+  background-color: var(--primary-color);
+}
+
+.theme-switch__input:checked + .theme-switch__container .theme-switch__toggle {
+  transform: translateX(calc(var(--switch-width) - var(--thumb-size) - 6px));
+  background-color: var(--thumb-dark-color);
+}
+
+.theme-switch__input:checked + .theme-switch__container .theme-switch__icon-sun {
+  opacity: 0;
+}
+
+.theme-switch__input:checked + .theme-switch__container .theme-switch__icon-moon {
+  opacity: 1;
+  z-index: 1000;
+}
+
+/* Стили для темной темы */
+.dark .theme-switch__icon {
+  opacity: 0; /* Скрываем иконку внутри переключателя */
+}
+
+.dark .theme-switch__icon-sun {
+  color: var(--icon-dark-color);
 }

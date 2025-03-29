@@ -1,23 +1,3 @@
-const notyf = new Notyf({
-  duration: 3000,
-  position: {
-    x: 'right',
-    y: 'top'
-  },
-  types: [
-    {
-      type: 'error',
-      background: 'red',
-      dismissible: true
-    },
-    {
-      type: 'success',
-      background: 'green',
-      dismissible: true
-    }
-  ]
-})
-
 document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('theme') == null)
     localStorage.setItem('theme', 'light')
