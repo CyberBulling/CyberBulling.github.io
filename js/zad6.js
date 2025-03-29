@@ -40,7 +40,7 @@ function generateTerm () {
   const usedConjunctions = new Set()
   const dnf = []
   const availableVars = Array.from({ length: power }, (_, i) => i + 1)
-  
+
   while (dnf.length < numConjunctions && usedConjunctions.size < 2 ** power) {
     const varsInConjunction = 1 + Math.floor(Math.random() * power)
     const shuffledVars = [...availableVars].sort(() => Math.random() - 0.5)
@@ -132,22 +132,26 @@ function generateVector (term) {
   if (brackets) {
     notyf.error('Элементарные коньюнкции должны быть заключены в скобки')
   } else {
-    for (let i = 0; i < totalCombinations; i++) {
-      const binary = i.toString(2).padStart(power, '0')
-      const variables = {}
+    try {
+      for (let i = 0; i < totalCombinations; i++) {
+        const binary = i.toString(2).padStart(power, '0')
+        const variables = {}
 
-      for (let j = 0; j < power; j++) {
-        variables[`x${j + 1}`] = parseInt(binary[j])
+        for (let j = 0; j < power; j++) {
+          variables[`x${j + 1}`] = parseInt(binary[j])
+        }
+
+        const substitutedTerm = jsTerm.replace(
+          /x(\d+)/g,
+          (_, num) => variables[`x${num}`]
+        )
+        vector.push(eval(substitutedTerm) ? 1 : 0)
       }
 
-      const substitutedTerm = jsTerm.replace(
-        /x(\d+)/g,
-        (_, num) => variables[`x${num}`]
-      )
-      vector.push(eval(substitutedTerm) ? 1 : 0)
+      return vector
+    } catch {
+      notyf.error('Некорректная логическая формула')
     }
-
-    return vector
   }
 }
 

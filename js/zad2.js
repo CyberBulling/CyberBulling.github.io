@@ -1,9 +1,9 @@
 function outputText () {
-  if(document.querySelector('.output3')){
+  if (document.querySelector('.output3')) {
     document.querySelector('.output3').id = 'output0'
     document.getElementById('output0').classList.remove('output3')
   }
-  
+
   const vector = document.getElementById('vector').value.split('')
   const argument = parseInt(document.getElementById('argument').value)
   const one = document.getElementById('one')
@@ -14,10 +14,10 @@ function outputText () {
     value = document.getElementById('vector').value
   } catch (e) {
     error = e
-    value.length<1 ? notyf.error('Вектор не может быть пустым') : null
+    value.length < 1 ? notyf.error('Вектор не может быть пустым') : null
   }
   if (!error) {
-    if (Math.log2(vector.length) % 1 != 0 || vector.length===1) {
+    if (Math.log2(vector.length) % 1 != 0 || vector.length === 1) {
       notyf.error('Длина вектора должен быть степенью 2 и больше 1')
       return
     } else {
@@ -49,17 +49,27 @@ function outputText () {
       }
     }
     const type = zero.checked ? zero.value : one.value
-    
+
     const output = getResidual(value, type, argument - 1)
     document.getElementById('output0').textContent = `${
       type == 0 ? 'Нулевая' : 'Еденичная'
     } остаточная по ${argument} аргументу - ${output.join('')}`
   }
+
+  function isBinary (input) {
+    const binaryPattern = /^[01]+$/ // Регулярное выражение для проверки на 0 и 1
+    return binaryPattern.test(input)
+  }
+  // Проверка бинарного формата
+  if (!isBinary(vector)) {
+    notyf.error('Разрешены только 0 и 1')
+    return
+  }
 }
 
 // Функция для вычисления остаточной функции
 function getResidual (vector, value, argument) {
-  const numVariables = Math.log2(vector.length) 
+  const numVariables = Math.log2(vector.length)
   const newVector = []
   for (let i = 0; i < vector.length; i++) {
     // Преобразуем индекс в двоичное представление

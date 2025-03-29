@@ -106,7 +106,7 @@ function outputText () {
   // Проверка степени двойки
   const totalLength = zeroResidualInput.length * 2
   if (!Number.isInteger(Math.log2(totalLength)) || totalLength < 2) {
-    notyf.error('Длина остаточных должна быть степенью двойки (2, 4, 8, 16...)')
+    notyf.error('Длина остаточных должна быть степенью двойки')
     return
   }
 
