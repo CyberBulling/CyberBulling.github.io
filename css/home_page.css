@@ -4,7 +4,6 @@
 h1 {
   font-size: 40px;
 }
-
 img {
   position: absolute;
   top: 50%;
@@ -33,6 +32,7 @@ img {
   text-align: center;
 }
 .button-description p {
+  color: var(--text-color);
   font-size: 18px;
   font-weight: bold;
 }
