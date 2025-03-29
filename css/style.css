@@ -48,8 +48,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--primary-color);
-  color: var(--form-color);
+  background: #4caf50;
+  color: white;
   padding: 5px 10px;
   border: 0;
   border-radius: var(--border-radius);

@@ -56,8 +56,8 @@
 
 #correct-answer {
   position: absolute !important; 
-  top: 60px !important;
-  right: 20px !important;
+  top:75px !important;
+  right: 10px !important;
   padding: 10px 20px !important;
   width: 180px !important;
   margin: 0;

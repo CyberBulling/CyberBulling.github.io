@@ -51,6 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Обработчик переключения темы
   themeSwitch.addEventListener('change', function () {
+    const imageBlocks = document.querySelectorAll('.block')
+    let i = 1
+    imageBlocks.forEach(block => {
+      const them = localStorage.getItem('theme') === 'light' ? '_dark' : ''
+      block.style.backgroundImage = `url(images/zad${i}${them}.png)`
+      i++
+    })
     const newTheme = this.checked ? 'dark' : 'light'
     document.body.classList.toggle('dark', this.checked)
     localStorage.setItem('theme', newTheme)
