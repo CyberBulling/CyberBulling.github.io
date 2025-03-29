@@ -12,9 +12,12 @@
     <title>Задача 6</title>
   </head>
   <body>
-    <header>
-      <a href="../zads.html" class="back-button">Назад на главную</a>
-    </header>
+    <div class="header-buttons">
+      <button onclick="location.href='../zads.html'" class="back-button">
+        К задачам
+      </button>
+      <button class="theme" id="theme"></button>
+    </div>
     <h1>Игра: ДНФ</h1>
     <form id="form">
       <button id="generate-vector" type="button">Сгенерировать вектор</button>
@@ -30,7 +33,9 @@
       <div id="result-container">
         <p id="result"></p>
       </div>
-      <button id="correct-answer" type="button" disabled="true">Подсказка</button>
+      <button id="correct-answer" type="button" disabled="true">
+        Подсказка
+      </button>
       <div id="correct-answer-container"></div>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
