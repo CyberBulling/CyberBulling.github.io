@@ -55,5 +55,4 @@ function checkAnswer () {
 }
 
 document.addEventListener('DOMContentLoaded', initializeGame)
-// Назначение обработчика кнопки
 document.getElementById('button').addEventListener('click', checkAnswer)

@@ -1,4 +1,4 @@
-function VectorFunction(
+function VectorFunction (
   zeroResidual,
   oneResidual,
   argumentIndex,
@@ -16,7 +16,7 @@ function VectorFunction(
     // console.log(resultVector);
     return resultVector
   } else {
-    const blocksCount = 2 ** (argumentIndex - 1)
+    const blocksCount = 2 ** (argumentIndex - 1) 
     const step = zeroResidual.length / blocksCount
     for (let i = 0; i < blocksCount; i++) {
       const zeroBlock = zeroResidual.slice(i * step, (i + 1) * step)

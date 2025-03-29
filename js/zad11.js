@@ -196,11 +196,11 @@ checkResultButton.addEventListener('click', () => {
     } else if (new Set(selectedClasses).difference(diff).size > 0) {
       notyf.error('Выбрано слишком много')
     } else {
-      if(full.classList.contains('selected')){
+      if (full.classList.contains('selected')) {
         full.classList.remove('selected')
         full.classList.add('wrong')
         notyf.error('Множество не полное')
-      }else{
+      } else {
         notyf.error('Выбрано слишком мало')
       }
     }
@@ -267,7 +267,6 @@ function isMonotone (vector) {
 
   for (let i = 0; i < vector.length; i++) {
     for (let j = i + 1; j < vector.length; j++) {
-      // Проверяем, что i "покрывает" j (все биты i <= j)
       let covers = true
       for (let k = 0; k < n; k++) {
         if (((i >> k) & 1) > ((j >> k) & 1)) {
@@ -286,7 +285,6 @@ function isMonotone (vector) {
 function isLinear (vector) {
   const n = Math.log2(vector.length)
   if (!Number.isInteger(n)) return false
-
   // Вычисляем полином Жегалкина
   const coeffs = [...vector]
   for (let i = 0; i < vector.length; i++) {
@@ -296,7 +294,6 @@ function isLinear (vector) {
       }
     }
   }
-
   // Проверяем, что нет нелинейных членов
   for (let i = 0; i < vector.length; i++) {
     if (coeffs[i]) {

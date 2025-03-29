@@ -59,7 +59,7 @@ function outputText () {
 
 // Функция для вычисления остаточной функции
 function getResidual (vector, value, argument) {
-  const numVariables = Math.log2(vector.length)
+  const numVariables = Math.log2(vector.length) 
   const newVector = []
   for (let i = 0; i < vector.length; i++) {
     // Преобразуем индекс в двоичное представление
