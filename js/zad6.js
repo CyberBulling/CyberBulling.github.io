@@ -33,7 +33,6 @@ generateVectorButton.addEventListener('click', () => {
 })
 
 function generateTerm () {
-  const power = 3
   const maxConjunctions = Math.min(4, 2 ** power - 1)
   const numConjunctions = 2 + Math.floor(Math.random() * (maxConjunctions - 1))
 
