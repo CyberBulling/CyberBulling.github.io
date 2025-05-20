@@ -4,6 +4,10 @@ class Task34 {
   static execute() {
     try {
       const input = document.getElementById("graphInput").value.trim();
+      if (!input) {
+        notyf.error("Введите данные графа");
+        return;
+      }
       const type = document.getElementById("inputType").value.replace('Weighted','');
       this.graph = GraphParser.parse(input, type);
 
@@ -11,13 +15,13 @@ class Task34 {
       this.displayBFSResult(order);
       GraphDrawer.draw(this.graph);
     } catch (e) {
-      this.showError(e.message, 'bfsOrder');
+      notyf.error(e.message);
     }
   }
 
   static validate() {
     try {
-      if (!this.graph) throw new Error("Сначала выполните обход");
+      if (!this.graph) notyf.error("Сначала выполните обход");
 
       const userInput = document.getElementById("userBFS").value.trim();
       const userOrder = userInput.split(/[\s,]+/).map(Number);
@@ -25,7 +29,7 @@ class Task34 {
 
       this.displayValidationResult(userOrder, correctOrder);
     } catch (e) {
-      this.showError(e.message, 'validationResult');
+      notyf.error(e.message);
     }
   }
 
@@ -64,17 +68,6 @@ class Task34 {
     while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
-  }
-
-  static showError(message, targetId) {
-    const container = document.getElementById(targetId);
-    this.clearContainer(container);
-
-    const error = document.createElement("div");
-    error.className = "error";
-    error.textContent = message;
-
-    container.appendChild(error);
   }
 
   static bfs() {

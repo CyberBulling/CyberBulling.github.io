@@ -36,15 +36,19 @@ class GraphColorer {
     static execute() {
         try {
             const input = document.getElementById("graphInput").value.trim();
+            if (!input) {
+                notyf.error("Введите данные графа");
+                return;
+            }
             const type = document.getElementById("inputType").value;
-            type.replace('Weighted','')
+            type.replace('Weighted', '')
             const graph = GraphParser.parse(input, type);
             const undirectedGraph = GraphAnalyzer._convertToUndirected(graph);
             const { colors, chromaticNumber } = this.colorGraph(undirectedGraph);
             ColoredGraphDrawer.draw(this.addColorsToGraph(graph, colors), "graphCanvas");
             this.displayColors(colors, chromaticNumber);
         } catch (e) {
-            this.showError(`Ошибка: ${e.message}`, 'colors');
+            notyf.error(`Ошибка: ${e.message}`);
         }
     }
     static displayColors(colors, chromaticNumber) {
@@ -77,14 +81,6 @@ class GraphColorer {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-    }
-    static showError(message, targetId) {
-        const container = document.getElementById(targetId);
-        this.clearContainer(container);
-        const error = document.createElement("div");
-        error.className = "error";
-        error.textContent = message;
-        container.appendChild(error);
     }
     static colorGraph(graph) {
         const vertices = Array.from(graph.vertices).map(Number).sort((a, b) => {

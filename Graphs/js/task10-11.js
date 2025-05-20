@@ -1,13 +1,17 @@
 class PruferProcessor {
     static execute() {
         try {
-            const type = document.getElementById("inputType").value.replace('Weighted','');
+            const type = document.getElementById("inputType").value.replace('Weighted', '');
             const input = document.getElementById("graphInput").value.trim();
+            if (!input) {
+                notyf.error("Введите данные графа");
+                return;
+            }
             let graph = [];
             const resultContainer = document.getElementById("codeResults");
             this.clearContainer(resultContainer);
 
-            if (!input) throw new Error("Ввод не может быть пустым");
+            if (!input) notyf.error("Ввод не может быть пустым");
 
             if (type === "pruferDecode") {
                 graph = this.decodePrufer(input);
@@ -17,7 +21,7 @@ class PruferProcessor {
                 graph = GraphParser.parse(input, type);
 
                 if (!graph.adjacency || !graph.vertices) {
-                    throw new Error("Некорректная структура графа");
+                    notyf.error("Некорректная структура графа");
                 }
 
                 GraphDrawer.draw(graph, "graphCanvas");
@@ -25,7 +29,7 @@ class PruferProcessor {
                 this.displayResults(code, sequence, resultContainer);
             }
         } catch (e) {
-            this.showError(`Ошибка: ${e.message}`, 'codeResults');
+            notyf.error(`Ошибка: ${e.message}`);
         }
     }
 
@@ -60,20 +64,10 @@ class PruferProcessor {
         }
     }
 
-    static showError(message, targetId) {
-        const container = document.getElementById(targetId);
-        this.clearContainer(container);
-
-        const error = document.createElement("div");
-        error.className = "error";
-        error.textContent = message;
-        container.appendChild(error);
-    }
-
     static encodePrufer(graph) {
         const undirectedGraph = GraphAnalyzer._convertToUndirected(graph);
         if (!GraphAnalyzer.isTree(undirectedGraph))
-            throw new Error("Граф не является деревом");
+            notyf.error("Граф не является деревом");
         const tree = new Map();
         const degree = new Map();
         const leaves = new Set();
@@ -109,15 +103,15 @@ class PruferProcessor {
     static decodePrufer(input) {
         const code = input.split(/[,\s]+/).map(Number);
         if (code.some(isNaN)) {
-            throw new Error("Некорректный код Прюфера: все элементы должны быть числами");
+            notyf.error("Некорректный код Прюфера: все элементы должны быть числами");
         }
         const n = code.length + 2;
         if (n < 2) {
-            throw new Error("Некорректный код Прюфера: минимальное количество вершин - 2");
+            notyf.error("Некорректный код Прюфера: минимальное количество вершин - 2");
         }
         for (const num of code) {
             if (num < 1 || num > n) {
-                throw new Error(`Некорректное значение ${num}. Допустимый диапазон: 1-${n}`);
+                notyf.error(`Некорректное значение ${num}. Допустимый диапазон: 1-${n}`);
             }
         }
         const vertices = new Set();

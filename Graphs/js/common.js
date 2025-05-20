@@ -1,3 +1,33 @@
+const notyf = new Notyf({
+  duration: 3000,
+  position: {
+    x: 'right',
+    y: 'top'
+  },
+  types: [
+    {
+      type: 'error',
+      background: 'red',
+      dismissible: true
+    },
+    {
+      type: 'warning',
+      background: 'orange',
+      icon: {
+        className: 'material-symbols-outlined',
+        tagName: 'span',
+        text: 'priority_high',
+        color: 'grey'
+      }
+    },
+    {
+      type: 'success',
+      background: 'green',
+      dismissible: true
+    }
+  ]
+})
+
 const placeholderMap = {
   'adjacencyList': `Пример списка смежности:
 1: 2,3,4,5

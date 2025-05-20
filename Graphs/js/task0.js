@@ -4,7 +4,7 @@ class Task0 {
   static execute() {
     try {
       const input = document.getElementById("graphInput").value.trim();
-      const type = document.getElementById("inputType").value.replace('Weighted','');
+      const type = document.getElementById("inputType").value.replace('Weighted', '');
       this.graph = GraphParser.parse(input, type);
 
       const degrees = this.getDegrees();
@@ -30,7 +30,7 @@ class Task0 {
 
       GraphDrawer.draw(this.graph);
     } catch (error) {
-      throw Error(`Ошибка: ${error.message}`);
+      notyf.error(`Ошибка: ${error.message}`);
     }
   }
 

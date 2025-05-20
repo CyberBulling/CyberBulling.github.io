@@ -5,7 +5,11 @@ class Task7 {
     static execute() {
         try {
             const input = document.getElementById("graphInput").value.trim();
-            const type = document.getElementById("inputType").value.replace('Weighted','');
+            if (!input) {
+                notyf.error("Введите данные графа");
+                return;
+            }
+            const type = document.getElementById("inputType").value.replace('Weighted', '');
             this.graph = GraphParser.parseWeightedGraph(input, type);
 
             WeightedGraphDrawer.draw(this.graph, "originalCanvas");
@@ -14,7 +18,7 @@ class Task7 {
             this.drawMST();
             this.displayResults();
         } catch (e) {
-            this.showError(e.message, 'mstResults');
+            notyf.error(e.message);
         }
     }
 
@@ -60,17 +64,6 @@ class Task7 {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-    }
-
-    static showError(message, targetId) {
-        const container = document.getElementById(targetId);
-        this.clearContainer(container);
-
-        const error = document.createElement("div");
-        error.className = "error";
-        error.textContent = message;
-
-        container.appendChild(error);
     }
 
     static highlightMST(mst) {

@@ -4,20 +4,24 @@ class Task12 {
   static execute() {
     try {
       const input = document.getElementById("graphInput").value.trim();
-      const type = document.getElementById("inputType").value.replace('Weighted','');
+      if (!input) {
+        notyf.error("Введите данные графа");
+        return;
+      }
+      const type = document.getElementById("inputType").value.replace('Weighted', '');
       this.graph = GraphParser.parse(input, type);
 
       const order = this.dfs();
       this.displayDFSResult(order);
       GraphDrawer.draw(this.graph);
     } catch (e) {
-      this.showError(e.message, 'dfsResult');
+      notyf.error(e.message);
     }
   }
 
   static validate() {
     try {
-      if (!this.graph) throw new Error("Сначала выполните обход");
+      if (!this.graph) notyf.error("Сначала выполните обход");
 
       const userInput = document.getElementById("userInput").value.trim();
       const userOrder = userInput.split(/[\s,]+/).map(Number);
@@ -25,7 +29,7 @@ class Task12 {
 
       this.displayValidationResult(userOrder, correctOrder);
     } catch (e) {
-      this.showError(e.message, 'validationResult');
+      notyf.error(e.message);
     }
   }
 
@@ -48,9 +52,8 @@ class Task12 {
     const isValid = this.compareOrders(userOrder, correctOrder);
 
     resultSpan.className = isValid ? "correct" : "error";
-    resultSpan.appendChild(document.createTextNode(
-      isValid ? "✓ Верно!" : `✗ Неверно! Правильный порядок: ${correctOrder.join(" → ")}`
-    ));
+    isValid ? notyf.success("✓ Верно!") : notyf.error(`✗ Неверно! Правильный порядок: ${correctOrder.join(" → ")}`)
+
 
     container.appendChild(resultSpan);
   }
@@ -64,17 +67,6 @@ class Task12 {
     while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
-  }
-
-  static showError(message, targetId) {
-    const container = document.getElementById(targetId);
-    this.clearContainer(container);
-
-    const error = document.createElement("div");
-    error.className = "error";
-    error.textContent = message;
-
-    container.appendChild(error);
   }
 
   static dfs() {

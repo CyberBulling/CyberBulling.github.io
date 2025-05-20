@@ -6,7 +6,11 @@ class Task8 {
     static execute() {
         try {
             const input = document.getElementById("graphInput").value.trim();
-            const type = document.getElementById("inputType").value.replace('Weighted','');
+            if (!input) {
+                notyf.error("Введите данные графа");
+                return;
+            }
+            const type = document.getElementById("inputType").value.replace('Weighted', '');
             this.startVertex = parseInt(document.getElementById("startVertex").value);
             this.graph = GraphParser.parseWeightedGraph(input, type);
 
@@ -17,7 +21,7 @@ class Task8 {
             this.drawShortestPaths();
             this.displayResults(distances);
         } catch (e) {
-            this.showError(`Ошибка: ${e.message}`, 'pathsResults');
+            notyf.error(`Ошибка: ${e.message}`);
         }
     }
 
@@ -93,15 +97,5 @@ class Task8 {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-    }
-
-    static showError(message, targetId) {
-        const container = document.getElementById(targetId);
-        this.clearContainer(container);
-
-        const error = document.createElement("div");
-        error.className = "error";
-        error.textContent = message;
-        container.appendChild(error);
     }
 }
