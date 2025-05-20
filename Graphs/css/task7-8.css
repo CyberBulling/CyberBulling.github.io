@@ -52,7 +52,6 @@ button {
 .task-card {
   padding-left: 0;
   align-self: flex-start;
-  position: sticky;
   left: 0 !important;
   display: flex;
   flex-direction: column;
@@ -66,6 +65,9 @@ button {
   border-radius: 15px;
 }
 .task-number {
+  position: relative;
+  top: -20px;
+  left: -10px;
   font-weight: bolder;
   font-size: 18px;
   background-color: var(--primary-color);
@@ -81,9 +83,6 @@ button {
   cursor: pointer;
   margin: 10px 25px;
   box-shadow: var(--shadow-class);
-  position: relative;
-  top: -20px;
-  left: -10px;
 }
 .task-number:hover {
   background: var(--secondary-color);
