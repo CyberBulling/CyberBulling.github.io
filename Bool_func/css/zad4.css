@@ -1,0 +1,55 @@
+@import url("main.css");
+
+#pmka {
+  font-size: 20px;
+}
+
+.output0 {
+  font-size: var(--table-font);
+  font-weight: bold;
+  margin: 0;
+  height: 27px;
+  width: max-content;
+}
+
+.select {
+  /* Базовые стили */
+  width: max-content;
+  padding: 10px 15px;
+
+  /* Стилизация фона и границы */
+  background-color: #ffffff;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+
+  /* Стилизация стрелки */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+
+  /* Анимация при фокусе */
+  transition: var(--transit);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(107, 164, 117, 0.2);
+}
+
+.select option {
+  padding: 10px;
+  background: #fff;
+}
+#output-container {
+  position: relative;
+  top: -15px;
+}
+
+.output0 i{
+  text-decoration: underline;
+  font-size: 22px;
+}

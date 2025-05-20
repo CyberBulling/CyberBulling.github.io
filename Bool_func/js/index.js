@@ -1,9 +1,16 @@
 if (document.getElementById('play')) {
   document.getElementById('play').addEventListener('click', function (e) {
     e.preventDefault() // Предотвращаем отправку формы
-    window.location.href = 'zads.html'
+    window.location.href = 'Bool_func/zads.html'
   })
 }
+if (document.getElementById('graph')) {
+  document.getElementById('graph').addEventListener('click', function (e) {
+    e.preventDefault() // Предотвращаем отправку формы
+    window.location.href = 'Graphs/graph.html'
+  })
+}
+
 const notyf = new Notyf({
   duration: 3000,
   position: {

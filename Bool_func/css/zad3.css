@@ -1,0 +1,47 @@
+@import url("main.css");
+
+#nullvector,
+#edvector {
+  width: calc(100% - 40px);
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  margin: 17px auto;
+  padding: 10px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+#argument {
+  width: 10%;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+  border: var(--border);
+  border-radius: 50px;
+  box-shadow: var(--box-shadow);
+}
+
+.output0 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  height: 27px;
+  width: max-content;
+}
+h1 {
+  height: max-content;
+  width: 60%;
+  margin-bottom: 30px;
+}
+
+label, p {
+  font-size: 20px;
+}
+
+p{
+  margin: 10px;
+}

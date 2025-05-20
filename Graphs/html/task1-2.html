@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Графовые алгоритмы</title>
+    <link rel="stylesheet" href="../css/task1_2.css" />
+    <link rel="stylesheet" href="../../Bool_func/css/style.css" />
+  </head>
+
+  <body>
+    <div class="header-buttons">
+      <button onclick="location.href='../graph.html'" class="back-button">
+        Назад
+      </button>
+      <div class="theme-switch-wrapper">
+        <label
+          class="theme-switch"
+          for="theme-checkbox"
+          aria-label="Переключить тему"
+        >
+          <input
+            type="checkbox"
+            id="theme-checkbox"
+            class="theme-switch__input"
+          />
+          <div class="theme-switch__container">
+            <div class="theme-switch__toggle">
+              <svg
+                class="theme-switch__icon"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z"
+                />
+              </svg>
+            </div>
+            <div class="theme-switch__icons">
+              <svg
+                class="theme-switch__icon-sun"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z"
+                />
+              </svg>
+              <svg
+                class="theme-switch__icon-moon"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18Z"
+                />
+              </svg>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="task-grid">
+        <div class="task-card">
+          <a href="task0.html" class="task-number" data-task-number="1">0</a>
+          <a href="task1-2.html" class="task-number" data-task-number="2"
+            >1 + 2</a
+          >
+          <a href="task3-4.html" class="task-number" data-task-number="3"
+            >3 + 4</a
+          >
+          <a href="task5-6.html" class="task-number" data-task-number="4"
+            >5 + 6</a
+          >
+          <a href="task7.html" class="task-number" data-task-number="5">7</a>
+          <a href="task8.html" class="task-number" data-task-number="6">8</a>
+          <a href="task9.html" class="task-number" data-task-number="7">9</a>
+          <a href="task10-11.html" class="task-number" data-task-number="8"
+            >10 + 11</a
+          >
+          <a href="task12.html" class="task-number" data-task-number="9">12</a>
+        </div>
+        <div id="content-area" class="red-area">
+          <h1>DFS и проверка</h1>
+          <div class="main-layout">
+            <div class="left-column">
+              <div class="input-section">
+                <div class="left-controls">
+                  <select id="inputType">
+                    <option value="adjacencyList">Списки смежности</option>
+                    <option value="adjacencyMatrix">Матрица смежности</option>
+                  </select>
+                  <button onclick="Task12.execute()">Анализировать</button>
+                </div>
+                <div>
+                  <textarea
+                    id="graphInput"
+                    placeholder="Пример списка смежности:&#10;1: 2,3,4,5&#10;2: 1,3,4,5&#10;3: 1,2,4,5&#10;4: 1,2,3,5&#10;5: 1,2,3,4"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="results">
+                <div class="result-box">
+                  <h3>Результат DFS</h3>
+                  <div id="dfsResult"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="center-column">
+              <canvas id="graphCanvas" height="600" width="600"></canvas>
+            </div>
+
+            <div class="right-column">
+              <div class="result-box-fake">
+                <div class="text">
+                  <h3>Проверка</h3>
+                </div>
+                <div>
+                  <input type="text" id="userInput" />
+                </div>
+                <div>
+                  <button onclick="Task12.validate()">Проверить</button>
+                  <div id="validationResult"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script src="../js/common.js"></script>
+          <script src="../js/draw.js"></script>
+          <script src="../js/task1-2.js"></script>
+          <script src="../js/script.js"></script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

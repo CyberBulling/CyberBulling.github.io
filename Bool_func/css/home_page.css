@@ -37,10 +37,10 @@ img {
   font-weight: bold;
 }
 
-#graph {
+/* #graph {
   opacity: 0.5;
   pointer-events: none;
-}
+} */
 
 .button-container button {
   padding: 15px;

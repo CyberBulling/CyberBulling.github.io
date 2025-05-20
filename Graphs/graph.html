@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Bool_func/css/home_page.css" />
-    <link rel="stylesheet" href="Bool_func/css/main.css" />
-    <link rel="icon" href="Bool_func/images/logo.png" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=graph_4,table_edit"
-    />
-    <title>Главная страница</title>
+    <title>Графовые алгоритмы</title>
+    <link rel="stylesheet" href="css/graph.css"/>
+    <link rel="stylesheet" href="../Bool_func/css/style.css"/>
   </head>
 
   <body>
-    <h1>Конференция по дискретным структурам. <br />Команда WW.</h1>
     <div class="header-buttons">
-      <div id="logo-circle">
-        <img src="Bool_func/images/logo.png" />
-      </div>
+      <button onclick="location.href='../index.html'" class="back-button">
+        На главную
+      </button>
       <div class="theme-switch-wrapper">
         <label
           class="theme-switch"
@@ -76,31 +64,22 @@
         </label>
       </div>
     </div>
-    <div class="button-container">
-      <div class="button-description">
-        <button
-          id="play"
-          onclick="()=>{e.preventDefault()
-        window.location.href = 'zads.html'}"
-        >
-          <span class="material-symbols-outlined"> table_edit </span>
-        </button>
-        <p>Булевы Функции</p>
-      </div>
-      <div class="button-description">
-        <button
-          id="graph"
-          onclick="()=>{e.preventDefault()
-        window.location.href = 'Graphs/graph.html'}"
-        >
-          <span class="material-symbols-outlined" style="color: #e3e3e3">
-            graph_4
-          </span>
-        </button>
-        <p>Графы</p>
+    <div class="main-content">
+      <div class="task-grid">
+        <div class="task-card">
+          <a href="html/task0.html" class="task-number">0</a>
+          <a href="html/task1-2.html" class="task-number">1 + 2</a>
+          <a href="html/task3-4.html" class="task-number">3 + 4</a>
+          <a href="html/task5-6.html" class="task-number">5 + 6</a>
+          <a href="html/task7.html" class="task-number">7</a>
+          <a href="html/task8.html" class="task-number">8</a>
+          <a href="html/task9.html" class="task-number">9</a>
+          <a href="html/task10-11.html" class="task-number">10 + 11</a>
+          <a href="html/task12.html" class="task-number">12</a>
+        </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script src="Bool_func/js/index.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/common.js"></script>
   </body>
 </html>
